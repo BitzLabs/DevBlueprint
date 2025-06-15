@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <!-- プロジェクトがライブラリとして扱われるようにしますが、実際には何も出力しません -->
+        <OutputType>Library</OutputType>
+        <!-- アセンブリ情報の自動生成を無効にします -->
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <!-- C#ソースファイルなどのデフォルトのコンパイルアイテムを無効にします -->
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+        <!-- デフォルトの埋め込みリソースアイテムを無効にします -->
+        <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+        <!-- ビルド成果物を成果物ディレクトリにコピーしません -->
+        <CopyBuildOutputToOutputDirectory>false</CopyBuildOutputToOutputDirectory>
+        <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+        <!-- 参照アセンブリの生成を無効にします (objフォルダ削減に効果的) -->
+        <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+        <!-- ソースファイルがない場合の警告(CS2008)を抑制します -->
+        <NoWarn>$(NoWarn);CS2008</NoWarn>
+        <!-- このプロジェクトをNuGetパッケージ化の対象外とします -->
+        <IsPackable>false</IsPackable>
+        <!-- 主要なビルドターゲットの実行を抑制し、obj/binの生成を防ぎます -->
+        <BuildDependsOn></BuildDependsOn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <!-- これらのファイルはプロジェクトに含まれますが、コンパイル対象にはなりません -->
+        <None Include="**\*.md" />
+        <None Include="**\*.pdf" />
+        <None Include="**\*.docx" />
+        <None Include="**\*.xlsx" />
+        <None Include="**\*.txt" />
+    </ItemGroup>
+</Project>
