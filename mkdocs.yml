@@ -2,7 +2,7 @@
 site_name: 'DevBlueprint'
 site_url: 'https://BitzLabs.github.io/DevBlueprint/'
 site_author: 'BitzLabs'
-site_description: '高品質なソフトウェア開発のための、生きた設計図 (Living Blueprint)'
+site_description: 'ソフトウェア開発のための設計図 (Living Blueprint)'
 
 # リポジトリへのリンク (サイト右上のアイコン)
 repo_url: 'https://github.com/BitzLabs/DevBlueprint'
@@ -15,23 +15,22 @@ edit_uri: 'edit/main/docs/'
 theme:
   name: material
   language: ja
-  # logo: assets/images/logo.svg        # ロゴを準備するまでコメントアウト
-  # favicon: assets/images/favicon.png # ファビコンを準備するまでコメントアウト  features:
-    - navigation.tabs # 上部にタブナビゲーションを表示
-    - navigation.top  # ページ上部に戻るボタン
-    - navigation.sections # 左サイドバーをセクションごとに開閉可能に (推奨)
-    - search.suggest      # 検索のサジェスト機能
-    - search.highlight    # 検索結果のキーワードをハイライト
-    - content.code.annotate # コードブロックに注釈を追加
+  logo: assets/images/logo.svg
+  favicon: assets/images/favicon.png
+  features:
+    - navigation.tabs
+    - navigation.top
+    - navigation.sections
+    - search.suggest
+    - search.highlight
+    - content.code.annotate
   palette:
-    # ライトモード
     - scheme: default
       primary: blue
       accent: indigo
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    # ダークモード
     - scheme: slate
       primary: blue
       accent: indigo
@@ -57,31 +56,35 @@ nav:
     - 概要: 00_プロジェクト管理/README.md
     - ロードマップ: 00_プロジェクト管理/01_ロードマップ.md
   - 要求仕様:
-    - 全体仕様: 01_要求仕様/README.md  # READMEを全体仕様として表示
+    - 全体仕様: 01_要求仕様/README.md
     - 機能要件:
       - 概要: 01_要求仕様/01_機能要件/README.md
       - 認証機能 (例): 01_要求仕様/01_機能要件/REQ_01_認証機能.md
     - ユースケース:
       - 概要: 01_要求仕様/02_ユースケース/README.md
       - ユーザー登録 (例): 01_要求仕様/02_ユースケース/UC_01_ユーザー登録.md
+      - テンプレート: 01_要求仕様/02_ユースケース/_Template.md
   - 設計仕様:
     - 概要: 02_設計仕様/README.md
-    - アーキテクチャ概要 (例): 02_設計仕様/00_アーキテクチャ概要.md # 未分類の設計書
+    - アーキテクチャ概要 (例): 02_設計仕様/00_アーキテクチャ概要.md
     - API仕様:
       - 概要: 02_設計仕様/01_API仕様書/README.md
       - API設計規約: 02_設計仕様/01_API仕様書/01_API設計規約.md
     - データ仕様:
       - 概要: 02_設計仕様/02_データ仕様書/README.md
-      - データモデル: 02_設計仕様/02_データ仕様書/01_データモデル設計書.md
+      - データモデル (テンプレート): 02_設計仕様/02_データ仕様書/01_データモデル設計書_Template.md
     - UI/UX仕様:
       - 概要: 02_設計仕様/03_UIUX仕様書/README.md
-      - 画面一覧: 02_設計仕様/03_UIUX仕様書/01_画面一覧.md
+      - 画面一覧 (例): 02_設計仕様/03_UIUX仕様書/01_画面一覧.md
+      - 画面仕様書 (テンプレート): 02_設計仕様/03_UIUX仕様書/02_画面仕様書_Template.md
   - 開発ルール:
     - 概要: 03_開発ルール/README.md
     - ブランチ戦略: 03_開発ルール/01_ブランチ戦略.md
     - コーディング規約: 03_開発ルール/02_コーディング規約.md
-  - テスト仕様: 03.開発ルール/07.テスト戦略.md
+  - テスト仕様:
     - 概要: 04_テスト仕様/README.md
-    - テスト計画と報告: 04_テスト仕様/01_テスト計画と報告_Template.md
+    - テスト計画と報告 (テンプレート): 04_テスト仕様/01_テスト計画と報告_Template.md
     - テストケース:
       - 概要: 04_テスト仕様/02_テストケース/README.md
+      - テンプレート: 04_テスト仕様/02_テストケース/_Template.md
+      - 認証機能のテスト (例): 04_テスト仕様/02_テストケース/AUTH/TC-AUTH-001.md
