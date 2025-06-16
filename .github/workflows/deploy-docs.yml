@@ -1,5 +1,5 @@
 # ワークフローの名前
-name: Deploy Documentation to GitHub Pages
+name: GitHub Pages の作成
 
 # ワークフローが実行されるトリガー
 on:
@@ -7,9 +7,15 @@ on:
   push:
     branches:
       - main
+  
+  # mainブランチに対するプルリクエストが作成・更新された時にも実行
+  pull_request:
+    branches:
+      - main
+      
   # 手動でも実行できるようにする (任意)
   workflow_dispatch:
-
+    
 # パーミッションの設定 (GitHub Pagesへのデプロイに必要)
 permissions:
   contents: read
