@@ -35,7 +35,7 @@
 
 このリポジトリは**テンプレートリポジトリ**です。`BitzLabs`の流儀で新しいプロジェクトを始めるには、ページ上部の緑色の **`Use this template`** ボタンをクリックしてください。
 
-<img src="https://docs.github.com/assets/cb-13934/images/help/repository/use-this-template-button.png" width="200">
+<img src="https://docs.github.com/assets/cb-13934/images/help/repository/use-this-template-button.png" width="200" alt="Use this template button">
 
 これにより、`DevBlueprint`の全てのファイルとフォルダ構成が、あなたの新しいリポジトリにコピーされ、すぐに開発をスタートできます。
 
