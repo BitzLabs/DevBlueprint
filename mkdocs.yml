@@ -1,5 +1,6 @@
 # サイト全体の情報
 site_name: 'DevBlueprint'
+docs_dir: 'Docs'
 site_url: 'https://BitzLabs.github.io/DevBlueprint/'
 site_author: 'BitzLabs'
 site_description: 'ソフトウェア開発のための設計図 (Living Blueprint)'
@@ -9,7 +10,7 @@ repo_url: 'https://github.com/BitzLabs/DevBlueprint'
 repo_name: 'DevBlueprint'
 
 # 各ページの「編集」ボタンのリンク先を設定
-edit_uri: 'edit/main/docs/'
+edit_uri: 'edit/main/Docs/'
 
 # テーマと機能
 theme:
@@ -49,7 +50,7 @@ markdown_extensions:
   - md_in_html
 
 # ナビゲーション (サイトのサイドバーメニュー)
-# ここでドキュメントの階層構造を定義します。
+# (このセクションは変更ありません)
 nav:
   - ホーム: README.md
   - プロジェクト管理:
