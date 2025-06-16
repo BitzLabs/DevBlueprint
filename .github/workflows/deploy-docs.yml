@@ -1,0 +1,47 @@
+# ワークフローの名前
+name: Deploy Documentation to GitHub Pages
+
+# ワークフローが実行されるトリガー
+on:
+  # mainブランチにプッシュされた時に実行
+  push:
+    branches:
+      - main
+  # 手動でも実行できるようにする (任意)
+  workflow_dispatch:
+
+# パーミッションの設定 (GitHub Pagesへのデプロイに必要)
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 実行されるジョブ
+jobs:
+  deploy:
+    # ジョブの実行環境
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # デプロイ先のURLを環境変数として設定
+    runs-on: ubuntu-latest
+
+    # 実行されるステップ
+    steps:
+      # 1. リポジトリのコードをチェックアウトする
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Python環境をセットアップする
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      # 3. MkDocsとMaterial for MkDocsテーマをインストールする
+      - name: Install dependencies
+        run: pip install mkdocs-material
+
+      # 4. MkDocsを使ってサイトをビルドし、GitHub Pagesにデプロイする
+      #    このコマンドが魔法のように全てをやってくれます。
+      - name: Deploy to GitHub Pages
+        run: mkdocs gh-deploy --force --clean
