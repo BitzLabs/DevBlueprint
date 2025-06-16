@@ -15,9 +15,8 @@ edit_uri: 'edit/main/docs/'
 theme:
   name: material
   language: ja
-  logo: assets/images/logo.svg # (オプション) ロゴ画像を配置する場合のパス
-  favicon: assets/images/favicon.png # (オプション) ファビコンを配置する場合のパス
-  features:
+  # logo: assets/images/logo.svg        # ロゴを準備するまでコメントアウト
+  # favicon: assets/images/favicon.png # ファビコンを準備するまでコメントアウト  features:
     - navigation.tabs # 上部にタブナビゲーションを表示
     - navigation.top  # ページ上部に戻るボタン
     - navigation.sections # 左サイドバーをセクションごとに開閉可能に (推奨)
@@ -81,7 +80,7 @@ nav:
     - 概要: 03_開発ルール/README.md
     - ブランチ戦略: 03_開発ルール/01_ブランチ戦略.md
     - コーディング規約: 03_開発ルール/02_コーディング規約.md
-  - テスト仕様:
+  - テスト仕様: 03.開発ルール/07.テスト戦略.md
     - 概要: 04_テスト仕様/README.md
     - テスト計画と報告: 04_テスト仕様/01_テスト計画と報告_Template.md
     - テストケース:
