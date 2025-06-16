@@ -18,9 +18,9 @@ on:
     
 # パーミッションの設定 (GitHub Pagesへのデプロイに必要)
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write   # リポジトリのコンテンツに書き込み権限を与える
+  pages: write      # GitHub Pagesへのデプロイに書き込み権限を与える
+  id-token: write   # IDトークンの書き込み権限を与える (GitHub Actionsのセキュリティ機能)
 
 # 実行されるジョブ
 jobs:
