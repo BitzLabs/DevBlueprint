@@ -35,11 +35,23 @@ jobs:
       - name: Install dependencies
         run: pip install mkdocs-material
 
-      # 4. MkDocsでサイトをビルドする（ビルドチェック）
-      - name: Build with MkDocs
-        run: mkdocs build
+      # ---デバッグ用ステップ
+      - name: List files before build (for debugging)
+        run: ls -laR
 
-      # 5. ビルドしたサイトの成果物を、後続の'deploy'ジョブで使えるようにアップロード
+      # ---デバッグ用ステップ
+      - name: Show mkdocs.yml content (for debugging)
+        run: cat mkdocs.yml
+
+      - name: Build with MkDocs
+        # --verboseフラグを追加して、より詳細なログを出力させる
+        run: mkdocs build --verbose
+
+      # ---デバッグ用ステップ
+      - name: List site directory contents (for debugging)
+        run: ls -laR site
+
+        # 5. ビルドしたサイトの成果物を、後続の'deploy'ジョブで使えるようにアップロード
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
