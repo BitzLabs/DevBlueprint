@@ -1,45 +1,56 @@
-# ワークフローの名前
+# ワークフローの名前。GitHubのActionsタブで表示される
 name: Build and Deploy Docs
 
-# ワークフローが実行されるトリガー
+# ワークフローが実行されるトリガーの定義
 on:
-  # mainブランチにプッシュ（マージ）された時に実行
+  # 1. mainブランチにプッシュ（マージ）された時に実行
   push:
     branches:
       - main
-  # mainブランチに対するプルリクエストが作成・更新された時にも実行
+  # 2. mainブランチに対するプルリクエストが作成・更新された時にも実行
   pull_request:
     branches:
       - main
-  # GitHubのActionsタブから手動で実行することも可能にする
+  # 3. GitHubのActionsタブから手動で実行することも可能にする
   workflow_dispatch:
 
 # ジョブの定義
 jobs:
   # ジョブ1: サイトのビルドとチェックを行う
+  # このジョブはPR時にもmainへのプッシュ時にも実行される
   build:
-    name: Build Docs Site
-    runs-on: ubuntu-latest
+    name: Build Docs Site # Actionsタブで表示されるジョブ名
+    runs-on: ubuntu-latest # 実行環境として最新のUbuntuを使用
     steps:
-      # 1. リポジトリのコードをチェックアウト
+      # ステップ1: リポジトリのコードを仮想環境にチェックアウト
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Python環境をセットアップ
+      # ステップ2: Python 3.x 環境をセットアップ
+      # MkDocsはPython製のため必須
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.x
 
-      # 3. 依存ライブラリ（MkDocsとテーマ）をインストール
+      # ステップ3: 必要なライブラリ（MkDocsとMaterialテーマ）をインストール
       - name: Install dependencies
         run: pip install mkdocs-material
 
-      # 4. MkDocsでサイトをビルドする（ビルドチェック）
+      # ★★★【重要】ビルド前に不要なファイルを物理的に削除するステップ★★★
+      # これにより、ビルド成果物にVS関連ファイルが含まれるのを防ぐ
+      - name: Clean up unnecessary files before build
+        run: |
+          rm -f DevBlueprint.sln
+          rm -f Docs/Docs.csproj
+
+      # ステップ4: MkDocsでサイトをビルドする
+      # これが成功すれば、ドキュメントの構文や構成に問題がないことが確認できる
       - name: Build with MkDocs
         run: mkdocs build
 
-      # 5. ビルドしたサイトの成果物を、後続の'deploy'ジョブで使えるようにアップロード
+      # ステップ5: ビルドしたサイトの成果物（'site'フォルダ）をアーティファクトとしてアップロード
+      # これにより、後続の'deploy'ジョブがこの成果物を利用できるようになる
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -49,7 +60,7 @@ jobs:
 
   # ジョブ2: GitHub Pagesへのデプロイを行う
   deploy:
-    name: Deploy to GitHub Pages
+    name: Deploy to GitHub Pages # Actionsタブで表示されるジョブ名
     # 'build'ジョブが成功した場合にのみ、このジョブが開始される
     needs: build
     
@@ -58,23 +69,23 @@ jobs:
 
     # デプロイに必要なパーミッションを設定
     permissions:
-      pages: write
-      id-token: write
+      pages: write      # GitHub Pagesへの書き込み権限
+      id-token: write # デプロイ認証用のIDトークン書き込み権限
       
     # デプロイ環境の指定
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }} # 実行結果にサイトURLを表示させる
     runs-on: ubuntu-latest
     
     steps:
-      # 1. 'build'ジョブがアップロードしたアーティファクトをダウンロード
+      # ステップ1: 'build'ジョブがアップロードしたアーティファクトをダウンロード
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           name: github-pages
 
-      # 2. ダウンロードしたアーティファクトをGitHub Pagesにデプロイ
+      # ステップ2: ダウンロードしたアーティファクトをGitHub Pagesにデプロイ
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
