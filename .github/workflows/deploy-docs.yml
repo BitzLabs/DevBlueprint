@@ -1,26 +1,56 @@
 # ワークフローの名前
-name: DocsをGitHub Pagesへデプロイ
+name: Build and Deploy Docs
 
 # ワークフローが実行されるトリガー
 on:
   push:
     branches:
-      - main  # mainブランチへのpushで実行
+      - main
   pull_request:
     branches:
-      - main  # mainブランチへのプルリクエスト時にも実行
-  workflow_dispatch:  # 手動実行も可能
-
-# パーミッションの設定 (最小権限でOKになる)
-permissions:
-  contents: read  # ソースコードの読み取り権限だけでOK
-  pages: write    # GitHub Pagesへの書き込み権限
-  id-token: write # デプロイ認証用のIDトークン書き込み権限
+      - main
+  workflow_dispatch:
 
 # ジョブ
 jobs:
-  # ビルドとデプロイを行う単一のジョブ
+  # ジョブ1: サイトのビルドとチェック
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: pip install mkdocs-material
+
+      - name: Build with MkDocs
+        run: mkdocs build
+
+      # ★ビルドした成果物を、次の'deploy'ジョブで使えるようにアップロード
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4 # upload-pages-artifactではなく、汎用的なものを使う
+        with:
+          name: github-pages-artifact # アーティファクトに名前を付ける
+          path: './site'
+
+  # ジョブ2: GitHub Pagesへのデプロイ
   deploy:
+    # 'build'ジョブが成功した場合にのみ実行
+    needs: build
+    
+    # このジョブは、mainブランチへのプッシュ時にのみ実行される
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    # パーミッションの設定 (デプロイジョブにのみ必要)
+    permissions:
+      pages: write
+      id-token: write
+      
     # デプロイ環境の設定
     environment:
       name: github-pages
@@ -28,35 +58,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      # 1. リポジトリのコードをチェックアウト
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # 2. Python環境をセットアップ
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      # ★'build'ジョブがアップロードしたアーティファクトをダウンロード
+      - name: Download artifact
+        uses: actions/download-artifact@v4
         with:
-          python-version: 3.x
+          name: github-pages-artifact
 
-      # 3. MkDocsとMaterial for MkDocsテーマをインストール
-      - name: Install dependencies
-        run: pip install mkdocs-material
-
-      # 4. MkDocsで静的サイトをビルド
-      #    出力先はデフォルトで 'site' フォルダ
-      - name: Build with MkDocs
-        run: mkdocs build
-
-      # 5. ビルドしたサイトの成果物をアーティファクトとしてアップロード
-      #    このアーティファクトを、後続のデプロイステップが利用する
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './site' # MkDocsのビルド出力先
-
-      # 6. アップロードしたアーティファクトをGitHub Pagesにデプロイ
-      #    ★このステップは、mainブランチへのプッシュ時にのみ実行される
+      # ★ダウンロードしたものを、デプロイ専用のアクションに渡す
       - name: Deploy to GitHub Pages
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         id: deployment
         uses: actions/deploy-pages@v4
