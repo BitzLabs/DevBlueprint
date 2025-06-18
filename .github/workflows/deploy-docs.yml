@@ -33,7 +33,7 @@ jobs:
 
       # ★ビルドした成果物を、次の'deploy'ジョブで使えるようにアップロード
       - name: Upload artifact
-        uses: actions/upload-artifact@v2 # upload-pages-artifactではなく、汎用的なものを使う
+        uses: actions/upload-artifact@v4 # upload-pages-artifactではなく、汎用的なものを使う
         with:
           name: github-pages-artifact # アーティファクトに名前を付ける
           path: './site'
@@ -60,7 +60,7 @@ jobs:
     steps:
       # ★'build'ジョブがアップロードしたアーティファクトをダウンロード
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: github-pages-artifact
 
