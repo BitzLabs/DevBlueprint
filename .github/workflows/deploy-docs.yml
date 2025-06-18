@@ -57,6 +57,6 @@ jobs:
       # 6. アップロードしたアーティファクトをGitHub Pagesにデプロイ
       #    ★このステップは、mainブランチへのプッシュ時にのみ実行される
       - name: Deploy to GitHub Pages
+        if: github.event_name == 'push'
         id: deployment
-        # if条件は不要。deploy-pagesアクションが自動でトリガーを判断してくれる
         uses: actions/deploy-pages@v4
