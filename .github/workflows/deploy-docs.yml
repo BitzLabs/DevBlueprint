@@ -3,68 +3,78 @@ name: Build and Deploy Docs
 
 # ワークフローが実行されるトリガー
 on:
+  # mainブランチにプッシュ（マージ）された時に実行
   push:
     branches:
       - main
+  # mainブランチに対するプルリクエストが作成・更新された時にも実行
   pull_request:
     branches:
       - main
+  # GitHubのActionsタブから手動で実行することも可能にする
   workflow_dispatch:
 
-# ジョブ
+# ジョブの定義
 jobs:
-  # ジョブ1: サイトのビルドとチェック
+  # ジョブ1: サイトのビルドとチェックを行う
   build:
+    name: Build Docs Site
     runs-on: ubuntu-latest
     steps:
+      # 1. リポジトリのコードをチェックアウト
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2. Python環境をセットアップ
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: 3.x
 
+      # 3. 依存ライブラリ（MkDocsとテーマ）をインストール
       - name: Install dependencies
         run: pip install mkdocs-material
 
+      # 4. MkDocsでサイトをビルドする（ビルドチェック）
       - name: Build with MkDocs
         run: mkdocs build
 
-      # ★ビルドした成果物を、次の'deploy'ジョブで使えるようにアップロード
+      # 5. ビルドしたサイトの成果物を、後続の'deploy'ジョブで使えるようにアップロード
       - name: Upload artifact
-        uses: actions/upload-artifact@v4 # upload-pages-artifactではなく、汎用的なものを使う
+        uses: actions/upload-artifact@v4
         with:
-          name: github-pages-artifact # アーティファクトに名前を付ける
+          # deployジョブが探すデフォルト名'github-pages'に合わせる
+          name: github-pages 
           path: './site'
 
-  # ジョブ2: GitHub Pagesへのデプロイ
+  # ジョブ2: GitHub Pagesへのデプロイを行う
   deploy:
-    # 'build'ジョブが成功した場合にのみ実行
+    name: Deploy to GitHub Pages
+    # 'build'ジョブが成功した場合にのみ、このジョブが開始される
     needs: build
     
     # このジョブは、mainブランチへのプッシュ時にのみ実行される
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
-    # パーミッションの設定 (デプロイジョブにのみ必要)
+    # デプロイに必要なパーミッションを設定
     permissions:
       pages: write
       id-token: write
       
-    # デプロイ環境の設定
+    # デプロイ環境の指定
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     
     steps:
-      # ★'build'ジョブがアップロードしたアーティファクトをダウンロード
+      # 1. 'build'ジョブがアップロードしたアーティファクトをダウンロード
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: github-pages-artifact
+          name: github-pages
 
-      # ★ダウンロードしたものを、デプロイ専用のアクションに渡す
+      # 2. ダウンロードしたアーティファクトをGitHub Pagesにデプロイ
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
