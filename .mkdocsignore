@@ -1,0 +1,9 @@
+# Visual Studio / .NET project files
+*.sln
+*.csproj
+*.user
+
+# Visual Studio build outputs
+bin/
+obj/
+.vs/
