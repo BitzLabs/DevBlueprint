@@ -55,17 +55,18 @@ plugins:
   - exclude:
       glob:
         # Visual Studio & .NET が生成するフォルダ
-        - "**/bin/*"
-        - "**/obj/*"
-        - "**/.vs/*"
+        - "**/bin/**"
+        - "**/obj/**"
+        - "**/.vs/**"
         # Visual Studio のソリューション/プロジェクトファイル
-        - "*.sln"
-        - "*.csproj"
+        - "**/*.sln"
+        - "**/*.csproj"
+        - "**/*.user"
         # Node.js の依存関係フォルダ (CLIツール導入時に備えて)
-        - "**/node_modules/*"
+        - "**/node_modules/**"
         # その他、Git管理ファイルなど
         - ".gitignore"
-        - ".git/*"
+        - ".git/**"
 
 # ナビゲーション (サイトのサイドバーメニュー)
 nav:
