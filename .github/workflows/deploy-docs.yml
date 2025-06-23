@@ -66,6 +66,10 @@ jobs:
           # deployジョブが探すデフォルト名'github-pages'に合わせる
           name: github-pages 
           path: './site'
+          
+      # ステップ7: Jekyll無効化のための.nojekyllファイルを追加
+      - name: Add .nojekyll
+        run: touch site/.nojekyll
 
   # ジョブ2: GitHub Pagesへのデプロイを行う
   deploy:
