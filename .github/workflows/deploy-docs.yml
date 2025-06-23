@@ -37,17 +37,17 @@ jobs:
       - name: Install dependencies
         run: pip install mkdocs-material mkdocs-exclude
 
-      # ★★★【重要】ビルド前に不要なファイルを物理的に削除するステップ★★★
-      # これにより、ビルド成果物にVS関連ファイルが含まれるのを防ぐ
-      - name: Clean up unnecessary files before build
-        run: |
-          rm -f DevBlueprint.sln
-          rm -f Docs/Docs.csproj
+      # ---デバッグ用ステップ
+      - name: List files before build (for debugging)
+        run: ls -laR
 
       # ステップ4: MkDocsでサイトをビルドする
-      # これが成功すれば、ドキュメントの構文や構成に問題がないことが確認できる
       - name: Build with MkDocs
-        run: mkdocs build
+        run: mkdocs build --verbose
+
+      # ---デバッグ用ステップ
+      - name: List site directory contents (for debugging)
+        run: ls -laR site
 
       # ステップ5: ビルドしたサイトの成果物（'site'フォルダ）をアーティファクトとしてアップロード
       # これにより、後続の'deploy'ジョブがこの成果物を利用できるようになる
