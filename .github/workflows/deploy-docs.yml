@@ -53,10 +53,10 @@ jobs:
 
       # ---デバッグ用ステップ 
       - name: List site directory contents (for debugging)
-        run:|
-         ls -laR site
-         find site -type f | xargs file
-         find site -ls
+        run: |
+          ls -laR site
+          find site -type f | xargs file
+          find site -ls
          
       # ステップ6: ビルドしたサイトの成果物（'site'フォルダ）をアーティファクトとしてアップロード
       # これにより、後続の'deploy'ジョブがこの成果物を利用できるようになる
