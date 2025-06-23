@@ -39,7 +39,9 @@ jobs:
 
       # ステップ4: 不要ファイルの削除
       - name: Install dependencies
-        run: rm -rf Docs/*.csproj
+        run: |
+          rm -rf .git .github .gemini
+          rm -rf Docs/*.csproj
 
       # ---デバッグ用ステップ
       - name: List files before build (for debugging)
