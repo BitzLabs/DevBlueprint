@@ -38,22 +38,22 @@ jobs:
         run: pip install mkdocs-material mkdocs-exclude
 
       # ステップ4: 不要ファイルの削除
-      - name: Install dependencies
+      - name: Clean up unnecessary files
         run: |
           rm -rf .git .github .gemini
           rm -rf Docs/*.csproj
 
       # ---デバッグ用ステップ
-      - name: List files before build (for debugging)
-        run: ls -laR
+      #- name: List files before build (for debugging)
+      #  run: ls -laR
 
       # ステップ5: MkDocsでサイトをビルドする
       - name: Build with MkDocs
         run: mkdocs build --verbose
 
       # ---デバッグ用ステップ
-      - name: List site directory contents (for debugging)
-        run: ls -laR site
+      #- name: List site directory contents (for debugging)
+      #  run: ls -laR site
 
       # ステップ6: ビルドしたサイトの成果物（'site'フォルダ）をアーティファクトとしてアップロード
       # これにより、後続の'deploy'ジョブがこの成果物を利用できるようになる
