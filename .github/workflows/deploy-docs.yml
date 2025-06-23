@@ -52,13 +52,17 @@ jobs:
         run: mkdocs build --verbose
 
       # ---デバッグ用ステップ 
-      - name: List site directory contents (for debugging)
-        run: |
-          ls -laR site
-          find site -type f | xargs file
-          find site -ls
+      #- name: List site directory contents (for debugging)
+      #  run: |
+      #    ls -laR site
+      #    find site -type f | xargs file
+      #    find site -ls
          
-      # ステップ6: ビルドしたサイトの成果物（'site'フォルダ）をアーティファクトとしてアップロード
+      # ステップ6: .nojekyllファイルを追加
+      - name: Add .nojekyll file
+        run: touch site/.nojekyll
+
+      # ステップ7: ビルドしたサイトの成果物（'site'フォルダ）をアーティファクトとしてアップロード
       # これにより、後続の'deploy'ジョブがこの成果物を利用できるようになる
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -67,10 +71,6 @@ jobs:
           name: github-pages 
           path: './site'
           
-      # ステップ7: Jekyll無効化のための.nojekyllファイルを追加
-      - name: Add .nojekyll
-        run: touch site/.nojekyll
-
   # ジョブ2: GitHub Pagesへのデプロイを行う
   deploy:
     name: Deploy to GitHub Pages # Actionsタブで表示されるジョブ名
@@ -101,4 +101,4 @@ jobs:
       # ステップ2: ダウンロードしたアーティファクトをGitHub Pagesにデプロイ
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v3
