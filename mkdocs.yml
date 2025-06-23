@@ -49,6 +49,23 @@ markdown_extensions:
   - attr_list
   - md_in_html
 
+plugins:
+  - search # (検索機能はデフォルトで有効ですが、明記しておくと確実です)
+  - exclude:
+      glob:
+        # Visual Studio & .NET が生成するフォルダ
+        - "**/bin/*"
+        - "**/obj/*"
+        - "**/.vs/*"
+        # Visual Studio のソリューション/プロジェクトファイル
+        - "*.sln"
+        - "*.csproj"
+        # Node.js の依存関係フォルダ (CLIツール導入時に備えて)
+        - "**/node_modules/*"
+        # その他、Git管理ファイルなど
+        - ".gitignore"
+        - ".git/*"
+
 # ナビゲーション (サイトのサイドバーメニュー)
 nav:
   - ホーム: README.md
