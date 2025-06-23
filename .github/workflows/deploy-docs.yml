@@ -51,7 +51,7 @@ jobs:
       - name: Build with MkDocs
         run: mkdocs build --verbose
 
-      # ---デバッグ用ステップ
+      # ---デバッグ用ステップ 
       - name: List site directory contents (for debugging)
         run:|
          ls -laR site
