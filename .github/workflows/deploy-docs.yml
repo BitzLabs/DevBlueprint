@@ -37,11 +37,15 @@ jobs:
       - name: Install dependencies
         run: pip install mkdocs-material mkdocs-exclude
 
+      # ステップ4: 不要ファイルの削除
+      - name: Install dependencies
+        run: rm -rf Docs/*.csproj
+
       # ---デバッグ用ステップ
       - name: List files before build (for debugging)
         run: ls -laR
 
-      # ステップ4: MkDocsでサイトをビルドする
+      # ステップ5: MkDocsでサイトをビルドする
       - name: Build with MkDocs
         run: mkdocs build --verbose
 
@@ -49,7 +53,7 @@ jobs:
       - name: List site directory contents (for debugging)
         run: ls -laR site
 
-      # ステップ5: ビルドしたサイトの成果物（'site'フォルダ）をアーティファクトとしてアップロード
+      # ステップ6: ビルドしたサイトの成果物（'site'フォルダ）をアーティファクトとしてアップロード
       # これにより、後続の'deploy'ジョブがこの成果物を利用できるようになる
       - name: Upload artifact
         uses: actions/upload-artifact@v4
