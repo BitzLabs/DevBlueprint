@@ -35,7 +35,7 @@ jobs:
 
       # ステップ3: 必要なライブラリ（MkDocsとMaterialテーマ）をインストール
       - name: Install dependencies
-        run: pip install mkdocs-material
+        run: pip install mkdocs-material mkdocs-exclude
 
       # ★★★【重要】ビルド前に不要なファイルを物理的に削除するステップ★★★
       # これにより、ビルド成果物にVS関連ファイルが含まれるのを防ぐ
