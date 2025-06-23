@@ -67,8 +67,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          # deployジョブが探すデフォルト名'github-pages'に合わせる
-          name: github-pages 
+          name: docs-site 
           path: './site'
           
   # ジョブ2: GitHub Pagesへのデプロイを行う
@@ -87,7 +86,7 @@ jobs:
       
     # デプロイ環境の指定
     environment:
-      name: github-pages
+      name: docs-site
       url: ${{ steps.deployment.outputs.page_url }} # 実行結果にサイトURLを表示させる
     runs-on: ubuntu-latest
     
@@ -96,9 +95,9 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: github-pages
+          name: docs-site
 
       # ステップ2: ダウンロードしたアーティファクトをGitHub Pagesにデプロイ
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
