@@ -15,11 +15,7 @@ on:
     branches:
       - main
       
-  # 3. リポジトリがプライベートからパブリックに変更された時
-  repository:
-    types: [publicized]
-    
-  # 4. GitHubのActionsタブから手動で実行したい時
+  # 3. GitHubのActionsタブから手動で実行したい時
   workflow_dispatch:
 
 #===================================================================================
@@ -118,10 +114,7 @@ jobs:
         github.event_name == 'push' &&
         github.ref == 'refs/heads/main' &&
         !github.repository.private
-      ) || (
-        github.event_name == 'repository' &&
-        github.event.action == 'publicized'
-      )
+      ) 
 
     steps:
       # ステップ1: サイトをデプロイ
