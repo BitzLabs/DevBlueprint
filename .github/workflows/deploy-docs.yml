@@ -1,26 +1,40 @@
 # ワークフローの名前。GitHubのActionsタブで表示される
 name: Build and Deploy Docs
 
+#===================================================================================
 # ワークフローが実行されるトリガーの定義
+#===================================================================================
 on:
-  # 1. mainブランチにプッシュ（マージ）された時に実行
+  # 1. mainブランチにコードがプッシュされた時
   push:
     branches:
       - main
-  # 2. mainブランチに対するプルリクエストが作成・更新された時にも実行
+      
+  # 2. mainブランチに対するプルリクエストが作成・更新された時
   pull_request:
     branches:
       - main
-  # 3. GitHubのActionsタブから手動で実行することも可能にする
+      
+  # 3. リポジトリがプライベートからパブリックに変更された時
+  repository:
+    types: [publicized]
+    
+  # 4. GitHubのActionsタブから手動で実行したい時
   workflow_dispatch:
 
+#===================================================================================
 # ジョブの定義
+#===================================================================================
 jobs:
-  # ジョブ1: サイトのビルドとチェックを行う
-  # このジョブはPR時にもmainへのプッシュ時にも実行される
+  #-----------------------------------------------------
+  # ジョブ1: ビルド
+  # サイトのビルド、設定、成果物のアップロードを行う
+  #-----------------------------------------------------
   build:
-    name: Build Docs Site # Actionsタブで表示されるジョブ名
-    runs-on: ubuntu-latest # 実行環境として最新のUbuntuを使用
+    # Actionsタブで表示されるジョブ名
+    name: Build Docs Site 
+    # 実行環境として最新のUbuntuを使用
+    runs-on: ubuntu-latest 
     steps:
       # ステップ1: リポジトリのコードを仮想環境にチェックアウト
       - name: Checkout code
@@ -32,16 +46,26 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.x
+          cache: 'pip'  # pipのキャッシュを有効にして高速化
 
       # ステップ3: 必要なライブラリ（MkDocsとMaterialテーマ）をインストール
       - name: Install dependencies
         run: pip install mkdocs-material mkdocs-exclude
 
-      # ステップ4: 不要ファイルの削除
+      # ステップ4: GitHub Pagesの設定を完全自動化
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          # リポジトリでPagesが無効でも自動で有効化する
+          enable-pages: true
+          # デプロイソースを「GitHub Actions」に設定する (手動設定が不要になる)
+          build_type: workflow
+
+      # ステップ5: 不要ファイルの削除
       - name: Clean up unnecessary files
         run: |
           rm -rf .git .github .gemini
-          rm -rf Docs/*.csproj
+          rm -rf Docs/**/*.csproj
 
       # ---デバッグ用ステップ
       #- name: List files before build (for debugging)
@@ -49,7 +73,7 @@ jobs:
 
       # ステップ5: MkDocsでサイトをビルドする
       - name: Build with MkDocs
-        run: mkdocs build --verbose
+        run: mkdocs build #--verbose
 
       # ---デバッグ用ステップ 
       #- name: List site directory contents (for debugging)
@@ -58,48 +82,50 @@ jobs:
       #    find site -type f | xargs file
       #    find site -ls
          
-      # ステップ6: .nojekyllファイルを追加
-      - name: Add .nojekyll file
-        run: touch site/.nojekyll
-
-      # ステップ7: ビルドしたサイトの成果物（'site'フォルダ）をアーティファクトとしてアップロード
-      # これにより、後続の'deploy'ジョブがこの成果物を利用できるようになる
+      # ステップ6: ビルド成果物をアップロード
+      # このアーティファクトを後続のdeployジョブが使用します
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v4
         with:
-          name: docs-site 
           path: './site'
-          
-  # ジョブ2: GitHub Pagesへのデプロイを行う
+
+  #-----------------------------------------------------
+  # ジョブ2: デプロイ
+  # GitHub Pagesにサイトを公開する
+  #-----------------------------------------------------
   deploy:
-    name: Deploy to GitHub Pages # Actionsタブで表示されるジョブ名
+    # Actionsタブで表示されるジョブ名
+    name: Deploy to GitHub Pages 
     # 'build'ジョブが成功した場合にのみ、このジョブが開始される
     needs: build
     
-    # このジョブは、mainブランチへのプッシュ時にのみ実行される
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
     # デプロイに必要なパーミッションを設定
     permissions:
       pages: write      # GitHub Pagesへの書き込み権限
-      id-token: write # デプロイ認証用のIDトークン書き込み権限
+      id-token: write   # デプロイ認証用のIDトークン書き込み権限
       
-    # デプロイ環境の指定
+    # デプロイ環境の指定 (必須)
     environment:
-      name: docs-site
-      url: ${{ steps.deployment.outputs.page_url }} # 実行結果にサイトURLを表示させる
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    
-    steps:
-      # ステップ1: 'build'ジョブがアップロードしたアーティファクトをダウンロード
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: docs-site
 
-      # ステップ2: ダウンロードしたアーティファクトをGitHub Pagesにデプロイ
+    # このジョブが実行される条件を定義
+    # mainブランチへのプッシュで、かつリポジトリがPublicの場合
+    # または、リポジトリがパブリック化された場合
+    if: >-
+      ( 
+        github.event_name == 'push' &&
+        github.ref == 'refs/heads/main' &&
+        !github.repository.private
+      ) || (
+        github.event_name == 'repository' &&
+        github.event.action == 'publicized'
+      )
+
+    steps:
+      # ステップ1: サイトをデプロイ
+      # buildジョブがアップロードしたアーティファクトを自動で取得してデプロイします
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          artifact_name: docs-site
