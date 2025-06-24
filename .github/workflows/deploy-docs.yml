@@ -81,7 +81,7 @@ jobs:
       # ステップ6: ビルド成果物をアップロード
       # このアーティファクトを後続のdeployジョブが使用します
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v1
         with:
           path: './site'
 
