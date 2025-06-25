@@ -49,7 +49,8 @@ Src/
 
 ### 例2: Webフロントエンド (Node.js/TypeScript)
 
-```Src/
+```
+Src/
 ├── app/                  # React, Vue, Svelteなどのメインコード
 │   ├── components/
 │   ├── pages/ or routes/
