@@ -43,11 +43,24 @@ theme:
 markdown_extensions:
   - admonition
   - pymdownx.details
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+        - name: math
+          class: arithmatex
   - pymdownx.tabbed:
       alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
   - attr_list
   - md_in_html
+
+# JavaScript追加（ローカル参照）
+extra_javascript:
+  - assets/js/mermaid.min.js
+  - assets/js/mathjax-config.js
+  - assets/js/mathjax.min.js
 
 # Markdown拡張機能 (プラグイン設定)
 plugins:
@@ -96,14 +109,12 @@ nav:
     - 概要: 03_開発ルール/README.md
     - セットアップガイド: 03_開発ルール/00_セットアップガイド.md
     - フォルダ構成:
-      - 概要: 03_開発ルール/01_フォルダ構成/README.md
       - ルートディレクトリ: 03_開発ルール/01_フォルダ構成/01_ルートディレクトリ.md
       - Docsフォルダ: 03_開発ルール/01_フォルダ構成/02_Docsフォルダ.md
       - Srcフォルダ: 03_開発ルール/01_フォルダ構成/03_Srcフォルダ.md
       - Testsフォルダ: 03_開発ルール/01_フォルダ構成/04_Testsフォルダ.md
       - Sandboxフォルダ: 03_開発ルール/01_フォルダ構成/05_Sandboxフォルダ.md
     - プロジェクト規定:
-      - 概要: 03_開発ルール/02_プロジェクト規定/README.md
       - 開発フロー概要: 03_開発ルール/02_プロジェクト規定/01_開発フロー概要.md
       - ラベル規定: 03_開発ルール/02_プロジェクト規定/02_ラベル規定.md
       - マイルストーン規定: 03_開発ルール/02_プロジェクト規定/03_マイルストーン規定.md
@@ -111,7 +122,6 @@ nav:
       - ブランチ規定: 03_開発ルール/02_プロジェクト規定/05_ブランチ規定.md
       - プルリクエスト規定: 03_開発ルール/02_プロジェクト規定/06_プルリクエスト規定.md
     - ドキュメント規定:
-      - 概要: 03_開発ルール/03_ドキュメント規定/README.md
       - ドキュメント規則: 03_開発ルール/03_ドキュメント規定/01_ドキュメント規則.md
     - コーディング規定:
       - 概要: 03_開発ルール/04_コーディング規定/README.md
