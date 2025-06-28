@@ -47,6 +47,8 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
+        - name: math
+          class: arithmatex
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.arithmatex:
@@ -54,11 +56,11 @@ markdown_extensions:
   - attr_list
   - md_in_html
 
-# JavaScript追加
+# JavaScript追加（ローカル参照）
 extra_javascript:
-  - https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - assets/js/mermaid.min.js
+  - assets/js/mathjax-config.js
+  - assets/js/mathjax.min.js
 
 # Markdown拡張機能 (プラグイン設定)
 plugins:
