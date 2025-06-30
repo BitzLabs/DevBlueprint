@@ -2,7 +2,7 @@
 
 const fs = require('fs/promises');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execSync, execFileSync } = require('child_process');
 const readline = require('readline');
 
 // ラベル定義ファイルのパス
@@ -42,48 +42,52 @@ function askYesNo(query) {
  * メインの非同期関数
  */
 async function main() {
-  console.log('--- DevBlueprint Label Setup ---');
+  console.log('--- DevBlueprint ラベルセットアップ ---');
 
   // 1. 依存関係のチェック
-  console.log('\n[1/4] Checking for dependencies...');
+  console.log('\n[1/4] 依存ツールの確認中...');
   if (!checkDependency('gh')) {
-    console.error("❌ Error: GitHub CLI (gh) is not installed. Please install it to continue.");
-    console.error("See: https://cli.github.com/");
+    console.error("❌ エラー: GitHub CLI (gh) がインストールされていません。インストールしてから再実行してください。");
+    console.error("詳細: https://cli.github.com/");
     process.exit(1);
   }
-  console.log("✅ GitHub CLI (gh) is installed.");
+  console.log("✅ GitHub CLI (gh) がインストールされています。");
   
   // 2. ラベル定義ファイルを読み込む
-  console.log(`\n[2/4] Reading label definitions...`);
+  console.log(`\n[2/4] ラベル定義ファイルを読み込み中...`);
   let labelDefs;
   try {
     labelDefs = JSON.parse(await fs.readFile(LABEL_FILE_PATH, 'utf8'));
-    console.log(`✅ Found ${labelDefs.length} labels to process.`);
+    console.log(`✅ ${labelDefs.length} 件のラベルが見つかりました。`);
   } catch (error) {
-    console.error(`❌ Error: Could not read or parse ${LABEL_FILE_PATH}`);
+    console.error(`❌ エラー: ${LABEL_FILE_PATH} の読み込みまたは解析に失敗しました。`);
     process.exit(1);
   }
 
   // 3. 各ラベルを作成・更新
-  console.log("\n[3/4] Creating/Updating labels on GitHub...");
+  console.log("\n[3/4] GitHub上のラベルを作成・更新中...");
   for (const label of labelDefs) {
     const { name, color, description } = label;
-    const command = `gh label create "${name}" --color "${color}" --description "${description}" --force`;
     try {
-      console.log(`  - Processing: "${name}"`);
-      execSync(command, { stdio: 'pipe' }); 
+      console.log(`  - ラベル処理中: "${name}"`);
+      execFileSync('gh', [
+        'label', 'create', name,
+        '--color', color,
+        '--description', description,
+        '--force'
+      ], { stdio: 'pipe' });
     } catch (error) {
-      console.error(`  ❌ Failed to process label: "${name}"\n     ${error.stderr.toString()}`);
+      console.error(`  ❌ ラベルの処理に失敗: "${name}"\n     ${error.stderr?.toString() || error.message}`);
     }
   }
-  console.log("✅ Label creation/update completed.");
+  console.log("✅ ラベルの作成・更新が完了しました。");
 
   // 4. 古いラベルのクリーンアップ確認と実行
-  console.log("\n[4/4] Cleaning up old labels...");
-  const cleanup = await askYesNo("Do you want to delete labels that are on GitHub but not in your local `labels.json` file? (y/N): ");
+  console.log("\n[4/4] 古いラベルのクリーンアップ...");
+  const cleanup = await askYesNo("GitHub上に存在し、`labels.json`にないラベルを削除しますか？ (y/N): ");
 
   if (cleanup) {
-    console.log("  - Starting cleanup...");
+    console.log("  - クリーンアップを開始します...");
     try {
       // 現在のリポジトリの全ラベルを取得
       const existingLabelsJson = execSync('gh label list --json name').toString();
@@ -93,30 +97,33 @@ async function main() {
       
       let deletedCount = 0;
       for (const labelName of existingLabels) {
-      if (!definedLabelNames.has(labelName)) {
-        console.log(`    - Deleting old label: "${labelName}"`);
-        try {
-        execSync(`gh label delete "${labelName}" --yes`, { stdio: 'pipe' });
-        deletedCount++;
-        } catch (error) {
-        console.error(`    ❌ Failed to delete label: "${labelName}"\n     ${error.stderr?.toString() || error.message}`);
+        if (!definedLabelNames.has(labelName)) {
+          console.log(`    - 古いラベルを削除: "${labelName}"`);
+          try {
+            execFileSync('gh', ['label', 'delete', labelName, '--yes'], { stdio: 'pipe' });
+            deletedCount++;
+          } catch (error) {
+            console.error(`    ❌ ラベルの削除に失敗: "${labelName}"\n     ${error.stderr?.toString() || error.message}`);
+          }
         }
       }
-      }
       if (deletedCount > 0) {
-      console.log(`  ✅ Deleted ${deletedCount} old labels.`);
+        console.log(`  ✅ ${deletedCount} 件の古いラベルを削除しました。`);
       } else {
-      console.log("  ✅ No old labels to delete. Everything is in sync!");
+        console.log("  ✅ 削除対象の古いラベルはありません。すべて同期されています！");
       }
     } catch (error) {
-      console.error(`  ❌ Failed to fetch existing labels from GitHub. Cleanup aborted.\n     ${error.stderr?.toString() || error.message}`);
+      console.error(`  ❌ GitHubから既存ラベルの取得に失敗しました。クリーンアップを中止します。\n     ${error.stderr?.toString() || error.message}`);
     }
   } else {
-    console.log("  - Cleanup skipped by user.");
+    console.log("  - クリーンアップはスキップされました。");
   }
 
-  console.log("\n✅ All setup tasks completed successfully!");
+  console.log("\n✅ すべてのセットアップ作業が正常に完了しました！");
 }
 
 // スクリプトを実行
-main();
+main().catch(err => {
+  console.error('予期しないエラー:', err);
+  process.exit(1);
+});
