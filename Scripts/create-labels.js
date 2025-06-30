@@ -95,10 +95,10 @@ async function main() {
       if (!definedLabelNames.has(labelName)) {
         console.log(`    - Deleting old label: "${labelName}"`);
         try {
-          execSync(`gh label delete "${labelName}" --yes`);
+          execSync(`gh label delete "${labelName}" --yes`, { stdio: 'pipe' });
           deletedCount++;
         } catch (error) {
-          console.error(`    ❌ Failed to delete label: "${labelName}"`);
+          console.error(`    ❌ Failed to delete label: "${labelName}"\n     ${error.stderr.toString()}`);
         }
       }
     }
