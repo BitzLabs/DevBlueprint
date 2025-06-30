@@ -13,7 +13,7 @@ const LABEL_FILE_PATH = path.join(__dirname, 'templates', 'labels.json');
  */
 function checkDependency(command) {
   try {
-    execSync(`${command} --version`, { stdio: 'ignore' });
+    execFileSync(command, ['--version'], { stdio: 'ignore' });
     return true;
   } catch (error) {
     return false;
@@ -92,7 +92,7 @@ async function main() {
     console.log("  - クリーンアップを開始します...");
     try {
       // 現在のリポジトリの全ラベルを取得
-      const existingLabelsJson = execSync('gh label list --json name').toString();
+      const existingLabelsJson = execFileSync('gh', ['label', 'list', '--json', 'name']).toString();
       const existingLabels = JSON.parse(existingLabelsJson).map(l => l.name);
       // 定義ファイルにあるラベル名のセットを作成
       const definedLabelNames = new Set(labelDefs.map(l => l.name));
