@@ -2,7 +2,7 @@
 
 const fs = require('fs/promises');
 const path = require('path');
-const { execSync, execFileSync } = require('child_process');
+const { execFileSync } = require('child_process');
 const readline = require('readline');
 
 // ラベル定義ファイルのパス
@@ -25,16 +25,18 @@ function checkDependency(command) {
  * @param {string} query - 質問の文字列
  * @returns {Promise<boolean>} - Yesならtrue, Noならfalse
  */
-function askYesNo(query) {
-  const rl = readline.createInterface({
+async function askYesNo(query) {
+  const rl = require('readline/promises').createInterface({
     input: process.stdin,
     output: process.stdout,
   });
 
-  return new Promise(resolve => rl.question(query, ans => {
+  try {
+    const ans = await rl.question(query);
+    return ans.toLowerCase().trim() === 'y';
+  } finally {
     rl.close();
-    resolve(ans.toLowerCase().trim() === 'y');
-  }));
+  }
 }
 
 
