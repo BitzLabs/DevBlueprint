@@ -1,0 +1,87 @@
+[
+  {
+    "name": "Type: Bug(不具合)",
+    "color": "d73a4a",
+    "description": "明確なバグや不具合の報告。"
+  },
+  {
+    "name": "Type: Feature(機能)",
+    "color": "a2eeef",
+    "description": "新しい機能の追加に関する提案やタスク。"
+  },
+  {
+    "name": "Type: Refact(改善)",
+    "color": "4CAF50",
+    "description": "既存機能の改善、リファクタリング、パフォーマンス向上。"
+  },
+  {
+    "name": "Type: Docs(ドキュメント)",
+    "color": "0075ca",
+    "description": "ドキュメントの作成や修正に関するタスク。"
+  },
+  {
+    "name": "Type: Chore(設定)",
+    "color": "cfd3d7",
+    "description": "ビルド設定、CI/CDの改善、ライブラリ更新など、上記以外の雑務。"
+  },
+  {
+    "name": "Type: Question(質問)",
+    "color": "d876e3",
+    "description": "質問や、仕様に関する相談・議論。"
+  },
+  {
+    "name": "Priority: Critical🔥",
+    "color": "b60205",
+    "description": "緊急: これを解決しないと進めない、または深刻な問題を引き起こす。Hotfixリリースのトリガーとなる。"
+  },
+  {
+    "name": "Priority: High🔼",
+    "color": "e99695",
+    "description": "高: 優先的に対応すべき重要なタスク。計画的なマイルストーン内で対応する。"
+  },
+  {
+    "name": "Priority: Medium",
+    "color": "fbca04",
+    "description": "中: 通常の優先度。"
+  },
+  {
+    "name": "Priority: Low🔽",
+    "color": "c2e0c6",
+    "description": "低: 急がない、または時間がある時に対応するタスク。"
+  },
+  {
+    "name": "Status: In Progress🛠️",
+    "color": "ededed",
+    "description": "開発者が現在作業中の状態。担当者が割り当てられ、作業に着手したことを示す。"
+  },
+  {
+    "name": "Status: Needs Review👀",
+    "color": "fef2c0",
+    "description": "プルリクエストがレビュー待ちの状態。"
+  },
+  {
+    "name": "Status: Blocked🚧",
+    "color": "000000",
+    "description": "他のタスクや外部要因により、作業がブロックされている状態。"
+  },
+  {
+    "name": "Status: Consid(検討中)🤔",
+    "color": "bfd4f2",
+    "description": "バックログ状態。対応要否や、どのマイルストーンに含めるかを検討中のアイデアやタスク。"
+  },
+  {
+    "name": "Status: Wontfix🤷",
+    "color": "ffffff",
+    "description": "議論の結果、対応しないことが決定されたIssue。"
+  },
+  {
+    "name": "good first issue",
+    "color": "7057ff",
+    "description": "プロジェクトへの最初の貢献として最適な、比較的簡単なIssue。"
+  },
+  {
+    "name": "help wanted",
+    "color": "008672",
+    "description": "外部のコントリビューターに協力を仰ぎたいIssue。"
+  }
+]
