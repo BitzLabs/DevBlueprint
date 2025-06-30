@@ -43,6 +43,7 @@ function askYesNo(query) {
  */
 async function main() {
   console.log('--- DevBlueprint ラベルセットアップ ---');
+  let hasErrors = false;
 
   // 1. 依存関係のチェック
   console.log('\n[1/4] 依存ツールの確認中...');
@@ -78,6 +79,7 @@ async function main() {
       ], { stdio: 'pipe' });
     } catch (error) {
       console.error(`  ❌ ラベルの処理に失敗: "${name}"\n     ${error.stderr?.toString() || error.message}`);
+      hasErrors = true;
     }
   }
   console.log("✅ ラベルの作成・更新が完了しました。");
@@ -104,6 +106,7 @@ async function main() {
             deletedCount++;
           } catch (error) {
             console.error(`    ❌ ラベルの削除に失敗: "${labelName}"\n     ${error.stderr?.toString() || error.message}`);
+            hasErrors = true;
           }
         }
       }
@@ -114,12 +117,18 @@ async function main() {
       }
     } catch (error) {
       console.error(`  ❌ GitHubから既存ラベルの取得に失敗しました。クリーンアップを中止します。\n     ${error.stderr?.toString() || error.message}`);
+      hasErrors = true;
     }
   } else {
     console.log("  - クリーンアップはスキップされました。");
   }
 
-  console.log("\n✅ すべてのセットアップ作業が正常に完了しました！");
+  if (hasErrors) {
+    console.error("\n❌ いくつかの処理でエラーが発生しました。スクリプトを異常終了します。");
+    process.exit(1);
+  } else {
+    console.log("\n✅ すべてのセットアップ作業が正常に完了しました！");
+  }
 }
 
 // スクリプトを実行
