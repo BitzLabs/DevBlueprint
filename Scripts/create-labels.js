@@ -84,28 +84,32 @@ async function main() {
 
   if (cleanup) {
     console.log("  - Starting cleanup...");
-    // 現在のリポジトリの全ラベルを取得
-    const existingLabelsJson = execSync('gh label list --json name').toString();
-    const existingLabels = JSON.parse(existingLabelsJson).map(l => l.name);
-    // 定義ファイルにあるラベル名のセットを作成
-    const definedLabelNames = new Set(labelDefs.map(l => l.name));
-    
-    let deletedCount = 0;
-    for (const labelName of existingLabels) {
+    try {
+      // 現在のリポジトリの全ラベルを取得
+      const existingLabelsJson = execSync('gh label list --json name').toString();
+      const existingLabels = JSON.parse(existingLabelsJson).map(l => l.name);
+      // 定義ファイルにあるラベル名のセットを作成
+      const definedLabelNames = new Set(labelDefs.map(l => l.name));
+      
+      let deletedCount = 0;
+      for (const labelName of existingLabels) {
       if (!definedLabelNames.has(labelName)) {
         console.log(`    - Deleting old label: "${labelName}"`);
         try {
-          execSync(`gh label delete "${labelName}" --yes`, { stdio: 'pipe' });
-          deletedCount++;
+        execSync(`gh label delete "${labelName}" --yes`, { stdio: 'pipe' });
+        deletedCount++;
         } catch (error) {
-          console.error(`    ❌ Failed to delete label: "${labelName}"\n     ${error.stderr.toString()}`);
+        console.error(`    ❌ Failed to delete label: "${labelName}"\n     ${error.stderr?.toString() || error.message}`);
         }
       }
-    }
-    if (deletedCount > 0) {
+      }
+      if (deletedCount > 0) {
       console.log(`  ✅ Deleted ${deletedCount} old labels.`);
-    } else {
+      } else {
       console.log("  ✅ No old labels to delete. Everything is in sync!");
+      }
+    } catch (error) {
+      console.error(`  ❌ Failed to fetch existing labels from GitHub. Cleanup aborted.\n     ${error.stderr?.toString() || error.message}`);
     }
   } else {
     console.log("  - Cleanup skipped by user.");
