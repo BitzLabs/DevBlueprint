@@ -86,7 +86,12 @@ async function main() {
 
   // 4. 古いラベルのクリーンアップ確認と実行
   console.log("\n[4/4] 古いラベルのクリーンアップ...");
-  const cleanup = await askYesNo("GitHub上に存在し、`labels.json`にないラベルを削除しますか？ (y/N): ");
+  let cleanup = await askYesNo("GitHub上に存在し、`labels.json`にないラベルを削除しますか？ (y/N): ");
+
+  if (cleanup && labelDefs.length === 0) {
+    console.warn("  ⚠️  警告: `labels.json` が空のため、クリーンアップはすべての既存ラベルを削除しようとします。");
+    cleanup = await askYesNo("  本当にすべてのラベルを削除してよろしいですか？ (y/N): ");
+  }
 
   if (cleanup) {
     console.log("  - クリーンアップを開始します...");
