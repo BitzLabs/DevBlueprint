@@ -1,0 +1,9 @@
+{
+  "name": "devblueprint-scripts",
+  "version": "1.0.0",
+  "description": "Helper scripts for DevBlueprint project setup and maintenance.",
+  "private": true,
+  "scripts": {
+    "setup:labels": "node ./scripts/create-labels.js"
+  }
+}
