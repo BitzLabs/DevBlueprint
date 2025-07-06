@@ -69,4 +69,4 @@
 
 *   [**`markdownlint`**](https://github.com/DavidAnson/markdownlint)の利用を推奨します。
 *   VSCode拡張機能を導入することで、見出しの階層が飛んでいる、リストのインデントが不適切である、といったスタイル違反をリアルタイムで検出できます。
-*   
+

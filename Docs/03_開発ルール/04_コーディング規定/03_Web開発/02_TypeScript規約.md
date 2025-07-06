@@ -1,4 +1,4 @@
-# 01.TypeScript コーディング規約
+# 02.TypeScript コーディング規約
 
 このドキュメントでは、`DevBlueprint`を利用するプロジェクトでTypeScriptを記述する際の、コーディングスタイルと規約について定めます。
 
