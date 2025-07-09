@@ -410,9 +410,9 @@
     // CPUバウンドな重い処理
     private int HeavyCalculation() { /* ... */ return 42; }
     // UIスレッドなどから呼び出す場合
-        int result = await Task.Run(() => HeavyCalculation()).ConfigureAwait(false);
-        // UIスレッドに戻ってきて結果を表示
-        resultLabel.Content = result.ToString();
+    int result = await Task.Run(() => HeavyCalculation()).ConfigureAwait(false);
+    // UIスレッドに戻ってきて結果を表示
+    resultLabel.Content = result.ToString();
     }
     ```
 
