@@ -285,7 +285,7 @@
 ## 6. エラー処理と例外 (Error Handling and Exceptions)
 
 *   **基本方針**: エラーは握りつぶさず、例外を用いて明確に通知します。ただし、パフォーマンスが重要な場面では、例外を通常の制御フローとして使用することは避けます。
-*   `catch` ブロックでは、処理可能な特定の例外型を捕捉します。`catch (Exception)` のような汎用的な例外の捕捉は、意図しないエラーを隠蔽する可能性があるため、最上位のハンドラなど、限定的な場面でのみ使用します。**例外を捕捉した場合は、必ずログに出力してください。**`
+*   `catch` ブロックでは、処理可能な特定の例外型を捕捉します。`catch (Exception)` のような汎用的な例外の捕捉は、意図しないエラーを隠蔽する可能性があるため、最上位のハンドラなど、限定的な場面でのみ使用します。**例外を捕捉した場合は、必ずログに出力してください。**
     *   **`ArgumentNullException`**: メソッドの引数が `null` で、それが許容されない場合にスローします。
     *   **`ArgumentException`**: 引数の値が不正である場合にスローします。
     *   **`InvalidOperationException`**: オブジェクトが現在の状態ではメソッドを呼び出せない場合にスローします。
@@ -324,7 +324,7 @@
             }
             ```
     *   **`ValueTask` の厳格なルール:**
-        *   `ValueTask` は **一度しか `await` できません。** 複数回 `await` すると、予期しない動作を引き起こす可能性があります。
+        * `ValueTask` は **一度しか `await` できません。** 複数回 `await` すると、予期しない動作を引き起こす可能性があります。これは、`ValueTask`が複数のawaitをサポートするように設計されていないためです。 
             ```csharp
             // 悪い例: ValueTask を複数回 await している
             var userValueTask = GetUserByIdAsync(1);
@@ -349,11 +349,11 @@
             throw new InvalidOperationException("This exception will crash the application.");
         }
 
-        public void Caller()
+        public async Task Caller()
         {
             try
             {
-                RunOperation(); // 例外はここでは捕捉されない
+                await Task.Run(() => RunOperation()); // 例外はここでは捕捉されない
             }
             catch (Exception ex)
             {
@@ -404,7 +404,6 @@
     int result = await Task.Run(() => HeavyCalculation()).ConfigureAwait(false);
     // UIスレッドに戻ってきて結果を表示
     resultLabel.Content = result.ToString();
-    }
     ```
 
 ## 8. パフォーマンスに関する考慮事項 (Performance Considerations)
