@@ -154,7 +154,7 @@
         var user1 = new User(1, "Alice", "alice@example.com");
         var user2 = user1 with { Name = "Bob" }; // user1は変更されない
 
-        // user2 is a new record with Id=1, Name="Bob", Email="alice@example.com"
+        // user2 は Id=1, Name="Bob", Email="alice@example.com" の新しいレコードです
         ```
 
     *   **`record class` vs `record struct`**:
@@ -242,7 +242,10 @@
         var activeUserNames = users
             .Where(user => user.IsActive)
             .OrderBy(user => user.LastName)
-            .Select(user => user.FullName);
+        var userNames = users
+            .Where(user => user.Email.EndsWith("@example.com"))
+            .OrderBy(user => user.Name)
+            .Select(user => user.Name);
         ```
         
 *   **パターンマッチング**:
@@ -407,10 +410,7 @@
     // CPUバウンドな重い処理
     private int HeavyCalculation() { /* ... */ return 42; }
     // UIスレッドなどから呼び出す場合
-    private async void Button_Click(object sender, RoutedEventArgs e)
-    {
-        // 重い処理を別スレッドに逃がし、UIの応答性を保つ
-        int result = await Task.Run(() => HeavyCalculation());
+        int result = await Task.Run(() => HeavyCalculation()).ConfigureAwait(false);
         // UIスレッドに戻ってきて結果を表示
         resultLabel.Content = result.ToString();
     }
