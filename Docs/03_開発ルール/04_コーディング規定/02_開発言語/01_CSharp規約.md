@@ -347,7 +347,7 @@
         public async void RunOperation()
         {
             await Task.Delay(100);
-            throw new InvalidOperationException("This exception will crash the application.");
+            throw new InvalidOperationException("This exception will crash the application."); // 例外はTaskScheduler.UnobservedTaskExceptionでハンドルされる
         }
 
         public async Task Caller()
@@ -400,7 +400,7 @@
     *   CPUを長時間占有する**CPUバウンド**な処理をUIスレッドなどからオフロードする場合は、`Task.Run` を使用して、処理をバックグラウンドのスレッドプールに委譲します。
     ```csharp
     // CPUバウンドな重い処理
-    private int HeavyCalculation() { /* ... */ return 42; }
+    private int HeavyCalculation() { /* 複雑な計算処理 */ return 42; }
     // UIスレッドなどから呼び出す場合
     int result = await Task.Run(() => HeavyCalculation()).ConfigureAwait(false);
     // UIスレッドに戻ってきて結果を表示
