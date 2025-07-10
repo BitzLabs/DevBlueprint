@@ -127,14 +127,16 @@
 
 ### 7.2. `const`の積極的な利用 (Use of const)
 *   変更されるべきでない変数や引数に加え、**メンバ変数を変更しないメンバ関数**にも`const`を付け、意図しない状態変更を防ぎます。
-    ```cpp
-    class User {
+    ```c
+    class User
+    {
     public:
         std::string get_name() const; // このメソッドはメンバ変数を変更しない
     private:
         std::string name_; // 末尾に"_"を付ける
     };
     ```
+
 
 ### 7.3. 未定義動作の回避 (Avoiding Undefined Behavior)
 *   C言語規約と同様に、符号付き整数のオーバーフローや解放済みメモリへのアクセスなど、未定義動作に依存したコードは絶対に避けてください。
