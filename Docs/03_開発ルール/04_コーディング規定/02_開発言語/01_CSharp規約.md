@@ -317,7 +317,6 @@
             }
             ```
     *   **`ValueTask` の厳格なルール:**
-    *   **`ValueTask` の厳格なルール:**
         *   `ValueTask` は **一度しか `await` できません。** 複数回 `await` すると、予期しない動作を引き起こす可能性があります。これは、`ValueTask`が複数のawaitをサポートするように設計されていないためです。
             ```csharp
             // 悪い例: ValueTask を複数回 await している
@@ -399,7 +398,7 @@
     // UIスレッドなどから呼び出す場合
     private async void Button_Click(object sender, RoutedEventArgs e)
     {
-        int result = await Task.Run(() => HeavyCalculation());
+        int result = await Task.Run(() => HeavyCalculation()).ConfigureAwait(false);
         resultLabel.Content = result.ToString();
     }
     ```
