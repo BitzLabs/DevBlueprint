@@ -9,7 +9,7 @@
 
 ---
 
-*   本プロジェクトのC++コードは、Bjarne Stroustrupらが主導する[C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)の思想に準拠し、その根底にある安全性、保守性（可読性）、パフォーマンスの最適なバランス**を追求します。
+*   本プロジェクトのC++コードは、Bjarne Stroustrupらが主導する[C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)の思想に準拠し、その根底にある安全性、保守性（可読性）、パフォーマンスの最適なバランスを追求します。
 *   可能な限り、**C++17以降**の標準に準拠し、その機能を活用することを推奨します。
 
 !!! tip "原則が衝突する場合の指針"
