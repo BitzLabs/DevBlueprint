@@ -317,8 +317,16 @@
             }
             ```
     *   **`ValueTask` の厳格なルール:**
-        *   `ValueTask` は **一度しか `await` できません。**
+    *   **`ValueTask` の厳格なルール:**
+        *   `ValueTask` は **一度しか `await` できません。** 複数回 `await` すると、予期しない動作を引き起こす可能性があります。これは、`ValueTask`が複数のawaitをサポートするように設計されていないためです。
+            ```csharp
+            // 悪い例: ValueTask を複数回 await している
+            var userValueTask = GetUserByIdAsync(1);
+            var user1 = await userValueTask; // 1回目: OK
+            var user2 = await userValueTask; // 2回目: NG! 未定義の動作を引き起こす
+            ```
         *   複数回 `await` する必要がある場合や、複数のコンシューマーに渡す場合は、`.AsTask()` を呼び出して `Task` に変換してください。
+        *   `ValueTask` は構造体（struct）であるため、意図しないコピーによるバグを防ぐため、`readonly` 修飾子を付けて宣言することを推奨します。
     *   **`.Result` や `.GetAwaiter().GetResult()` の使用禁止**:
         *   **理由:** これらの同期的な待機は、UIスレッドやASP.NET Coreのリクエストスレッドのような、単一スレッドの同期コンテキストを持つ環境で**デッドロック**を引き起こす可能性があります。
         *   **規則:** `Task` や `ValueTask` のいずれに対しても、原則として使用を禁止します。
@@ -339,8 +347,8 @@
         {
             try
             {
-                RunOperation(); // 非同期メソッドだが待機できない
-                await Task.Delay(500); // 待機している間に例外が発生
+                RunOperation();         // 非同期メソッドだが、例外が捕捉されないため、通常は避けるべき
+                await Task.Delay(500);  // 待機している間に例外が発生
             }
             catch (Exception ex)
             {
