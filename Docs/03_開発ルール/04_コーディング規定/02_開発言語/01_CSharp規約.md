@@ -15,7 +15,7 @@
 
 ## 2. 命名規則 (Naming Conventions)
 
-*   **PascalCase**: クラス名、メソッド名、プロパティ名、イベント名、enum型名、enumメンバー名、定数 (`const`)、読み取り専用静的フィールド (`static readonly`)。
+*   **PascalCase**: クラス名、レコード名、メソッド名、プロパティ名、イベント名、enum型名、enumメンバー名、定数 (`const`)、読み取り専用静的フィールド (`static readonly`)。
 *   **camelCase**: メソッドの引数名、ローカル変数名。
 *   **インターフェース名**: 接頭辞 `I` を付け、PascalCase。例: `IBufferProvider`。
 *   **プライベートインスタンスフィールド**: 接頭辞 `_` を付け、camelCase。例: `_internalBuffer`。
@@ -37,6 +37,7 @@
         *   パフォーマンスの問題（例: LINQの非効率な使い方）
         *   C#のベストプラクティスに反するコード（例: `async void`の不適切な使用）
 *   GitHub Actionsのワークフローに`dotnet format --verify-no-changes`を組み込むことで、フォーマットが規約に違反しているコードのマージを自動的にブロックします。ビルド時にアナライザーの警告をエラーとして扱う設定を**必須**とします。
+
 ### 3.2. 主要な書式ルール
 
 以下に示す主要な書式ルールは、`.editorconfig` の設定に基づき、`dotnet format` や Roslyn Analyzer によって自動的に適用・チェックされます。
@@ -49,9 +50,6 @@
     *   `using`ディレクティブは、ファイルの先頭にまとめて配置します。
     *   `System`名前空間を常に先頭に配置し、その後はアルファベット順にソートすることを推奨します。
     *   この順序は、Visual Studioの機能や`dotnet format`によって自動的に整理できます。
-*   **1行の長さ**: 約120文字以内を目安とします。
-*   **空行**: メソッド間、論理ブロック間に適切に挿入します。
-*   **スペース**: 演算子、カンマの前後などに適切に挿入します。
 *   **`this.` の使用**: 原則として、曖昧さがない限り `this.` は省略します。
 
 ## 4. コメント (Comments)
@@ -64,26 +62,24 @@
     *   コードが「何をしているか」よりも「**なぜそうしているのか**」という設計意図や背景を説明するように心がけます。
     *   コメントは、コードの変更に合わせて常に最新の状態に保ちます。
 *   **要求IDとの連携**:
-
     *   **[01.共通コーディング原則](../../01_共通規則/01_共通コーディング原則.md)** で定められた通り、機能の実装やテストコードには、対応する要求IDをコメントとして明記します。
     *   特にテストコードでは、可読性と機械的な処理のしやすさを考慮し、**カスタムアトリビュート**の利用を推奨します。
     ```csharp
-        // REQ-AUTH-1.2: アカウントロックのロジック
-        public void LockUserAccount(User user)
-        {
-            // ...
-        }
-        
-        [Fact]
-        [Requirement("REQ-AUTH-1.2")] // テストコードではアトリビュートを推奨
-        public void LockUserAccount_WhenLoginAttemptsExceeded_ShouldLockAccount()
-        {
-            // ...
-        }
-        ```
+    // REQ-AUTH-1.2: アカウントロックのロジック
+    public void LockUserAccount(User user)
+    {
+        // ...
+    }
+
+    [Fact]
+    [Requirement("REQ-AUTH-1.2")] // テストコードではアトリビュートを推奨
+    public void LockUserAccount_WhenLoginAttemptsExceeded_ShouldLockAccount()
+    {
+        // ...
+    }
+    ```
 
 ## 5. 言語機能の利用方針 (Language Feature Usage)
-
 
 ターゲットフレームワークは .NET 6 以上であるため、最新のC#言語機能を適切に活用し、コードの簡潔性、可読性、安全性を高めることを目指します。
 このセクションでは、利用を推奨する主要な言語機能を目的別に分類して解説します。
@@ -238,9 +234,6 @@
         var activeUserNames = users
             .Where(user => user.IsActive)
             .OrderBy(user => user.LastName)
-        var userNames = users
-            .Where(user => user.Email.EndsWith("@example.com"))
-            .OrderBy(user => user.Name)
             .Select(user => user.Name);
         ```
         
@@ -284,7 +277,7 @@
 ## 6. エラー処理と例外 (Error Handling and Exceptions)
 
 *   **基本方針**: エラーは握りつぶさず、例外を用いて明確に通知します。ただし、パフォーマンスが重要な場面では、例外を通常の制御フローとして使用することは避けます。
-*   `catch` ブロックでは、処理可能な特定の例外型を捕捉します。`catch (Exception)` のような汎用的な例外の捕捉は、意図しないエラーを隠蔽する可能性があるため、**最上位のハンドラや、例外を再度throwする場合**など、限定的な場面でのみ使用します。  
+*   `catch` ブロックでは、処理可能な特定の例外型を捕捉します。`catch (Exception)` のような汎用的な例外の捕捉は、意図しないエラーを隠蔽する可能性があるため、**最上位のハンドラや、例外を再度throwする場合**など、限定的な場面でのみ使用します。
     *   **例外のログ出力について**: 例外を捕捉した場合は、**予期しないエラーやデバッグが必要な場合に限り**ログに出力してください。正常な制御フローの一部として発生する例外（例: 入力値のバリデーションエラーなど）まで全てをログに記録すると、ログが過剰になり、重要な情報が埋もれる可能性があります。ログ出力の要否は、例外の性質や運用上の要件に応じて適切に判断してください。
     *   **`ArgumentNullException`**: メソッドの引数が `null` で、それが許容されない場合にスローします。
     *   **`ArgumentException`**: 引数の値が不正である場合にスローします。
@@ -324,7 +317,7 @@
             }
             ```
     *   **`ValueTask` の厳格なルール:**
-        * `ValueTask` は **一度しか `await` できません。** 複数回 `await` すると、予期しない動作を引き起こす可能性があります。これは、`ValueTask`が複数のawaitをサポートするように設計されていないためです。 
+        *   `ValueTask` は **一度しか `await` できません。** 複数回 `await` すると、予期しない動作を引き起こす可能性があります。これは、`ValueTask`が複数のawaitをサポートするように設計されていないためです。
             ```csharp
             // 悪い例: ValueTask を複数回 await している
             var userValueTask = GetUserByIdAsync(1);
@@ -346,14 +339,15 @@
         public async void RunOperation()
         {
             await Task.Delay(100);
-            throw new InvalidOperationException("This exception will crash the application."); // 例外はTaskScheduler.UnobservedTaskExceptionでハンドルされる
+            throw new InvalidOperationException("This exception will crash the application.");
         }
 
         public async Task Caller()
         {
             try
             {
-                await Task.Run(() => RunOperation()); // 例外はここでは捕捉されない
+                RunOperation();         // 非同期メソッドだが、例外が捕捉されないため、通常は避けるべき
+                await Task.Delay(500);  // 待機している間に例外が発生
             }
             catch (Exception ex)
             {
@@ -400,10 +394,13 @@
     ```csharp
     // CPUバウンドな重い処理
     private int HeavyCalculation() { /* 複雑な計算処理 */ return 42; }
+
     // UIスレッドなどから呼び出す場合
-    int result = await Task.Run(() => HeavyCalculation()).ConfigureAwait(false);
-    // UIスレッドに戻ってきて結果を表示
-    resultLabel.Content = result.ToString();
+    private async void Button_Click(object sender, RoutedEventArgs e)
+    {
+        int result = await Task.Run(() => HeavyCalculation()).ConfigureAwait(false);
+        resultLabel.Content = result.ToString();
+    }
     ```
 
 ## 8. パフォーマンスに関する考慮事項 (Performance Considerations)
