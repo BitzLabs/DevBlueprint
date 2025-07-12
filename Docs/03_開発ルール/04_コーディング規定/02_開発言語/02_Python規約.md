@@ -15,70 +15,60 @@ Webアプリケーション開発から、CI/CDの補助スクリプトまで、
 
 ---
 
-## 2. 命名規則 (Naming Conventions)
+## 2. ツールによる規約の強制
 
-*   **`snake_case` (スネークケース):**
-    *   関数名 (`def my_function():`)
-    *   変数名 (`my_variable = 1`)
-    *   モジュール名 (`my_module.py`)
-*   **`PascalCase` (パスカルケース):**
-    *   クラス名 (`class MyClass:`)
-*   **`UPPER_SNAKE_CASE` (大文字のスネークケース):**
-    *   定数 (`MY_CONSTANT = 100`)
+手作業でのスタイル遵守は非効率であり、レビューのノイズとなるため、ツールによる規約の遵守を強制します。各ツールの設定は、リポジトリのルートに配置された **`pyproject.toml`** ファイルで一元管理します。
+
+*   **リンター 兼 フォーマッター: `Ruff`**
+    *   **役割:** 非常に高速なリンター兼フォーマッター。PEP 8違反だけでなく、未使用の変数、未整理のimport、潜在的なバグやアンチパターンを検出します。`Flake8`, `isort`, `pyupgrade` など、多くのツールの機能を内包しています。
+    *   **運用:** `Ruff`を第一のツールとし、コードのチェックとフォーマットをこれ一つで行うことを推奨します。
+    *   **公式サイト:** [Ruff - An extremely fast Python linter and code formatter](https://docs.astral.sh/ruff/)
+
+*   **フォーマッター (代替): `Black`**
+    *   **役割:** 「議論の余地なく（uncompromising）」コードを整形するフォーマッター。
+    *   **運用:** プロジェクトの歴史的経緯などで`Black`が既に導入されている場合や、`Ruff`のフォーマッターがまだベータ版であることに懸念がある場合は、フォーマッターとして`Black`を、リンターとして`Ruff`を組み合わせて利用します。`Ruff`は`Black`と互換性のあるフォーマットを提供します。
+
+!!! success "CI/CDによる自動チェック"
+    GitHub Actionsのワークフローに`ruff check .`や`ruff format --check .`コマンドを組み込むことで、規約に違反したコードのマージを自動的にブロックします。
 
 ---
 
-## 3. レイアウトと書式設定 (Layout and Formatting)
+## 3. 命名規則 (Naming Conventions)
 
-### 3.1. ツールによる自動適用
-
-*   コードのフォーマットは、以下のツールによって機械的に統一します。手作業でのスタイル遵守は非効率であり、レビューのノイズとなるため、ツールによる規約の遵守を強制します。
-*   各ツールの設定は、リポジトリのルートに配置された **`pyproject.toml`** ファイルで一元管理します。
-*   インデントスタイルや文字コードなど、エディタ間で共通の設定は **`.editorconfig`** ファイルにも記述し、ツールと連携させます。
-
-*   **フォーマッター: `Black`**
-    *   **役割:** 「議論の余地なく（uncompromising）」コードを整形するフォーマッター。細かいスタイルについて議論する時間をなくします。
-    *   **公式サイト:** Black - The Uncompromising Code Formatter
-*   **リンター: `Ruff`**
-    *   **役割:** 非常に高速なリンター兼フォーマッター。PEP 8違反だけでなく、未使用の変数、未整理のimport、潜在的なバグやアンチパターンを検出します。`Flake8`など多くのツールの機能を内包しています。`Ruff`は`Black`互換のフォーマッターも内蔵しているため、`Ruff`のみで完結させることも可能です。
-    *   **公式サイト:** Ruff - An extremely fast Python linter and code formatter
-
-### 3.2. 主要な書式ルール
-
-以下に示す主要な書式ルールは、`Black`や`Ruff`によって自動的に適用されます。
-
-*   **インデント (Indentation):**
-    *   PEP 8に従い、**半角スペース4つ**を使用します。タブ文字は使用しません。
-*   **1行の長さ (Line Length):**
-    *   `Black`のデフォルトである**88文字**を基準とします。これは`pyproject.toml`で変更可能です。
-*   **クォーテーション (Quotes):**
-    *   `Black`は、文字列を囲む引用符を**ダブルクォーテーション (`"`)** に統一します。
-*   **空行 (Blank Lines):**
-    *   トップレベルの関数やクラス定義の間には2行、クラス内のメソッド定義の間には1行など、PEP 8の規約に従って適切な空行が挿入されます。
-*   **importの順序 (Import Order):**
-    *   `Ruff`が`isort`互換の機能で、**標準ライブラリ → サードパーティライブラリ → プロジェクト内モジュール** の順に、アルファベット順で自動的に並び替えます。
-
-!!! success "CI/CDによる自動チェック"
-    GitHub Actionsのワークフローに`black --check`や`ruff check`コマンドを組み込むことで、フォーマットが規約に違反しているコードのマージを自動的にブロックします。
+*   **`snake_case` (スネークケース):** 関数名、変数名、モジュール名。
+*   **`PascalCase` (パスカルケース):** クラス名。
+*   **`UPPER_SNAKE_CASE` (大文字のスネークケース):** 定数。
 
 ---
 
 ## 4.コメント (Comments)
 
-*   **Docstring (`"""..."""`) の役割:**
-    *   本プロジェクトでは、**02.設計仕様/01.API仕様** を仕様の正とし、ソースコードのDocstringは補助的な役割と位置づけます。
-    *   型ヒントで自明な引数や戻り値の型を繰り返すような、冗長なDocstringは避けてください。
-    *   公開APIの仕様や説明は、ソースコード内ではなく、**02.設計仕様/01.API仕様** に記述します。
-    *   関数の目的や、複雑なロジックの概要を説明するための、**簡潔な一行Docstring**を記述することを推奨します。
+*   **Docstring (`"""..."""`) の役割の限定:**
+    *   本プロジェクトでは、**[02.設計仕様/01.API仕様](../../../02_設計仕様/01_API仕様/README.md)** を仕様の正とし、ソースコードのDocstringはAPIドキュメント自動生成のためには使用しません。
+    *   Docstringは、あくまで関数やクラスの**「目的」**を簡潔に説明するための補助的な役割とします。型ヒントで自明な引数や戻り値の型を繰り返すような、冗長なDocstringは避けてください。
+
+    ```python
+    # 良い例：簡潔な一行Docstring
+    def calculate_tax(price: float, rate: float) -> float:
+        """指定された価格と税率から税込価格を計算する。"""
+        return price * (1 + rate)
+
+    # 悪い例：冗長なDocstring
+    def calculate_tax_bad(price: float, rate: float) -> float:
+        """
+        税込価格を計算します。
+        :param price: 価格 (float)
+        :param rate: 税率 (float)
+        :return: 税込価格 (float)
+        """
+        return price * (1 + rate)
+    ```
 
 *   **通常のコメント (`#`)**:
-    *   コードが「何をしているか」よりも「**なぜそうしているのか**」という設計意図や背景を説明するために使用します。
-    *   複雑なアルゴリズムや、一見して意図が分かりにくいコードには、簡潔なコメントを付与してください。
+    *   コードが「何をしているか」よりも「**なぜそうしているのか**」という設計意図や背景、あるいは複雑なアルゴリズムの要点を説明するために使用します。
 
 *   **要求IDとの連携**:
-    *   **01.共通コーディング原則** で定められた通り、機能の実装やテストコードには、対応する要求IDをコメントとして明記します。
-    *   テストコードでは、可読性と機械的な処理のしやすさを考慮し、**カスタムマーカー**の利用を推奨します。
-
+    *   **[01.共通コーディング原則](../../01_共通規則/01_共通コーディング原則.md)** で定められた通り、機能の実装やテストコードには、対応する要求IDをコメントやマーカーとして明記します。
     ```python
     # REQ-API-2.1: ユーザー情報を返すAPI
     def get_user_by_id(user_id: int) -> dict | None:
@@ -86,9 +76,7 @@ Webアプリケーション開発から、CI/CDの補助スクリプトまで、
         # ...
         return None
     
-    # REQ-API-2.1 のテストコード例
     import pytest
-    
     @pytest.mark.requirement("REQ-API-2.1")
     def test_get_user_by_id_returns_correct_user():
         # ...
@@ -99,25 +87,19 @@ Webアプリケーション開発から、CI/CDの補助スクリプトまで、
 
 ## 5.言語機能の利用方針 (Language Feature Usage)
 
-Pythonのモダンな機能を適切に活用し、コードの簡潔性、可読性、安全性を高めることを目指します。
-
 *   **型ヒント (Type Hinting) の積極的利用:**
-    *   **全ての関数定義（引数と戻り値）**で、Python 3.9以降で導入された**型ヒント**を積極的に利用します。
-    *   これにより、コードの可読性が向上し、`mypy`や`Ruff`のような静的解析ツールによる型チェックが可能になり、コードの堅牢性が高まります。
-    *   `|` を使ったユニオン型や、`list[str]` のような組み込みジェネリック型の利用を推奨します。
+    *   **全ての関数定義（引数と戻り値）**で、Python 3.9以降のモダンな型ヒントを必須とします。`|` を使ったユニオン型や、`list[str]` のような組み込みジェネリック型の利用を推奨します。
+    *   **理由:** コードの可読性と堅牢性が向上し、`mypy`や`Ruff`による静的解析の恩恵を最大限に受けられます。
     ```python
     # 良い例
-    def greet(name: str) -> str:
-        return f"Hello, {name}"
-
     def process_data(data: list[str] | None) -> int:
         if data is None:
             return 0
         return len(data)
 
     # 悪い例 (型ヒントがない)
-    # def greet(name):
-    #    return "Hello, " + name
+    # def process_data(data):
+    #    ...
     ```
 
 *   **f-stringの利用:**
@@ -133,8 +115,7 @@ Pythonのモダンな機能を適切に活用し、コードの簡潔性、可�
     ```
 
 *   **`with`文によるリソース管理:**
-    *   ファイルやソケット、データベース接続など、後処理が必要なリソースを扱う場合は、必ず**`with`文**を使用します。
-    *   これにより、ブロックを抜ける際に自動的にリソースが解放され、`try...finally`ブロックを記述する手間を省き、コードを安全かつ簡潔に保ちます。
+    *   ファイルやDB接続など、後処理が必要なリソースを扱う場合は、必ず**`with`文**を使用し、リソースの確実な解放を保証します。
     ```python
     # 良い例
     with open("data.txt", "r", encoding="utf-8") as f:
@@ -143,17 +124,18 @@ Pythonのモダンな機能を適切に活用し、コードの簡潔性、可�
 
     # 悪い例
     # f = open("data.txt", "r", encoding="utf-8")
-    # content = f.read()
-    # f.close() # クローズし忘れる可能性がある
+    # try:
+    #     content = f.read()
+    # finally:
+    #     f.close() # finallyブロックが必要になり、冗長
     ```
 
 *   **データクラス (`dataclasses`):**
-    *   主にデータを保持することを目的とするクラスには、Python 3.7で導入された**`@dataclass`デコレータ**の利用を推奨します。
-    *   これにより、`__init__`、`__repr__`、`__eq__`などの特殊メソッドが自動で生成され、ボイラープレートコードを削減できます。
+    *   主にデータを保持することを目的とするクラスには、`@dataclass`デコレータの利用を推奨します。`__init__`、`__repr__`等の自動生成により、ボイラープレートコードを削減できます。**`frozen=True`でイミュータブルにすることを強く推奨します。**
     ```python
     from dataclasses import dataclass
 
-    @dataclass(frozen=True) # frozen=Trueでイミュータブルにできる
+    @dataclass(frozen=True)
     class User:
         id: int
         name: str
@@ -161,8 +143,7 @@ Pythonのモダンな機能を適切に活用し、コードの簡潔性、可�
     ```
 
 *   **構造的パターンマッチング (`match`文):**
-    *   Python 3.10以降で利用可能な場合、複雑な`if/elif/else`の連鎖を、より可読性の高い**`match`文**で置き換えることを検討します。
-    *   特に、辞書やオブジェクトの構造に基づいた分岐に適しています。
+    *   Python 3.10以降が利用可能な場合、複雑な`if/elif/else`の連鎖を、より可読性の高い**`match`文**で置き換えることを検討します。
     ```python
     def process_command(command: dict):
         match command:
@@ -178,8 +159,28 @@ Pythonのモダンな機能を適切に活用し、コードの簡潔性、可�
 
 ## 6.エラー処理と例外 (Error Handling and Exceptions)
 
-*   APIの境界では、不正な引数などに対して標準的な例外 (`ValueError`, `TypeError`等) をスローします。
-*   エラーハンドリングに関する詳細な戦略は、今後専用のドキュメント（例: `03_エラーハンドリング戦略.md`）で定義・拡充される予定です。
+*   エラーハンドリングは、`try...except`ブロックを用いて行います。
+*   `except:` のように裸のexceptで全ての例外を捕捉するのではなく、`except ValueError:` のように、**想定される具体的な例外を捕捉してください。**
+*   独自の例外を定義する場合は、Pythonの組み込み`Exception`クラスを継承し、例外クラスであることがわかるように`Error`接尾辞を付けることを推奨します (例: `UserNotFoundError`)。
+
+```python
+# 良い例
+try:
+    user = find_user(user_id)
+except UserNotFoundError as e:
+    # ユーザーが見つからない場合の処理
+    logger.warning(f"User not found: {e}")
+except DatabaseConnectionError:
+    # DB接続エラーの処理
+    logger.error("Database is not available.")
+
+# 悪い例：あらゆるエラーを握りつぶしてしまう
+# try:
+#     user = find_user(user_id)
+# except:
+#     # TypeErrorや他の予期せぬバグまで捕捉してしまい、問題の発見が遅れる
+#     pass
+```
 
 ---
 
@@ -281,19 +282,21 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
+---
+
 ## 8.パフォーマンスに関する考慮事項 (Performance Considerations)
 
 *   **文字列結合 (String Concatenation):**
     *   ループ内で多数の文字列を結合する場合は、`+`演算子やf-stringを繰り返し使用するのではなく、リストに一度追加してから**`"".join()`**メソッドを使用します。これは、文字列がイミュータブルであるため、`+`演算子では毎回新しい文字列オブジェクトが生成されるのを防ぐためです。
     ```python
     # 良い例
-    parts = ["a", "b", "c", "d"]
-    result = "".join(parts)
+    words = ["hello", "world", "this", "is", "a", "test"]
+    sentence = " ".join(words)
 
-    # 悪い例
-    # result = ""
-    # for part in parts:
-    #     result += part
+    # 悪い例：ループのたびに新しい文字列オブジェクトが生成され、非効率
+    # sentence = ""
+    # for word in words:
+    #     sentence += word + " "
     ```
 
 *   **データ構造の選択 (Data Structure Choice):**
@@ -315,18 +318,22 @@ if __name__ == "__main__":
     *   単純な`for`ループでリストを作成するよりも、**リスト内包表記**を使用する方が一般的に高速で、可読性も高くなります。
     *   非常に大きなデータセットを扱う場合は、一度に全ての要素をメモリに展開するリスト内包表記の代わりに、**ジェネレータ式** `(x for x in iterable)` を使用します。これにより、メモリ使用量を大幅に削減できます。
     ```python
-    # 良い例 (リスト内包表記)
+    # 良い例 (リスト内包表記): 簡潔で高速
     squares = [x * x for x in range(1000)]
 
-    # 良い例 (ジェネレータ式: メモリ効率が良い)
-    squares_generator = (x * x for x in range(1000))
+    # 良い例 (ジェネレータ式): メモリ効率が良い
+    # 非常に大きなデータセットを扱う場合に推奨
+    squares_generator = (x * x for x in range(1_000_000))
     for square in squares_generator:
-        # ...
+        # １要素ずつ処理するため、巨大なリストをメモリに保持しない
+        ...
     ```
 
 *   **適切な組み込み関数の利用 (Using Appropriate Built-in Functions):**
     *   Pythonの多くの組み込み関数（例: `sum()`, `map()`, `filter()`）はC言語で実装されており、非常に高速です。
     *   自前でループを実装する前に、同等の機能を持つ組み込み関数がないか検討してください。
+
+---
 
 ## 9. その他 (Miscellaneous)
 
