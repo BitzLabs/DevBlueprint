@@ -123,7 +123,9 @@ CSSは、その名の通り「カスケーディング（Cascading）」する�
 
   <button type="submit" class="form__button form__button--primary">Login</button>
 </form>
-``````css
+```
+
+```css
 /* Block */
 .form { /* ... */ }
 .form--login { /* ... */ }

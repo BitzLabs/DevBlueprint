@@ -107,7 +107,8 @@
 <!-- 悪い例: labelとinputが関連付けられていない -->
 <!-- <span>ユーザー名:</span> -->
 <!-- <input type="text" name="userName"> -->
-```---
+```
+---
 
 ## 6. その他 (Miscellaneous)
 
