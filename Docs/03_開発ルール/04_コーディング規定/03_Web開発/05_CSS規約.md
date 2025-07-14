@@ -150,10 +150,12 @@ CSSプリプロセッサとしてSCSS/Sassを利用する場合、[**7-1 Pattern
 ```
 sass/
 |– abstracts/      # 変数, 関数, mixinなど
+|– vendors/        # 外部ライブラリのスタイル (任意)
 |– base/           # HTML要素のデフォルトスタイル
-|– components/     # ボタン, カードなどの部品
 |– layout/         # ヘッダー, フッターなど
+|– components/     # ボタン, カードなどの部品
 |– pages/          # 特定のページ固有のスタイル
+|– themes/         # テーマごとのスタイル (任意)
 `– main.scss       # 全てのファイルをインポートするエントリーポイント
 ```
 
