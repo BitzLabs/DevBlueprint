@@ -9,6 +9,7 @@
 
 ---
 
+## 1. 基本方針 (Guiding Principles)
 *   本プロジェクトのC++コードは、Bjarne Stroustrupらが主導する[C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)の思想に準拠し、その根底にある安全性、保守性（可読性）、パフォーマンスの最適なバランスを追求します。
 *   可能な限り、**C++17以降**の標準に準拠し、その機能を活用することを推奨します。
 
@@ -56,7 +57,8 @@
 *   **通常のコメント (`//` または `/* ... */`)**:
     *   コードが「何をしているか」よりも「**なぜそうしているのか**」という設計意図や背景、複雑なアルゴリズムの要点を説明するために使用します。
 *   **要求IDとの連携**:
-    *   機能の実装には、対応する要求IDをコメントとして明記します。
+    *   **01.共通コーディング原則**で定められた通り、機能の実装には、対応する要求IDをコメントとして明記します。  
+
     ```cpp
     // REQ-AUTH-1.1: ユーザー名とパスワードで認証を行う
     bool authenticate_user(const std::string& username, const std::string& password)
@@ -153,7 +155,7 @@ void my_function()
 ## 7. 安全なコーディングプラクティス (Safe Coding Practices)
 
 ### 7.1. コンパイラ警告 (Compiler Warnings)
-*   コンパイラの警告レベルは、可能な限り高く設定します。（GCC/Clang: `-Wall -Wextra`）
+*   コンパイラの警告レベルは、可能な限り高く設定します。（GCC/Clang: `-Wall -Wextra`, MSVC: `/W4` または `/Wall`）
 *   **全ての警告はエラーとして扱い (`-Werror`)、修正することを原則とします。**
 
 ### 7.2. `const`の積極的な利用 (Use of const)
