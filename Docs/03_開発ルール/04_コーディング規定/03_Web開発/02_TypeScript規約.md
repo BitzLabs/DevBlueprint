@@ -37,6 +37,8 @@
 *   **`PascalCase`**: インターフェース名、型エイリアス名、enum名。（例: `interface User`, `type UserId`）
 *   **インターフェース名のプレフィックス `I` は不要:**
     *   `IUser`のようなプレフィックスは付けず、`User`のように命名することを推奨します。これは、現代のTypeScriptコミュニティの主流のスタイルです。
+*   **ファイル名**:  
+    *   React/Vueコンポーネントファイルは **`PascalCase.tsx` / `PascalCase.vue`** を推奨します。  
 
 ---
 
