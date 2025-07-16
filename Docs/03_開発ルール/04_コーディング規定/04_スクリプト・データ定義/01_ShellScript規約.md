@@ -8,14 +8,14 @@
 
 ---
 
-## 1. 基本方針: Google Shell Style Guide準拠
+## 1. 基本方針(Guiding Principles): Google Shell Style Guide準拠
 
 *   本プロジェクトのシェルスクリプトは、世界的に広く参照されている**[Google Shell Style Guide](https://google.github.io/styleguide/shellguide.html)**に準拠することを基本とします。
 *   このガイドは、堅牢で保守性の高いシェルスクリプトを書くための、優れたベストプラクティス集です。
 
 ---
 
-## 2. 必須の安全設定と作法
+## 2. 必須の安全設定と作法 (Essential Safety Settings and Best Practices)
 
 ### 2.1. Shebang (シバン)
 *   全てのスクリプトファイルの先頭には、どのシェルで実行すべきかを明記する**Shebang**を必ず記述します。
