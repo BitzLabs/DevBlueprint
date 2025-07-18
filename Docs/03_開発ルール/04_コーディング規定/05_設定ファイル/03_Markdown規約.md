@@ -45,7 +45,7 @@ MkDocs) の拡張機能についても解説します。
         "tables": false
       },
       "MD033": {
-        "allowed_elements": ["details", "summary", "br", "kbd", "div", "img", "a"]
+        "allowed_elements": ["details", "summary", "br", "kbd", "mark", "abbr", "sub", "sup", "div", "span", "img", "a"]
       }
     }
     ```

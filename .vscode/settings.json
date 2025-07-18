@@ -1,6 +1,6 @@
 {
   "yaml.schemas": {
-    "https://json.schemastore.org/github-workflow.json": "file:///YOUR_WORKSPACE/.github/workflows/*"
+    "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.yml"
   },
   // エディタ全般設定
   "editor.formatOnSave": true,
@@ -13,7 +13,6 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.wordWrap": "bounded", // ルーラー(文字数制限)に合わせて折り返す
-    "editor.rulers": [120],
     "editor.codeActionsOnSave": {
       // 保存時にmarkdownlintの自動修正を有効化
       "source.fixAll.markdownlint": "always"
