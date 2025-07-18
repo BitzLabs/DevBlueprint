@@ -15,7 +15,7 @@
 
 ---
 
-## 2. ツールによる規約の強制 (Tool-Enforced Regulations)
+## 2. レイアウトと書式設定 (Layout and Formatting)
 
 手作業でのスタイル遵守は非効率なため、ツールによって規約の遵守を強制します。
 

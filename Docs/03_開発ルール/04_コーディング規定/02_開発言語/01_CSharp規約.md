@@ -13,44 +13,31 @@
     *   **公式ガイド:** [C# のコーディング規則 - Microsoft Docs](https://learn.microsoft.com/ja-jp/dotnet/csharp/fundamentals/coding-style/coding-conventions)
     *   **命名ガイドライン:** [名前付けのガイドライン - Microsoft Docs](https://learn.microsoft.com/ja-jp/dotnet/standard/design-guidelines/naming-guidelines)
 
-## 2. 命名規則 (Naming Conventions)
+## 2. レイアウトと書式設定 (Layout and Formatting)
 
-*   **PascalCase**: クラス名、レコード名、メソッド名、プロパティ名、イベント名、enum型名、enumメンバー名、定数 (`const`)、読み取り専用静的フィールド (`static readonly`)。
-*   **camelCase**: メソッドの引数名、ローカル変数名。
-*   **インターフェース名**: 接頭辞 `I` を付け、PascalCase。例: `IBufferProvider`。
-*   **プライベートインスタンスフィールド**: 接頭辞 `_` を付け、camelCase。例: `_internalBuffer`。
-*   **非公開の静的フィールド**: `s_` プレフィックス (camelCase) または `t_` プレフィックス (スレッド静的な場合、camelCase)。
-
-## 3. レイアウトと書式設定 (Layout and Formatting)
-
-### 3.1. ツールによる自動適用
-
-*   手作業でのスタイル遵守は非効率であり、レビューのノイズとなるため、本プロジェクトではツールによる規約の遵守を強制します。
-*   各ツールの設定は、リポジトリのルートに配置された **[.editorconfig](/.editorconfig)** ファイルで一元管理します。
+手作業でのスタイル遵守は非効率であり、レビューのノイズとなるため、本プロジェクトではツールによる規約の遵守を強制します。
+各ツールの設定は、リポジトリのルートに配置された **[.editorconfig](/.editorconfig)** ファイルで一元管理します。
 
 *   **フォーマッター: `dotnet format`**
     *   **役割:** .NET公式のフォーマッター。コードの見た目（インデント、スペース、改行など）を、議論の余地なく統一します。
+
 *   **リンター: Roslyn Analyzers**
     *   **役割:** .NETコンパイラプラットフォーム（Roslyn）に統合された静的コード解析機能です。フォーマッターが「見た目」を整えるのに対し、リンターは**「コードの品質」**をチェックします。
     *   **検出内容の例:**
         *   潜在的なバグ（例: `Dispose`されるべきオブジェクトがされていない）
         *   パフォーマンスの問題（例: LINQの非効率な使い方）
         *   C#のベストプラクティスに反するコード（例: `async void`の不適切な使用）
-*   GitHub Actionsのワークフローに`dotnet format --verify-no-changes`を組み込むことで、フォーマットが規約に違反しているコードのマージを自動的にブロックします。ビルド時にアナライザーの警告をエラーとして扱う設定を**必須**とします。
 
-### 3.2. 主要な書式ルール
+!!! success "CI/CDによる自動チェック"
+   GitHub Actionsのワークフローに`dotnet format --verify-no-changes`を組み込むことで、フォーマットが規約に違反しているコードのマージを自動的にブロックします。ビルド時にアナライザーの警告をエラーとして扱う設定を**必須**とします。
 
-以下に示す主要な書式ルールは、`.editorconfig` の設定に基づき、`dotnet format` や Roslyn Analyzer によって自動的に適用・チェックされます。
+## 3. 命名規則 (Naming Conventions)
 
-*   **インデント**: 半角スペース4つ。タブは使用せず、エディタの設定でスペースに自動変換することを推奨します。
-*   **波括弧 `{}`**:
-    *   型定義、名前空間、メソッド、制御構文など、全てのブロックで波括弧は次の行に配置します (Allmanスタイル)。
-    *   1行のステートメントでも、常に波括弧を使用します。
-*   **`using`ディレクティブの順序**:
-    *   `using`ディレクティブは、ファイルの先頭にまとめて配置します。
-    *   `System`名前空間を常に先頭に配置し、その後はアルファベット順にソートすることを推奨します。
-    *   この順序は、Visual Studioの機能や`dotnet format`によって自動的に整理できます。
-*   **`this.` の使用**: 原則として、曖昧さがない限り `this.` は省略します。
+*   **PascalCase**: クラス名、レコード名、メソッド名、プロパティ名、イベント名、enum型名、enumメンバー名、定数 (`const`)、読み取り専用静的フィールド (`static readonly`)。
+*   **camelCase**: メソッドの引数名、ローカル変数名。
+*   **インターフェース名**: 接頭辞 `I` を付け、PascalCase。例: `IBufferProvider`。
+*   **プライベートインスタンスフィールド**: 接頭辞 `_` を付け、camelCase。例: `_internalBuffer`。
+*   **非公開の静的フィールド**: `s_` プレフィックス (camelCase) または `t_` プレフィックス (スレッド静的な場合、camelCase)。
 
 ## 4. コメント (Comments)
 

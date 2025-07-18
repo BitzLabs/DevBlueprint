@@ -16,7 +16,7 @@
 
 ---
 
-## 2. ツールによる規約の強制 (Tool-Enforced Regulations)
+## 2. レイアウトと書式設定 (Layout and Formatting)
 
 **[01.JavaScript規約](./01_JavaScript規約.md)**/**[02.TypeScript規約](./02_TypeScript規約.md)**で定義された`ESLint`および`Prettier`の利用を基本とします。
 
