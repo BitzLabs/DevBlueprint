@@ -1,0 +1,23 @@
+# C/C++ フォーマット設定
+# 基本設定
+BasedOnStyle: Google
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+
+# C++ 特有の設定
+Standard: c++17
+NamespaceIndentation: None
+AccessModifierOffset: -2
+
+# 改行とスペース
+BreakBeforeBraces: Attach
+SpaceAfterCStyleCast: false
+SpaceBeforeParens: ControlStatements
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
+
+# インクルード整理
+SortIncludes: true
+IncludeBlocks: Regroup
