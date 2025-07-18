@@ -27,6 +27,10 @@
     *   **役割:** W3Cの[Markup Validation Service](https://validator.w3.org/)などで、最終的なHTMLが文法的に正しいことを確認することを推奨します。
     *   開発中は、`htmlhint`や、フレームワークに統合されたリンターを利用して、潜在的な問題を検出します。
 
+!!! success "CI/CDによる自動チェック"
+    - GitHub Actionsのワークフローに`prettier --check .`および`htmlhint **/*.html`を組み込むことで、フォーマットとHTMLマークアップが規約に違反しているコードのマージを自動的にブロックします。
+    - VSCode拡張機能を導入し、ファイル保存時に自動でフォーマットが適用されるよう設定することを**必須**とします。
+
 ---
 
 ## 3. ドキュメント構造 (Document Structure)

@@ -29,7 +29,8 @@
         *   C#のベストプラクティスに反するコード（例: `async void`の不適切な使用）
 
 !!! success "CI/CDによる自動チェック"
-   GitHub Actionsのワークフローに`dotnet format --verify-no-changes`を組み込むことで、フォーマットが規約に違反しているコードのマージを自動的にブロックします。ビルド時にアナライザーの警告をエラーとして扱う設定を**必須**とします。
+   - GitHub Actionsのワークフローに`dotnet format --verify-no-changes`を組み込むことで、フォーマットが規約に違反しているコードのマージを自動的にブロックします。
+   - ビルド時にアナライザーの警告をエラーとして扱う設定を**必須**とします。
 
 ## 3. 命名規則 (Naming Conventions)
 
