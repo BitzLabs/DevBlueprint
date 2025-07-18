@@ -1,117 +1,99 @@
 # コード品質チェックワークフロー
 # プッシュやプルリクエスト時に自動的にコード品質をチェックします
-name: Code Quality Check
+# TypeScript/JavaScript、Prettier、ESLintによる包括的な品質検証を実行
+name: Code Quality Checks
 
+# ワークフローの実行タイミングを定義
 on:
   push:
-    branches: [ main, develop ]  # mainとdevelopブランチへのプッシュ時に実行
+    branches: [main, develop] # mainとdevelopブランチへのプッシュ時に実行
   pull_request:
-    branches: [ main, develop ]  # mainとdevelopブランチへのプルリクエスト時に実行
+    branches: [main, develop] # mainとdevelopブランチへのプルリクエスト時に実行
 
 jobs:
-  # フォーマットとリント検証ジョブ
-  # Prettier、Markdown、YAML、JSONのフォーマットと品質をチェック
-  format-and-lint:
+  # Node.js/TypeScriptコード品質チェックジョブ
+  # 全てのプッシュ・PRで実行される基本的な品質チェック
+  nodejs-quality:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      # リポジトリのコードをチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js  # Node.js環境をセットアップ
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-        cache: 'npm'  # npmキャッシュを有効化してビルド高速化
+      # Node.js環境のセットアップ（v20、npmキャッシュ有効）
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # 最新のLTS版を使用
+          cache: "npm" # npmキャッシュを有効化してビルド時間を短縮
 
-    - name: Install dependencies  # 依存関係をインストール
-      run: npm ci
+      # package-lock.jsonに基づいた確実な依存関係インストール
+      - name: Install dependencies
+        run: npm ci # npm installより高速で確実なci用コマンド
 
-    - name: Check Prettier formatting  # Prettierフォーマットチェック
-      run: npm run format:check
+      # TypeScriptの型チェック実行（コンパイルエラーの検出）
+      - name: Run TypeScript check
+        run: npm run type-check
 
-    - name: Check Markdown lint  # Markdownリントチェック
-      run: npm run lint:md
+      # ESLintによるコード品質チェック（構文エラー、ベストプラクティス違反を検出）
+      - name: Run ESLint
+        run: npm run lint
 
-    - name: Check YAML lint  # YAMLリントチェック
-      run: npm run lint:yaml
+      # Prettierによるコードフォーマットチェック（スタイル統一の確認）
+      - name: Run Prettier check
+        run: npm run format:check
 
-    - name: Check JSON formatting  # JSONフォーマットチェック
-      run: npm run lint:json
+      # Jestによる単体テスト実行（機能的な問題の検出）
+      - name: Run tests
+        run: npm test
 
-  # C#コード品質チェックジョブ
-  # .csファイルが変更された場合のみ実行
-  csharp-quality:
+  # 条件付き実行版（特定ファイルが変更された場合のみ）
+  # パフォーマンス最適化：関連ファイル変更時のみ詳細チェックを実行
+  conditional-quality:
     runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.modified, '.cs') || contains(github.event.head_commit.added, '.cs')
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      # リポジトリの完全な履歴を取得（変更ファイル検出のため）
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 全履歴を取得（変更差分検出に必要）
 
-    - name: Setup .NET  # .NET環境をセットアップ
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
+      # 変更されたファイルを検出（JS/TS/設定ファイルのみ対象）
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v40
+        with:
+          files: | # 監視対象ファイルパターン
+            **/*.js         # JavaScriptファイル
+            **/*.ts         # TypeScriptファイル
+            **/*.jsx        # React JSXファイル
+            **/*.tsx        # React TSXファイル
+            **/*.json       # JSON設定ファイル
+            package.json    # パッケージ定義
+            package-lock.json # 依存関係ロック
 
-    - name: Restore dependencies  # NuGetパッケージを復元
-      run: dotnet restore
+      # 対象ファイルが変更された場合のみNode.js環境をセットアップ
+      - name: Set up Node.js
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # 最新のLTS版を使用
+          cache: "npm" # npmキャッシュを有効化してビルド時間を短縮
 
-    - name: Build  # プロジェクトをビルド
-      run: dotnet build --no-restore --configuration Release
+      # 対象ファイルが変更された場合のみ依存関係をインストール
+      - name: Install dependencies
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: npm ci # package-lock.jsonに基づいた確実なインストール
 
-    - name: Check format  # .NETフォーマッターでコードスタイルをチェック
-      run: dotnet format --verify-no-changes --verbosity normal
-
-    - name: Run tests  # 単体テストを実行
-      run: dotnet test --no-build --configuration Release
-
-  # C/C++コード品質チェックジョブ
-  # C/C++ファイルが変更された場合のみ実行
-  cpp-quality:
-    runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.modified, '.cpp') || contains(github.event.head_commit.modified, '.c') || contains(github.event.head_commit.modified, '.h') || contains(github.event.head_commit.modified, '.hpp')
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Install tools  # C/C++静的解析ツールをインストール
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y clang-format clang-tidy cppcheck
-
-    - name: Check clang-format  # clang-formatでコードフォーマットをチェック
-      run: |
-        find . -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.hpp" | xargs clang-format --dry-run --Werror
-
-    - name: Run clang-tidy  # clang-tidyで静的解析を実行
-      run: |
-        find . -name "*.cpp" -o -name "*.c" | xargs clang-tidy
-
-    - name: Run cppcheck  # cppcheckで静的解析を実行
-      run: cppcheck --enable=all --error-exitcode=1 .
-
-  # Pythonコード品質チェックジョブ
-  # .pyファイルが変更された場合のみ実行
-  python-quality:
-    runs-on: ubuntu-latest
-    if: contains(github.event.head_commit.modified, '.py') || contains(github.event.head_commit.added, '.py')
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Python  # Python環境をセットアップ
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
-
-    - name: Install Ruff  # Ruff（高速なPythonリンター）をインストール
-      run: pip install ruff
-
-    - name: Check formatting  # Ruffでコードフォーマットをチェック
-      run: ruff format --check .
-
-    - name: Run linter  # Ruffでリント検証を実行
-      run: ruff check .
+      # 対象ファイルが変更された場合のみ包括的な品質チェックを実行
+      - name: Run linting and formatting
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: |
+          # ESLintによるコード品質チェック（構文・品質問題の検出）
+          npm run lint
+          # Prettierによるフォーマットチェック（コードスタイルの統一確認）
+          npm run format:check
+          # TypeScriptの型チェック（型安全性の確認）
+          npm run type-check

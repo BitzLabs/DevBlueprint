@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+
+# Node.jsプロジェクト用 pre-commit フック
+# 主要な品質チェックをコミット前に自動実行します
+
+# コードフォーマットチェック（Prettier）
+npm run format:check
+# コードリント（ESLint, Stylelint, markdownlint, yaml-lint）
+npm run lint
+# TypeScript型チェック
+npm run type-check
+# 必要に応じてテストも追加可能
+# npm test

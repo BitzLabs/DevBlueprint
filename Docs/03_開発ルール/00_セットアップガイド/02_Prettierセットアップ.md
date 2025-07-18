@@ -91,16 +91,39 @@ git commit -m "feat: apply prettier formatting"
 
 ## 設定のカスタマイズ
 
-`.prettierrc.json`を編集することで、フォーマット設定を変更できます：
+`.prettierrc.json`を編集することで、フォーマット設定を変更できます。
+
+!!! info "Markdownファイルにおける日本語の折り返しについて"
+Prettierは日本語の文章の自動折り返しが完全ではありません。そのため、本プロジェクトではMarkdownファイル(`*.md`)に対して`proseWrap: "preserve"`設定を推奨しています。これにより、Prettierはコード部分のフォーマットのみを行い、文章の改行は手動での整形を維持します。長い文章は、読みやすいように手動で改行してください。
 
 ```json
 {
-  "semi": true,
-  "trailingComma": "es5",
-  "singleQuote": false,
-  "printWidth": 80,
+  "printWidth": 120,
   "tabWidth": 2,
-  "useTabs": false
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "quoteProps": "as-needed",
+  "jsxSingleQuote": true,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "avoid",
+  "proseWrap": "preserve",
+  "overrides": [
+    {
+      "files": ["*.yml", "*.yaml"],
+      "options": {
+        "singleQuote": false
+      }
+    },
+    {
+      "files": "*.html",
+      "options": {
+        "htmlWhitespaceSensitivity": "ignore"
+      }
+    }
+  ]
 }
 ```
 

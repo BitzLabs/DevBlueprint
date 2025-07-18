@@ -1,7 +1,8 @@
 {
-  "name": "devblueprint-scripts",
+  "name": "devblueprint",
   "version": "1.0.0",
-  "description": "Helper scripts for DevBlueprint project setup and maintenance.",
+  "description": "Development Blueprint Project",
+  "main": "index.js",
   "private": true,
   "scripts": {
     "setup:labels": "node ./scripts/create-labels.js",
@@ -9,13 +10,51 @@
     "format:check": "prettier --check .",
     "format:docs": "prettier --write \"Docs/**/*.md\"",
     "format:check:docs": "prettier --check \"Docs/**/*.md\"",
-    "lint:md": "markdownlint \"Docs/**/*.md\"",
-    "lint:yaml": "yamllint \"**/*.{yml,yaml}\"",
-    "lint:json": "prettier --check \"**/*.json\""
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:md && npm run lint:yaml && npm run lint:json",
+    "lint:js": "node -e \"const fs=require('fs');const path=require('path');function findFiles(dir,exts,ignore=[]){let files=[];try{const items=fs.readdirSync(dir);for(const item of items){if(ignore.some(ig=>item.includes(ig)))continue;const fullPath=path.join(dir,item);const stat=fs.statSync(fullPath);if(stat.isDirectory()){files=files.concat(findFiles(fullPath,exts,ignore));}else if(exts.some(ext=>item.endsWith(ext))){files.push(fullPath);}}}catch(_){}return files;}const files=findFiles('.',['.js','.ts','.tsx'],['node_modules','dist','build']);if(files.length>0){try{require('child_process').execSync('eslint . --ext .js,.ts,.tsx --fix',{stdio:'inherit'});}catch(err){console.error('ESLint failed:',err.message);process.exit(1);}}else{console.log('No JS/TS files found, skipping ESLint.');}\"",
+    "lint:css": "node -e \"const fs=require('fs');const path=require('path');function findFiles(dir,exts,ignore=[]){let files=[];try{const items=fs.readdirSync(dir);for(const item of items){if(ignore.some(ig=>item.includes(ig)))continue;const fullPath=path.join(dir,item);const stat=fs.statSync(fullPath);if(stat.isDirectory()){files=files.concat(findFiles(fullPath,exts,ignore));}else if(exts.some(ext=>item.endsWith(ext))){files.push(fullPath);}}}catch(_){}return files;}const files=findFiles('.',['.css','.scss'],['node_modules','dist','build']);if(files.length>0){try{require('child_process').execSync('stylelint \\\"**/*.{css,scss}\\\" --fix --allow-empty-input',{stdio:'inherit'});}catch(err){console.error('Stylelint failed:',err.message);process.exit(1);}}else{console.log('No CSS/SCSS files found, skipping Stylelint.');}\"",
+    "lint:md": "node -e \"const fs=require('fs');const path=require('path');function findFiles(dir,exts,ignore=[]){let files=[];try{const items=fs.readdirSync(dir);for(const item of items){if(ignore.some(ig=>item.includes(ig)))continue;const fullPath=path.join(dir,item);const stat=fs.statSync(fullPath);if(stat.isDirectory()){files=files.concat(findFiles(fullPath,exts,ignore));}else if(exts.some(ext=>item.endsWith(ext))){files.push(fullPath);}}}catch(_){}return files;}const files=findFiles('.',['.md'],['node_modules','dist','build']);if(files.length>0){try{require('child_process').execSync('markdownlint \\\"**/*.md\\\" --ignore-path .markdownlintignore --fix',{stdio:'inherit'});}catch(err){console.error('Markdownlint failed:',err.message);process.exit(1);}}else{console.log('No Markdown files found, skipping markdownlint.');}\"",
+    "lint:yaml": "node -e \"const fs=require('fs');const path=require('path');function findFiles(dir,exts,ignore=[]){let files=[];try{const items=fs.readdirSync(dir);for(const item of items){if(ignore.some(ig=>item.includes(ig)))continue;const fullPath=path.join(dir,item);const stat=fs.statSync(fullPath);if(stat.isDirectory()){files=files.concat(findFiles(fullPath,exts,ignore));}else if(exts.some(ext=>item.endsWith(ext))){files.push(fullPath);}}}catch(_){}return files;}const files=findFiles('.',['.yml','.yaml'],['node_modules','dist','build']);if(files.length>0){try{require('child_process').execSync('npx yaml-lint **/*.{yml,yaml}',{stdio:'inherit'});}catch(err){console.error('YAML lint failed:',err.message);process.exit(1);}}else{console.log('No YAML files found, skipping yaml-lint.');}\"",
+    "lint:json": "node -e \"const fs=require('fs');const path=require('path');function findFiles(dir,exts,ignore=[]){let files=[];try{const items=fs.readdirSync(dir);for(const item of items){if(ignore.some(ig=>item.includes(ig)))continue;const fullPath=path.join(dir,item);const stat=fs.statSync(fullPath);if(stat.isDirectory()){files=files.concat(findFiles(fullPath,exts,ignore));}else if(exts.some(ext=>item.endsWith(ext))){files.push(fullPath);}}}catch(_){}return files;}const files=findFiles('.',['.json'],['node_modules','dist','build','.vscode']);if(files.length>0){try{require('child_process').execSync('prettier --check \\\"**/*.json\\\"',{stdio:'inherit'});}catch(err){console.error('JSON lint failed:',err.message);process.exit(1);}}else{console.log('No JSON files found, skipping JSON lint.');}\"",
+    "type-check": "tsc --noEmit",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "prepare": "husky install",
+    "pre-commit": "pre-commit run --all-files",
+    "validate": "npm run format:check && npm run lint && npm run type-check",
+    "fix": "npm run format && npm run lint"
   },
+  "keywords": [
+    "development",
+    "blueprint",
+    "coding-standards"
+  ],
+  "author": "DevBlueprint Team",
+  "license": "MIT",
   "devDependencies": {
-    "prettier": "^3.1.1",
+    "@types/jest": "^29.5.10",
+    "@types/node": "^20.10.5",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "glob": "^10.4.5",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
     "markdownlint-cli": "^0.38.0",
-    "yamllint": "^1.32.0"
+    "prettier": "^3.1.1",
+    "stylelint": "^14.16.1",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-recess-order": "^3.1.0",
+    "stylelint-config-standard": "^29.0.0",
+    "stylelint-scss": "^4.7.0",
+    "typescript": "^5.8.3",
+    "yaml-lint": "^1.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }

@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Conventional Commits のチェック
+npx commitizen --hook || true
+
+# コミットメッセージの基本チェック
+if ! grep -qE "^(feat|fix|docs|style|refactor|perf|test|build|ci|chore)(\(.+\))?: .{1,50}" "$1"; then
+    echo "❌ コミットメッセージが Conventional Commits 形式に従っていません"
+    echo "📋 正しい形式: type(scope): subject"
+    echo "📋 例: feat(auth): ユーザーログイン機能を追加"
+    exit 1
+fi
+
+echo "✅ コミットメッセージが適切です"

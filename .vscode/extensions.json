@@ -1,16 +1,27 @@
 {
-    "recommendations": [
-        "esbenp.prettier-vscode",
-        "davidanson.vscode-markdownlint",
-        "redhat.vscode-yaml",
-        "ms-vscode.vscode-json",
-        "bradlc.vscode-tailwindcss",
-        "ms-dotnettools.csharp",
-        "ms-python.python",
-        "ms-vscode.cpptools",
-        "formulahendry.code-runner",
-        "github.vscode-github-actions",
-        "yzhang.markdown-all-in-one",
-        "bierner.markdown-mermaid"
-    ]
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "davidanson.vscode-markdownlint",
+    "redhat.vscode-yaml",
+    "ms-vscode.vscode-json",
+    "bradlc.vscode-tailwindcss",
+    "ms-dotnettools.csharp",
+    "ms-python.python",
+    "ms-vscode.cpptools",
+    "formulahendry.code-runner",
+    "github.vscode-github-actions",
+    "yzhang.markdown-all-in-one",
+    "bierner.markdown-mermaid",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "ms-vscode.vscode-typescript-next",
+    "bradlc.vscode-tailwindcss",
+    "charliermarsh.ruff",
+    "ms-python.black-formatter",
+    "ms-python.mypy-type-checker",
+    "eamodio.gitlens",
+    "github.copilot",
+    "github.copilot-chat"
+  ]
 }
