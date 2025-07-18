@@ -1,0 +1,16 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "davidanson.vscode-markdownlint",
+        "redhat.vscode-yaml",
+        "ms-vscode.vscode-json",
+        "bradlc.vscode-tailwindcss",
+        "ms-dotnettools.csharp",
+        "ms-python.python",
+        "ms-vscode.cpptools",
+        "formulahendry.code-runner",
+        "github.vscode-github-actions",
+        "yzhang.markdown-all-in-one",
+        "bierner.markdown-mermaid"
+    ]
+}

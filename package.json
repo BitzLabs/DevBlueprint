@@ -4,6 +4,18 @@
   "description": "Helper scripts for DevBlueprint project setup and maintenance.",
   "private": true,
   "scripts": {
-    "setup:labels": "node ./scripts/create-labels.js"
+    "setup:labels": "node ./scripts/create-labels.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "format:docs": "prettier --write \"Docs/**/*.md\"",
+    "format:check:docs": "prettier --check \"Docs/**/*.md\"",
+    "lint:md": "markdownlint \"Docs/**/*.md\"",
+    "lint:yaml": "yamllint \"**/*.{yml,yaml}\"",
+    "lint:json": "prettier --check \"**/*.json\""
+  },
+  "devDependencies": {
+    "prettier": "^3.1.1",
+    "markdownlint-cli": "^0.38.0",
+    "yamllint": "^1.32.0"
   }
 }
