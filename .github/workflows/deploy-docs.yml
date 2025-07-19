@@ -45,16 +45,11 @@ jobs:
 
       # ステップ3: 必要なライブラリ（MkDocsとMaterialテーマ）をインストール
       - name: Install dependencies
-        run: pip install mkdocs-material mkdocs-exclude
+        run: pip install mkdocs-material mkdocs-exclude mkdocs-awesome-pages-plugin
 
       # ステップ4: GitHub Pagesの設定を完全自動化
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-        with:
-          # リポジトリでPagesが無効でも自動で有効化する
-          enable-pages: true
-          # デプロイソースを「GitHub Actions」に設定する (手動設定が不要になる)
-          build_type: workflow
 
       # ステップ5: 不要ファイルの削除
       - name: Clean up unnecessary files
@@ -109,7 +104,7 @@ jobs:
     # mainブランチへのプッシュで、かつリポジトリがPublicの場合
     # または、リポジトリがパブリック化された場合
     if: >-
-      ( 
+      (
         github.event_name == 'push' &&
         github.ref == 'refs/heads/main' &&
         !github.repository.private
