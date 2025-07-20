@@ -8,8 +8,8 @@ commit_msg=$(cat "$1")
 # 形式: type(scope): subject
 # type: feat, fix, docs, style, refactor, perf, test, build, ci, chore
 # scope: オプション
-# subject: 必須（1-50文字）
-pattern="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore)(\(.+\))?: .{1,50}$"
+# subject: 必須（1-100文字）
+pattern="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore)(\(.+\))?: .{1,100}$"
 
 if ! echo "$commit_msg" | head -n 1 | grep -qE "$pattern"; then
     echo "❌ コミットメッセージが Conventional Commits 形式に従っていません"
