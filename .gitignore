@@ -117,25 +117,17 @@ env.bak/
 venv.bak/
 
 # テストレポート
-.pytest_cache/
 .coverage
 htmlcov/
 .tox/
 .nox/
-.cache
 nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
-.mypy_cache/
-.ruff_cache/
 
 # 開発ツール（リンティング等）
 *.tsbuildinfo
-.eslintcache
-.stylelintcache
-.prettiercache
-jest_cache/
 
 # ==========================================
 # OS・システム生成ファイル
@@ -166,6 +158,17 @@ $RECYCLE.BIN/
 *.temp
 *.swp
 *.swo
+
+# キャッシュファイル
+__pycache__/
+.cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.eslintcache
+.stylelintcache
+.prettiercache
+jest_cache/
 
 # バックアップファイル
 *.bak
