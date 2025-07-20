@@ -3,6 +3,7 @@
  * YAML リンティングスクリプト
  */
 import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
 
 import { hasFiles } from './utils/file-finder.js';
 
@@ -31,7 +32,7 @@ function lintYAML() {
 }
 
 // 直接呼び出された場合に実行
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (fileURLToPath(import.meta.url) === process.argv[1]) {
   lintYAML();
 }
 

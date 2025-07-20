@@ -54,7 +54,7 @@ Src/
 
 ### 例2: Webフロントエンド (Node.js/TypeScript)
 
-```
+```text
 Src/
 ├── app/                  # React, Vue, Svelteなどのメインコード
 │   ├── components/
@@ -73,7 +73,7 @@ Src/
 
 ### 例3: ライブラリ開発
 
-```
+```text
 Src/
 ├── BitzLabs.MyLibrary/       # ライブラリ本体のプロジェクト
 │   ├── BitzLabs.MyLibrary.csproj

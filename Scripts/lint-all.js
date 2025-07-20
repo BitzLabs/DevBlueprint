@@ -2,6 +2,8 @@
 /**
  * 全リンターを実行するメインスクリプト
  */
+import { fileURLToPath } from 'url';
+
 import lintCSS from './lint-css.js';
 import lintJS from './lint-js.js';
 import lintJSON from './lint-json.js';
@@ -40,7 +42,7 @@ async function runAllLints() {
 }
 
 // 直接呼び出された場合に実行
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (fileURLToPath(import.meta.url) === process.argv[1]) {
   runAllLints().catch(error => {
     console.error('❌ リンティング中に予期しないエラーが発生しました:', error);
     process.exit(1);

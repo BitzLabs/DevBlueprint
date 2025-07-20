@@ -3,6 +3,7 @@
  * Markdown リンティングスクリプト
  */
 import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
 
 import { hasFiles } from './utils/file-finder.js';
 
@@ -19,19 +20,19 @@ function lintMarkdown() {
 
   console.log('🧹 markdownlint を自動修正付きで実行中...');
   try {
-    execSync('markdownlint "**/*.md" --ignore-path .markdownlintignore --fix', {
+    execSync('npx markdownlint "**/*.md" --ignore-path .markdownlintignore --fix', {
       stdio: 'inherit',
       cwd: process.cwd(),
     });
     console.log('✅ markdownlint が正常に完了しました。');
   } catch (err) {
     console.error('❌ markdownlint が失敗しました:', err.message);
-    process.exit(1);
+    throw err; // エラーを上位に投げる
   }
 }
 
 // 直接呼び出された場合に実行
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (fileURLToPath(import.meta.url) === process.argv[1]) {
   lintMarkdown();
 }
 

@@ -4,7 +4,7 @@
 
 ## ファイル構成
 
-```
+```text
 Scripts/
 ├── README.md                 # このファイル
 ├── .eslintrc.js             # Scripts用ESLint設定

@@ -36,7 +36,7 @@
 テスト対象のプロジェクト（`Api`, `Application`,
 `Domain`）それぞれに対応するテストプロジェクトを作成します。
 
-```
+```text
 Tests/
 ├── MyApi.Api.Tests/
 │   ├── Controllers/
@@ -56,7 +56,7 @@ Tests/
 `__tests__`フォルダや`.test.ts` /
 `.spec.ts`といった命名規則で、テスト対象のファイルの隣にテストファイルを置く構成も一般的ですが、テストを分離する場合は以下のような構成になります。
 
-```
+```text
 Tests/
 ├── components/
 │   └── Button.test.ts
@@ -69,7 +69,7 @@ Tests/
 
 ライブラリ本体のテストに加え、異なる種類のテスト（単体、結合、パフォーマンス）をフォルダで分ける構成も有効です。
 
-```
+```text
 Tests/
 ├── BitzLabs.MyLibrary.UnitTests/     # 単体テストプロジェクト
 │   └── ...
