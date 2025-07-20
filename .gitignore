@@ -44,7 +44,6 @@ TestResult/
 *.psess
 *.vsp
 *.vspx
-*.log
 
 # NuGet
 *.nupkg
@@ -139,6 +138,8 @@ coverage.xml
 *.cover
 *.py,cover
 .hypothesis/
+.mypy_cache/
+.ruff_cache/
 
 # ==========================================
 # Development Tools
@@ -169,7 +170,6 @@ coverage.xml
 
 # IDE and Editor files
 .vscode/settings.json.bak
-.vscode/launch.json
 .vscode/tasks.json.bak
 *.sublime-project
 *.sublime-workspace
@@ -186,10 +186,6 @@ ehthumbs_vista.db
 # Logs
 logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
 
 # Runtime data
 pids
@@ -244,7 +240,6 @@ temp/
 *.p12
 
 # JetBrains IDEs
-.idea/
 *.iml
 *.ipr
 *.iws
