@@ -155,6 +155,14 @@ export default [
     },
   },
 
+  // Scriptsファイル専用ルール（CLIツール用）
+  {
+    files: ['Scripts/**/*.js'],
+    rules: {
+      'no-console': 'off', // CLIツールではconsole出力が必要
+    },
+  },
+
   // 無視パターン
   {
     ignores: [
