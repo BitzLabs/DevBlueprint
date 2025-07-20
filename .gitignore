@@ -53,9 +53,6 @@ TestResult/
 secrets.json
 appsettings.Development.json
 
-# IDE-specific
-.idea/
-
 # ==========================================
 # OS and Editor Generated Files
 # ==========================================
@@ -136,7 +133,6 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
-*.py,cover
 .hypothesis/
 .mypy_cache/
 .ruff_cache/
@@ -229,7 +225,6 @@ temp/
 *.7z
 
 # Database files
-*.db
 *.sqlite
 *.sqlite3
 
@@ -245,6 +240,6 @@ temp/
 *.iws
 
 # Local configuration overrides
-*local.json
-*local.yml
-*local.yaml
+*.local.json
+*.local.yml
+*.local.yaml
