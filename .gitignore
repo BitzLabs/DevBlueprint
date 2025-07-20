@@ -58,8 +58,11 @@ _ReSharper*/
 *.[Rr]esharper
 
 # VS Code
-.vscode/settings.json.bak
-.vscode/tasks.json.bak
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
 # その他のエディタ
 *.sublime-project
@@ -90,8 +93,6 @@ __pycache__/
 *.so
 
 # 配布・パッケージング
-build/
-dist/
 develop-eggs/
 downloads/
 eggs/
@@ -134,6 +135,7 @@ coverage.xml
 .eslintcache
 .stylelintcache
 .prettiercache
+jest_cache/
 
 # ==========================================
 # OS・システム生成ファイル
@@ -195,6 +197,10 @@ pids
 # カバレッジレポート
 coverage/
 *.lcov
+
+# ビルド出力
+build/
+dist/
 
 # ==========================================
 # セキュリティ・設定ファイル
