@@ -1,6 +1,3 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 # 🚀 DevBlueprint コミットメッセージチェック
 echo "📝 Conventional Commits形式をチェック中..."
 
