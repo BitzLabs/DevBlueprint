@@ -60,6 +60,16 @@
       "source.fixAll.stylelint": "explicit"
     }
   },
+  // Ignore files settings (avoid formatting conflicts)
+  "files.associations": {
+    "*.ignore": "ignore",
+    ".markdownlintignore": "ignore",
+    ".eslintignore": "ignore",
+    ".prettierignore": "ignore"
+  },
+  "[ignore]": {
+    "editor.formatOnSave": false
+  },
   // ESLint設定
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "eslint.workingDirectories": ["."],

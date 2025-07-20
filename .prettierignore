@@ -83,6 +83,11 @@ Scripts/Templates/
 site/
 docs_build/
 
+# Linter ignore files (avoid formatting conflicts)
+.markdownlintignore
+.eslintignore
+.gitignore
+
 # C/C++ compiled objects
 *.o
 *.a

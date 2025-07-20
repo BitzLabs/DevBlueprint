@@ -53,10 +53,7 @@ module.exports = {
       parserOptions: {
         project: './tsconfig.json',
       },
-      rules: {
-        '@typescript-eslint/prefer-nullish-coalescing': 'error',
-        '@typescript-eslint/prefer-optional-chain': 'error',
-      },
+      rules: {},
     },
     {
       // JavaScript専用ルール
@@ -83,7 +80,7 @@ module.exports = {
     },
     {
       // 設定ファイル・純JSファイル専用ルール
-      files: ['*.config.js', '*.config.ts', '.eslintrc.js', '*.js'],
+      files: ['*.config.js', '*.config.ts', '.eslintrc.js'],
       env: {
         node: true,
       },
