@@ -1,15 +1,23 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# 🚀 DevBlueprint コミット前品質チェック
+echo "🔍 コミット前品質チェックを開始..."
 
-# Node.jsプロジェクト用 pre-commit フック
-# 主要な品質チェックをコミット前に自動実行します
-
-# コードフォーマットチェック（Prettier）
-npm run format:check
-# コードリント（ESLint, Stylelint, markdownlint, yaml-lint）
-npm run lint
 # TypeScript型チェック
-npm run type-check
-# 必要に応じてテストも追加可能
-# npm test
+echo "📋 TypeScript型チェック実行中..."
+npm run type-check || exit 1
+
+# ESLint + 自動修正
+echo "🧹 ESLint + 自動修正実行中..."
+npm run lint || exit 1
+
+# Prettierフォーマットチェック
+echo "🎨 Prettierフォーマットチェック実行中..."
+npm run format:check || {
+  echo "❌ フォーマットエラー検出！自動修正を実行してください："
+  echo "   npm run format"
+  exit 1
+}
+
+echo "✅ 全ての品質チェックが完了しました！"

@@ -136,8 +136,17 @@ VSCode拡張機能を導入し、ファイル保存時に自動でフォーマ�
 - タブ内で他のMarkdown要素（コードブロック、注釈など）も利用可能です。
 
 ```markdown
-=== "C#" !!! note "C#の例" `csharp     Console.WriteLine("Hello, World!");     ` === "Python" !!! note "Pythonの例"
-`python     print("Hello, World!")     `
+=== "C#"
+!!! note "C#の例"
+`csharp
+    Console.WriteLine("Hello, World!");
+    `
+
+=== "Python"
+!!! note "Pythonの例"
+`python
+    print("Hello, World!")
+    `
 ```
 
 ### 5.3. 詳細・折りたたみ (Details)
