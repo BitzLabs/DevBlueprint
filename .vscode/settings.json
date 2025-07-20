@@ -1,5 +1,98 @@
 {
   "yaml.schemas": {
-    "https://json.schemastore.org/github-workflow.json": "file:///YOUR_WORKSPACE/.github/workflows/*"
-  }
+    "https://json.schemastore.org/github-workflow.json": ".github/workflows/*.yml"
+  },
+  // エディタ全般設定
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  // ファイル形式別の設定
+  "[markdown]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "bounded", // ルーラー(文字数制限)に合わせて折り返す
+    "editor.codeActionsOnSave": {
+      // 保存時にmarkdownlintの自動修正を有効化
+      "source.fixAll.markdownlint": "always"
+    },
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  },
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "[scss]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": "explicit"
+    }
+  },
+  "[css]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": "explicit"
+    }
+  },
+  // Ignore files settings (avoid formatting conflicts)
+  "files.associations": {
+    "*.ignore": "ignore",
+    ".markdownlintignore": "ignore",
+    ".eslintignore": "ignore",
+    ".prettierignore": "ignore"
+  },
+  "[ignore]": {
+    "editor.formatOnSave": false
+  },
+  // ESLint設定
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.workingDirectories": ["."],
+  "eslint.run": "onType",
+  "eslint.problems.shortenToSingleLine": true,
+  // Stylelint設定
+  "stylelint.validate": ["css", "scss", "sass"],
+  "stylelint.snippet": ["css", "scss", "sass"],
+  // TypeScript設定
+  "typescript.preferences.includePackageJsonAutoImports": "auto",
+  "typescript.suggest.autoImports": true,
+  "typescript.format.enable": true,
+  "typescript.validate.enable": true,
+  // Markdownlint設定
+  "markdownlint.run": "onType",
+  "markdownlint.focusMode": true,
+  // 問題表示設定
+  "problems.decorations.enabled": true,
+  "problems.showCurrentInStatus": true,
+  // その他の便利な設定
+  // .editorconfig との競合を避けるため、VSCode側の設定を整理
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "editor.rulers": [120],
+  "editor.renderWhitespace": "boundary"
 }

@@ -1,0 +1,41 @@
+# 🚀 DevBlueprint コミットメッセージチェック
+echo "📝 Conventional Commits形式をチェック中..."
+
+# コミットメッセージファイルを読み取り
+commit_msg=$(cat "$1")
+
+# Conventional Commits形式の正規表現パターン
+# 形式: type(scope): subject
+# type: feat, fix, docs, style, refactor, perf, test, build, ci, chore
+# scope: オプション
+# subject: 必須（1-100文字）
+pattern="^(feat|fix|docs|style|refactor|perf|test|build|ci|chore)(\(.+\))?: .{1,100}$"
+
+if ! echo "$commit_msg" | head -n 1 | grep -qE "$pattern"; then
+    echo "❌ コミットメッセージが Conventional Commits 形式に従っていません"
+    echo ""
+    echo "📋 正しい形式:"
+    echo "   type(scope): subject"
+    echo ""
+    echo "📋 使用可能なtype:"
+    echo "   feat:     新機能"
+    echo "   fix:      バグ修正"
+    echo "   docs:     ドキュメント変更"
+    echo "   style:    コードスタイル修正"
+    echo "   refactor: リファクタリング"
+    echo "   perf:     パフォーマンス改善"
+    echo "   test:     テスト追加・修正"
+    echo "   build:    ビルドシステム変更"
+    echo "   ci:       CI/CD設定変更"
+    echo "   chore:    その他の変更"
+    echo ""
+    echo "📋 例:"
+    echo "   feat(auth): ユーザーログイン機能を追加"
+    echo "   fix(api): レスポンス形式のバグを修正"
+    echo "   docs: README.mdにセットアップ手順を追加"
+    echo ""
+    echo "現在のメッセージ: $commit_msg"
+    exit 1
+fi
+
+echo "✅ コミットメッセージが適切です"

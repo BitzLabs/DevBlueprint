@@ -1,0 +1,20 @@
+# 🚀 DevBlueprint コミット前品質チェック
+echo "🔍 コミット前品質チェックを開始..."
+
+# TypeScript型チェック
+echo "📋 TypeScript型チェック実行中..."
+npm run type-check || exit 1
+
+# ESLint + 自動修正
+echo "🧹 ESLint + 自動修正実行中..."
+npm run lint || exit 1
+
+# Prettierフォーマットチェック
+echo "🎨 Prettierフォーマットチェック実行中..."
+npm run format:check || {
+  echo "❌ フォーマットエラー検出！自動修正を実行してください："
+  echo "   npm run format"
+  exit 1
+}
+
+echo "✅ 全ての品質チェックが完了しました！"

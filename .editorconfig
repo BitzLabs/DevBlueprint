@@ -1,0 +1,44 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# 全ファイルに適用される共通設定
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Markdownファイルの設定
+[*.md]
+trim_trailing_whitespace = false
+
+# C#ファイルの設定
+[*.cs]
+indent_size = 4
+
+# C/C++ファイルの設定
+[*.{c,cpp,h,hpp}]
+indent_size = 4
+
+# Pythonファイルの設定
+[*.py]
+indent_size = 4
+
+# HTMLファイルの設定
+[*.html]
+indent_size = 2
+
+# CSSファイルの設定
+[*.css]
+indent_size = 2
+
+# JavaScriptとTypeScriptファイルの設定
+[*.{js,ts}]
+indent_size = 2
+
+# JSON/YAMLファイルの設定
+[*.{json,yml,yaml}]
+indent_size = 2

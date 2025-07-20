@@ -1,9 +1,61 @@
 {
-  "name": "devblueprint-scripts",
+  "name": "devblueprint",
   "version": "1.0.0",
-  "description": "Helper scripts for DevBlueprint project setup and maintenance.",
+  "description": "Development Blueprint Project",
+  "type": "module",
+  "main": "index.js",
   "private": true,
   "scripts": {
-    "setup:labels": "node ./scripts/create-labels.js"
+    "setup:labels": "node ./scripts/create-labels.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "format:docs": "prettier --write \"Docs/**/*.md\"",
+    "format:check:docs": "prettier --check \"Docs/**/*.md\"",
+    "lint": "node Scripts/lint-all.js",
+    "lint:js": "node Scripts/lint-js.js",
+    "lint:css": "node Scripts/lint-css.js",
+    "lint:md": "node Scripts/lint-md.js",
+    "lint:yaml": "node Scripts/lint-yaml.js",
+    "lint:json": "node Scripts/lint-json.js",
+    "type-check": "tsc --noEmit",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "validate": "npm run format:check && npm run lint && npm run type-check",
+    "ci-check": "npm run type-check && npm run lint && npm run format:check && npm run test",
+    "fix": "npm run format && npm run lint"
+  },
+  "keywords": [
+    "development",
+    "blueprint",
+    "coding-standards"
+  ],
+  "author": "DevBlueprint Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.19.9",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "eslint": "^9.31.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.31.0",
+    "glob": "^11.0.3",
+    "husky": "^9.1.7",
+    "jest": "^29.7.0",
+    "markdownlint-cli": "^0.45.0",
+    "prettier": "^3.1.1",
+    "stylelint": "^14.16.1",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-recess-order": "^3.1.0",
+    "stylelint-config-standard": "^29.0.0",
+    "stylelint-scss": "^4.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.2",
+    "yaml-lint": "^1.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }

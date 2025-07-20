@@ -60,3 +60,4 @@ Thumbs.db
 
 # mkdocs
 /site/
+node_modules/
