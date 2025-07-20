@@ -13,6 +13,9 @@ if (typeof window !== 'undefined') {
   };
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// Material for MkDocs は AJAX を使用してページナビゲーションを行うため
+// 初回読み込み以外のページでも MathJax がレンダリングされるよう document$ を使用
+/* global document$ */
+document$.subscribe(() => {
   MathJax.typesetPromise();
 });

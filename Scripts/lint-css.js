@@ -2,9 +2,9 @@
 /**
  * CSS/SCSS リンティングスクリプト
  */
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
-const { hasFiles } = require('./utils/file-finder');
+import { hasFiles } from './utils/file-finder.js';
 
 const EXTENSIONS = ['.css', '.scss'];
 const IGNORE_PATTERNS = ['node_modules', 'dist', 'build'];
@@ -31,8 +31,8 @@ function lintCSS() {
 }
 
 // 直接呼び出された場合に実行
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   lintCSS();
 }
 
-module.exports = lintCSS;
+export default lintCSS;

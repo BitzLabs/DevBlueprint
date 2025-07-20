@@ -2,11 +2,11 @@
 /**
  * 全リンターを実行するメインスクリプト
  */
-const lintCSS = require('./lint-css');
-const lintJS = require('./lint-js');
-const lintJSON = require('./lint-json');
-const lintMarkdown = require('./lint-md');
-const lintYAML = require('./lint-yaml');
+import lintCSS from './lint-css.js';
+import lintJS from './lint-js.js';
+import lintJSON from './lint-json.js';
+import lintMarkdown from './lint-md.js';
+import lintYAML from './lint-yaml.js';
 
 async function runAllLints() {
   console.log('🚀 包括的なコード品質チェックを開始中...\n');
@@ -40,11 +40,11 @@ async function runAllLints() {
 }
 
 // 直接呼び出された場合に実行
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   runAllLints().catch(error => {
     console.error('❌ リンティング中に予期しないエラーが発生しました:', error);
     process.exit(1);
   });
 }
 
-module.exports = runAllLints;
+export default runAllLints;

@@ -1,6 +1,12 @@
 // Jest設定
-module.exports = {
-  preset: 'ts-jest',
+export default {
+  preset: 'ts-jest/presets/default-esm',
+  extensionsToTreatAsEsm: ['.ts'],
+  globals: {
+    'ts-jest': {
+      useESM: true,
+    },
+  },
   testEnvironment: 'node',
   // プロジェクトルートから検索（将来的にsrc、testsフォルダが作成される予定）
   roots: ['<rootDir>'],

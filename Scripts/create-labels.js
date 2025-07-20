@@ -1,11 +1,17 @@
 #!/usr/bin/env node
 
 import { execFileSync } from 'child_process';
-import fs from 'fs/promises';
-import path from 'path';
+import { readFile } from 'fs/promises';
+import { dirname, join } from 'path';
+import { createInterface } from 'readline/promises';
+import { fileURLToPath } from 'url';
+
+// ESMでの __dirname の代替実装
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // ラベル定義ファイルのパス
-const LABEL_FILE_PATH = path.join(__dirname, 'templates', 'labels.json');
+const LABEL_FILE_PATH = join(__dirname, 'templates', 'labels.json');
 
 /**
  * 依存ツールがインストールされているかチェックする関数
@@ -25,7 +31,6 @@ function checkDependency(command) {
  * @returns {Promise<boolean>} - Yesならtrue, Noならfalse
  */
 async function askYesNo(query) {
-  const { createInterface } = await import('readline/promises');
   const rl = createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -59,10 +64,11 @@ async function main() {
   console.log(`\n[2/4] ラベル定義ファイルを読み込み中...`);
   let labelDefs;
   try {
-    labelDefs = JSON.parse(await fs.readFile(LABEL_FILE_PATH, 'utf8'));
+    labelDefs = JSON.parse(await readFile(LABEL_FILE_PATH, 'utf8'));
     console.log(`✅ ${labelDefs.length} 件のラベルが見つかりました。`);
-  } catch (_error) {
+  } catch (error) {
     console.error(`❌ エラー: ${LABEL_FILE_PATH} の読み込みまたは解析に失敗しました。`);
+    console.error(error);
     process.exit(1);
   }
 

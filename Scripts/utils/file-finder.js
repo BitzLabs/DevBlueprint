@@ -1,8 +1,8 @@
 /**
  * リンタースクリプト用のファイル検索ユーティリティ
  */
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 /**
  * 特定の拡張子を持つファイルを再帰的に検索し、指定されたディレクトリを無視する
@@ -52,7 +52,4 @@ function hasFiles(rootDir, extensions, ignorePatterns = []) {
   return findFiles(rootDir, extensions, ignorePatterns).length > 0;
 }
 
-module.exports = {
-  findFiles,
-  hasFiles,
-};
+export { findFiles, hasFiles };

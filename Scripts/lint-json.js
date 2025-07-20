@@ -2,9 +2,9 @@
 /**
  * JSON リンティングスクリプト
  */
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
-const { hasFiles } = require('./utils/file-finder');
+import { hasFiles } from './utils/file-finder.js';
 
 const EXTENSIONS = ['.json'];
 const IGNORE_PATTERNS = ['node_modules', 'dist', 'build', '.vscode'];
@@ -31,8 +31,8 @@ function lintJSON() {
 }
 
 // 直接呼び出された場合に実行
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   lintJSON();
 }
 
-module.exports = lintJSON;
+export default lintJSON;
