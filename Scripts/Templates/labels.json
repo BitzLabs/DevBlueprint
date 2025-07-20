@@ -32,7 +32,7 @@
   {
     "name": "Priority: Critical🔥",
     "color": "b60205",
-    "description": "緊急: これを解決しないと進めない、または深刻な問題を引き起こす。Hotfixリリースのトリガーとなる。"
+    "description": "緊急: ユーザーの主要な操作を妨げる、または深刻な脆弱性。releaseブランチに対するHotfixリリースのトリガーとなる。"
   },
   {
     "name": "Priority: High🔼",
@@ -50,27 +50,27 @@
     "description": "低: 急がない、または時間がある時に対応するタスク。"
   },
   {
-    "name": "Status: In Progress🛠️",
+    "name": "Status: In Progress(作業中)",
     "color": "ededed",
     "description": "開発者が現在作業中の状態。担当者が割り当てられ、作業に着手したことを示す。"
   },
   {
-    "name": "Status: Needs Review👀",
+    "name": "Status: Needs Review(レビュー待ち)",
     "color": "fef2c0",
     "description": "プルリクエストがレビュー待ちの状態。"
   },
   {
-    "name": "Status: Blocked🚧",
+    "name": "Status: Blocked(作業停止中)",
     "color": "000000",
     "description": "他のタスクや外部要因により、作業がブロックされている状態。"
   },
   {
-    "name": "Status: Consid(検討中)🤔",
+    "name": "Status: Consideration(検討中)",
     "color": "bfd4f2",
     "description": "バックログ状態。対応要否や、どのマイルストーンに含めるかを検討中のアイデアやタスク。"
   },
   {
-    "name": "Status: Wontfix🤷",
+    "name": "Status: Wontfix(対応しない)",
     "color": "ffffff",
     "description": "議論の結果、対応しないことが決定されたIssue。"
   },

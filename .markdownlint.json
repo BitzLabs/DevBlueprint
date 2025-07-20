@@ -28,7 +28,7 @@
     "allowed_elements": ["details", "summary", "br", "kbd", "mark", "abbr", "sub", "sup", "div", "span", "img", "a"]
   },
   "MD036": false,
-  "MD040": false,
+  "MD040": true,
   "MD041": false,
   "MD046": {
     "style": "fenced"
