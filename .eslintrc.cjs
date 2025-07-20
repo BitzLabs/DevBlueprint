@@ -8,6 +8,7 @@ module.exports = {
   extends: [
     'eslint:recommended', // ESLintが推奨する基本的なルールセット
     'plugin:@typescript-eslint/recommended', // プラグインが提供する推奨ルールセット ★ここが重要
+    'prettier', // Prettierと競合するESLintルールを無効化 ★競合防止のため最後に配置
   ],
   parserOptions: {
     ecmaVersion: 'latest',
