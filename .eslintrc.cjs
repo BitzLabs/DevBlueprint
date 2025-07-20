@@ -80,7 +80,7 @@ module.exports = {
     },
     {
       // 設定ファイル・純JSファイル専用ルール
-      files: ['*.config.js', '*.config.ts', '.eslintrc.js'],
+      files: ['*.config.js', '*.config.ts', '.eslintrc.cjs'],
       env: {
         node: true,
       },
