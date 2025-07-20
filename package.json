@@ -34,9 +34,9 @@
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "^20.19.9",
-    "@typescript-eslint/eslint-plugin": "^8.37.0",
-    "@typescript-eslint/parser": "^8.37.0",
-    "eslint": "^8.57.1",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.2",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
@@ -51,7 +51,7 @@
     "stylelint-config-standard": "^29.0.0",
     "stylelint-scss": "^4.7.0",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.8.3",
+    "typescript": "^5.7.2",
     "yaml-lint": "^1.7.0"
   },
   "engines": {
