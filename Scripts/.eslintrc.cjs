@@ -3,7 +3,7 @@ module.exports = {
     node: true,
     es2022: true,
   },
-  extends: ['../.eslintrc.js'],
+  extends: ['../.eslintrc.cjs'],
   rules: {
     // Node.js scripts allow console usage
     'no-console': 'off',
