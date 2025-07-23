@@ -94,5 +94,14 @@
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "editor.rulers": [120],
-  "editor.renderWhitespace": "boundary"
+  "editor.renderWhitespace": "boundary",
+  // ターミナル設定
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.integrated.profiles.windows": {
+    "Git Bash": {
+      "path": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "args": ["-i", "-l"],
+      "icon": "terminal-bash"
+    }
+  }
 }
