@@ -173,8 +173,8 @@
     {
       "label": "mkdocs:build",
       "type": "shell",
-      "command": "powershell",
-      "args": ["-ExecutionPolicy", "Bypass", "-File", "./Scripts/mkdocs.ps1", "build"],
+      "command": "wsl",
+      "args": ["bash", "Scripts/mkdocs.sh", "build"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -187,8 +187,8 @@
     {
       "label": "mkdocs:start",
       "type": "shell",
-      "command": "powershell",
-      "args": ["-ExecutionPolicy", "Bypass", "-File", "./Scripts/mkdocs.ps1", "up"],
+      "command": "wsl",
+      "args": ["bash", "Scripts/mkdocs.sh", "up"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -202,8 +202,8 @@
     {
       "label": "mkdocs:stop",
       "type": "shell",
-      "command": "powershell",
-      "args": ["-ExecutionPolicy", "Bypass", "-File", "./Scripts/mkdocs.ps1", "down"],
+      "command": "wsl",
+      "args": ["bash", "Scripts/mkdocs.sh", "down"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -216,8 +216,8 @@
     {
       "label": "mkdocs:restart",
       "type": "shell",
-      "command": "powershell",
-      "args": ["-ExecutionPolicy", "Bypass", "-File", "./Scripts/mkdocs.ps1", "restart"],
+      "command": "wsl",
+      "args": ["bash", "Scripts/mkdocs.sh", "restart"],
       "group": "build",
       "presentation": {
         "echo": true,
@@ -230,8 +230,8 @@
     {
       "label": "mkdocs:logs",
       "type": "shell",
-      "command": "powershell",
-      "args": ["-ExecutionPolicy", "Bypass", "-File", "./Scripts/mkdocs.ps1", "logs"],
+      "command": "wsl",
+      "args": ["bash", "Scripts/mkdocs.sh", "logs"],
       "group": "build",
       "presentation": {
         "echo": true,

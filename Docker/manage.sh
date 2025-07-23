@@ -44,19 +44,19 @@ fi
 # Docker Composeファイルの選択
 case $SERVICE in
     mkdocs)
-        COMPOSE_FILE="$DOCKER_DIR/mkdocs/docker-compose.yml"
+        COMPOSE_FILE="mkdocs/docker-compose.yml"
         SERVICE_NAME="mkdocs"
         ;;
     api)
-        COMPOSE_FILE="$DOCKER_DIR/docker-compose.yml"
+        COMPOSE_FILE="docker-compose.yml"
         SERVICE_NAME="api"
         ;;
     db)
-        COMPOSE_FILE="$DOCKER_DIR/docker-compose.yml"
+        COMPOSE_FILE="docker-compose.yml"
         SERVICE_NAME="database"
         ;;
     all)
-        COMPOSE_FILE="$DOCKER_DIR/docker-compose.yml"
+        COMPOSE_FILE="docker-compose.yml"
         SERVICE_NAME=""
         ;;
     *)

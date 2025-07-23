@@ -108,5 +108,8 @@
   "dev.containers.dockerPath": "docker",
   "dev.containers.dockerComposePath": "docker",
   "dev.containers.executeInWSL": true,
-  "dev.containers.defaultExtensions": ["ms-vscode-remote.remote-wsl"]
+  "dev.containers.defaultExtensions": ["ms-vscode-remote.remote-wsl"],
+  "[powershell]": {
+    "editor.defaultFormatter": "ms-vscode.powershell"
+  }
 }

@@ -46,14 +46,14 @@ check_docker() {
 # Dockerイメージのビルド
 build_image() {
     echo -e "${YELLOW}MkDocsイメージをビルド中...${NC}"
-    docker-compose -f docker-compose.mkdocs.yml build
+    docker compose -f Docker/docker-compose.yml build mkdocs
     echo -e "${GREEN}ビルドが完了しました${NC}"
 }
 
 # MkDocsサーバーの起動
 start_server() {
     echo -e "${YELLOW}MkDocsサーバーを起動中...${NC}"
-    docker-compose -f docker-compose.mkdocs.yml up -d
+    docker compose -f Docker/docker-compose.yml up -d mkdocs
     echo -e "${GREEN}MkDocsサーバーが起動しました${NC}"
     echo -e "${BLUE}アクセス: http://localhost:8000${NC}"
 }
@@ -61,7 +61,7 @@ start_server() {
 # MkDocsサーバーの停止
 stop_server() {
     echo -e "${YELLOW}MkDocsサーバーを停止中...${NC}"
-    docker-compose -f docker-compose.mkdocs.yml down
+    docker compose -f Docker/docker-compose.yml down
     echo -e "${GREEN}MkDocsサーバーが停止しました${NC}"
 }
 
@@ -73,26 +73,26 @@ restart_server() {
 
 # ログの表示
 show_logs() {
-    docker-compose -f docker-compose.mkdocs.yml logs -f mkdocs
+    docker compose -f Docker/docker-compose.yml logs -f mkdocs
 }
 
 # コンテナ内でシェルを起動
 start_shell() {
     echo -e "${YELLOW}コンテナ内でシェルを起動中...${NC}"
-    docker-compose -f docker-compose.mkdocs.yml exec mkdocs /bin/bash
+    docker compose -f Docker/docker-compose.yml exec mkdocs /bin/bash
 }
 
 # 生成ファイルのクリーンアップ
 clean_site() {
     echo -e "${YELLOW}生成されたサイトファイルを削除中...${NC}"
-    docker-compose -f docker-compose.mkdocs.yml exec mkdocs rm -rf site/
+    docker compose -f Docker/docker-compose.yml exec mkdocs rm -rf site/
     echo -e "${GREEN}クリーンアップが完了しました${NC}"
 }
 
 # 依存関係の再インストール
 reinstall_dependencies() {
     echo -e "${YELLOW}依存関係を再インストール中...${NC}"
-    docker-compose -f docker-compose.mkdocs.yml exec mkdocs pip install -r requirements-docs.txt
+    docker compose -f Docker/docker-compose.yml exec mkdocs pip install -r requirements.txt
     echo -e "${GREEN}依存関係の再インストールが完了しました${NC}"
 }
 
