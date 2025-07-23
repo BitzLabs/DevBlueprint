@@ -103,5 +103,10 @@
       "args": ["-i", "-l"],
       "icon": "terminal-bash"
     }
-  }
+  },
+  // Docker設定（WSL環境）
+  "dev.containers.dockerPath": "docker",
+  "dev.containers.dockerComposePath": "docker",
+  "dev.containers.executeInWSL": true,
+  "dev.containers.defaultExtensions": ["ms-vscode-remote.remote-wsl"]
 }

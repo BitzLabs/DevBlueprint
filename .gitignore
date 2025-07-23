@@ -196,6 +196,7 @@ pids
 
 # ドキュメント
 /site/
+/Docker/mkdocs/site/
 
 # カバレッジレポート
 coverage/
@@ -243,3 +244,7 @@ dist/
 *.tar.gz
 *.rar
 *.7z
+
+# ルートレベルの不要なDockerfile（正しい場所はDocker/*/Dockerfile）
+/Dockerfile*
+!Docker/*/Dockerfile
