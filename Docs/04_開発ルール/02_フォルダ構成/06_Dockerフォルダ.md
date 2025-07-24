@@ -9,12 +9,10 @@
 ```text
 Docker/
 ├── docker-compose.yml      # 統合Docker Compose設定
-├── manage.sh               # Docker管理用スクリプト
+├── requirements.txt        # Python依存関係
 ├── README.md              # Docker環境の説明
 └── mkdocs/                # MkDocs専用設定
-    ├── docker-compose.yml # MkDocs用Docker Compose
     ├── Dockerfile         # MkDocs用Dockerfile
-    ├── requirements.txt   # Python依存関係
     └── site/             # 生成されたサイト（.gitignore済み）
 ```
 
@@ -30,16 +28,16 @@ Docker/
 
 - `mkdocs`: ドキュメント生成・配信サービス
 
-### `manage.sh`
+### `Scripts/mkdocs.sh`
 
-Docker環境を簡単に管理するためのBashスクリプトです。以下のような操作を提供します：
+Docker環境を簡単に管理するためのBashスクリプトです。プロジェクトルートの `Scripts/` フォルダに配置されており、以下のような操作を提供します：
 
 ```bash
 # 使用例
-./Docker/manage.sh mkdocs up      # MkDocsサーバーを起動
-./Docker/manage.sh mkdocs down    # MkDocsサーバーを停止
-./Docker/manage.sh mkdocs restart # MkDocsサーバーを再起動
-./Docker/manage.sh mkdocs logs    # ログを表示
+bash Scripts/mkdocs.sh up      # MkDocsサーバーを起動
+bash Scripts/mkdocs.sh down    # MkDocsサーバーを停止
+bash Scripts/mkdocs.sh restart # MkDocsサーバーを再起動
+bash Scripts/mkdocs.sh logs    # ログを表示
 ```
 
 ### `README.md`
@@ -69,7 +67,7 @@ MkDocs専用のDocker Compose設定ファイルです。開発時の利便性を
 
 #### `requirements.txt`
 
-MkDocsとその関連プラグインのPython依存関係を定義したファイルです。以下のパッケージが含まれています：
+MkDocsとその関連プラグインのPython依存関係を定義したファイルです。Docker環境の整理により、`Docker/` フォルダ直下に移動されました。以下のパッケージが含まれています：
 
 - `mkdocs`: 静的サイトジェネレータ
 - `mkdocs-material`: Material Design テーマ
@@ -88,26 +86,26 @@ MkDocsによって生成されるサイトの出力先フォルダです。`.git
 1. **MkDocsサーバーの起動**
 
    ```bash
-   ./Docker/manage.sh mkdocs up
+   bash Scripts/mkdocs.sh up
    ```
 
 2. **ブラウザでアクセス**
 
    ```text
-   http://localhost:8000/DevBlueprint/
+   http://localhost:8000
    ```
 
 3. **サーバーの停止**
 
    ```bash
-   ./Docker/manage.sh mkdocs down
+   bash Scripts/mkdocs.sh down
    ```
 
 ### 開発時の活用
 
 - **ライブリロード**: ドキュメントファイルを編集すると、自動的にサイトが更新されます
-- **ログ確認**: `./Docker/manage.sh mkdocs logs` でコンテナのログを確認できます
-- **環境の再構築**: `docker-compose up --build` でイメージを再ビルドできます
+- **ログ確認**: `bash Scripts/mkdocs.sh logs` でコンテナのログを確認できます
+- **環境の再構築**: `bash Scripts/mkdocs.sh build` でイメージを再ビルドできます
 
 ---
 
@@ -123,7 +121,7 @@ MkDocsによって生成されるサイトの出力先フォルダです。`.git
 
 ### 2. 開発効率の向上
 
-- 管理スクリプト（`manage.sh`）による簡単な操作
+- 管理スクリプト（`Scripts/mkdocs.sh`）による簡単な操作
 - ライブリロード対応による開発体験の向上
 - 明確な責任分離による保守性の確保
 
@@ -145,5 +143,6 @@ MkDocsによって生成されるサイトの出力先フォルダです。`.git
 
 ## 関連ドキュメント
 
-- **[MkDocs開発環境セットアップガイド](../00_セットアップガイド/08_MkDocs開発環境セットアップ.md)**: Docker環境の詳細なセットアップ手順
+- **[Docker環境セットアップガイド](../01_セットアップガイド/08_Docker環境セットアップ.md)**: WSL2上へのDocker環境の構築手順
+- **[MkDocs開発環境セットアップガイド](../01_セットアップガイド/09_MkDocs開発環境セットアップ.md)**: MkDocs開発環境の詳細なセットアップ手順
 - **[Docker環境README](../../../Docker/README.md)**: 実際のDocker設定ファイルの説明
