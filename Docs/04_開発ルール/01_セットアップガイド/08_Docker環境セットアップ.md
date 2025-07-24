@@ -324,7 +324,7 @@ WSL2内で：
 cd /mnt/c/Work/DevBlueprint
 
 # MkDocsコンテナを起動
-./Docker/manage.sh mkdocs up
+bash Scripts/mkdocs.sh up
 
 # ブラウザで http://localhost:8000/DevBlueprint/ にアクセス
 ```
@@ -345,20 +345,20 @@ cd /mnt/c/Work/DevBlueprint
 
 ## 🛠️ 使用可能なコマンド
 
-### Docker管理スクリプト（推奨）
+### MkDocs管理スクリプト（推奨）
 
 ```bash
-./Docker/manage.sh [service] [command]
+bash Scripts/mkdocs.sh [command]
 
 # MkDocs関連:
-./Docker/manage.sh mkdocs up      # MkDocsサーバーを起動
-./Docker/manage.sh mkdocs down    # MkDocsサーバーを停止
-./Docker/manage.sh mkdocs restart # MkDocsサーバーを再起動
-./Docker/manage.sh mkdocs logs    # ログを表示
-
-# 全サービス:
-./Docker/manage.sh all up         # 全サービスを起動
-./Docker/manage.sh all down       # 全サービスを停止
+bash Scripts/mkdocs.sh up         # MkDocsサーバーを起動
+bash Scripts/mkdocs.sh down       # MkDocsサーバーを停止
+bash Scripts/mkdocs.sh restart    # MkDocsサーバーを再起動
+bash Scripts/mkdocs.sh logs       # ログを表示
+bash Scripts/mkdocs.sh build      # Dockerイメージをビルド
+bash Scripts/mkdocs.sh shell      # コンテナ内でシェルを起動
+bash Scripts/mkdocs.sh clean      # 生成されたサイトファイルを削除
+bash Scripts/mkdocs.sh install    # 依存関係を再インストール
 ```
 
 ### 直接のDocker Composeコマンド
@@ -387,13 +387,13 @@ docker compose down               # 全サービス停止
 │   └── tasks.json                 # VSCodeタスク
 ├── Docker/                        # Docker関連ファイル
 │   ├── docker-compose.yml         # 統合Docker Compose設定
-│   ├── manage.sh                  # Docker管理スクリプト
 │   ├── README.md                  # Docker環境の説明
 │   └── mkdocs/                    # MkDocs専用設定
-│       ├── docker-compose.yml     # MkDocs用Docker Compose
 │       ├── Dockerfile             # MkDocs用Dockerfile
 │       ├── requirements.txt       # Python依存関係
 │       └── site/                  # 生成されたサイト（.gitignore済み）
+├── Scripts/                       # 管理スクリプト
+│   └── mkdocs.sh                  # MkDocs管理スクリプト
 ├── Docs/                          # ドキュメントソース
 ├── mkdocs.yml                     # MkDocs設定
 └── .gitignore                     # サイト出力の除外設定

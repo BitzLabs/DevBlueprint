@@ -9,10 +9,10 @@
 ```text
 Docker/
 ├── docker-compose.yml      # 統合Docker Compose設定
-├── requirements.txt        # Python依存関係
 ├── README.md              # Docker環境の説明
 └── mkdocs/                # MkDocs専用設定
     ├── Dockerfile         # MkDocs用Dockerfile
+    ├── requirements.txt   # Python依存関係
     └── site/             # 生成されたサイト（.gitignore済み）
 ```
 
@@ -57,17 +57,9 @@ MkDocs実行環境を構築するためのDockerfileです。以下の要素を�
 - Python依存関係のインストール
 - MkDocsサーバーの起動設定
 
-#### `docker-compose.yml`
-
-MkDocs専用のDocker Compose設定ファイルです。開発時の利便性を考慮した設定が含まれています：
-
-- ボリュームマウント（ドキュメントソースとサイト出力）
-- ポートマッピング（8000番ポート）
-- ネットワーク設定
-
 #### `requirements.txt`
 
-MkDocsとその関連プラグインのPython依存関係を定義したファイルです。Docker環境の整理により、`Docker/` フォルダ直下に移動されました。以下のパッケージが含まれています：
+MkDocsとその関連プラグインのPython依存関係を定義したファイルです。`Docker/mkdocs/` フォルダ内に配置されており、以下のパッケージが含まれています：
 
 - `mkdocs`: 静的サイトジェネレータ
 - `mkdocs-material`: Material Design テーマ

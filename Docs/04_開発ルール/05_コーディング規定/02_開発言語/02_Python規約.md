@@ -84,7 +84,7 @@ Actionsのワークフローに`ruff check .`や`ruff format --check .`コマン
     で定められた通り、機能の実装やテストコードには、対応する機能IDをコメントやマーカーとして明記します。
 
     ```python
-    # REQ-API-2.1: ユーザー情報を返すAPI
+    # FUNC-API-2.1: ユーザー情報を返すAPI
     def get_user_by_id(user_id: int) -> dict | None:
         """ユーザーIDに紐づくユーザー情報を取得する。"""
         # ...
