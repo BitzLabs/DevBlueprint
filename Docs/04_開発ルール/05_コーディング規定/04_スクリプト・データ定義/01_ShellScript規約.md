@@ -99,7 +99,7 @@
 - スクリプト内の特定の処理が、何らかの要求仕様に関連する場合は、コメントで機能IDを明記します。
 
   ```bash
-  # REQ-CI-2.1: ビルド成果物をS3にアップロードする
+  # DEPLOY-CI-2.1: ビルド成果物をS3にアップロードする
   echo "Uploading artifacts to S3..."
   aws s3 cp ./site s3://my-bucket/ --recursive
   ```

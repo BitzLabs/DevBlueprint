@@ -125,9 +125,9 @@ DevBlueprint/
 │   └── settings.json              # ワークスペース設定
 ├── Docker/
 │   ├── docker-compose.yml         # Docker Compose設定
-│   ├── requirements.txt           # Python依存関係
 │   └── mkdocs/
 │       ├── Dockerfile             # MkDocs用Dockerfile
+│       ├── requirements.txt       # Python依存関係
 │       └── site/                  # 生成されたサイト（.gitignore済み）
 ├── Docs/                          # ドキュメントソース
 ├── Scripts/
@@ -161,12 +161,12 @@ markdown_extensions:
       permalink: true
 ```
 
-#### Docker/requirements.txt
+#### Docker/mkdocs/requirements.txt
 
 ```text
 mkdocs>=1.5.0
-mkdocs-material>=9.0.0
-mkdocs-mermaid2-plugin>=1.0.0
+mkdocs-material>=9.4.0
+mkdocs-mermaid2-plugin>=1.1.0
 ```
 
 ## 🔧 開発ワークフロー
@@ -339,7 +339,7 @@ sudo kill -9 <PID>
 
 MkDocs開発環境のセットアップが完了したら、以下を参照してプロジェクトの理解を深めてください：
 
-- **[04*開発ルール/04*ドキュメント規定](../04_ドキュメント規定/README.md)** - ドキュメント作成のルールとガイドライン
-- **[00*はじめに/02*ドキュメント作成ガイド](../../00_はじめに/02_ドキュメント作成ガイド/README.md)** - ドキュメント作成のベストプラクティス
+- **[04.開発ルール/04.ドキュメント規定](../04_ドキュメント規定/README.md)** - ドキュメント作成のルールとガイドライン
+- **[00.はじめに/02.ドキュメント作成ガイド](../../00_はじめに/02_ドキュメント作成ガイド/README.md)** - ドキュメント作成のベストプラクティス
 
-問題が発生した場合は、**[07\_トラブルシューティング.md](./07_トラブルシューティング.md)** も参照してください。
+問題が発生した場合は、**[07.トラブルシューティング.md](./07_トラブルシューティング.md)** も参照してください。

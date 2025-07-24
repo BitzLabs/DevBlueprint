@@ -21,7 +21,7 @@
 
 - Python
 - pip
-- MkDocs と関連プラグイン（`Docker/requirements.txt` を参照）
+- MkDocs と関連プラグイン（`Docker/mkdocs/requirements.txt` を参照）
 - 基本的なシェルツール
 
 ## 環境の拡張方法

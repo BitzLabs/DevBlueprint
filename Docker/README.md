@@ -49,7 +49,7 @@ bash Scripts/mkdocs.sh down
 ### MkDocs環境
 
 - **ポート**: 8000
-- **URL**: <http://localhost:8000/DevBlueprint/>
+- **URL**: <http://localhost:8000/>
 - **ライブリロード**: 有効
 - **自動ビルド**: ファイル変更時
 
