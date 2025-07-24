@@ -1,13 +1,13 @@
 services:
   mkdocs:
     build:
-      context: ./
+      context: ./mkdocs
       dockerfile: Dockerfile
     container_name: devblueprint-mkdocs
     ports:
       - "8000:8000"
     volumes:
-      - ../../:/docs
+      - ../:/docs
       - /docs/Docker/mkdocs/site # サイト生成ファイルをDocker/mkdocs/site内に保持
     environment:
       - PYTHONUNBUFFERED=1
