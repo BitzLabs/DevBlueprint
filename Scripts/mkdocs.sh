@@ -5,6 +5,9 @@
 
 set -e
 
+# スクリプトの場所を基準にプロジェクトルートを特定
+cd "$(dirname "$0")/.."
+
 # 色付き出力用の定数
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -46,14 +49,14 @@ check_docker() {
 # Dockerイメージのビルド
 build_image() {
     echo -e "${YELLOW}MkDocsイメージをビルド中...${NC}"
-    docker compose -f Docker/docker-compose.yml build mkdocs
+    docker compose -f Docker/docker-compose.yml build
     echo -e "${GREEN}ビルドが完了しました${NC}"
 }
 
 # MkDocsサーバーの起動
 start_server() {
     echo -e "${YELLOW}MkDocsサーバーを起動中...${NC}"
-    docker compose -f Docker/docker-compose.yml up -d mkdocs
+    docker compose -f Docker/docker-compose.yml up -d
     echo -e "${GREEN}MkDocsサーバーが起動しました${NC}"
     echo -e "${BLUE}アクセス: http://localhost:8000${NC}"
 }
@@ -73,7 +76,7 @@ restart_server() {
 
 # ログの表示
 show_logs() {
-    docker compose -f Docker/docker-compose.yml logs -f mkdocs
+    docker compose -f Docker/docker-compose.yml logs -f
 }
 
 # コンテナ内でシェルを起動

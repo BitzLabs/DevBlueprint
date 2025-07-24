@@ -104,11 +104,11 @@
       "icon": "terminal-bash"
     }
   },
-  // Docker設定（WSL環境）
-  "dev.containers.dockerPath": "docker",
-  "dev.containers.dockerComposePath": "docker",
+  // Docker設定
+  // Windows側からプロジェクトを開いた際に、WSL上のDockerを認識させるための設定
   "dev.containers.executeInWSL": true,
-  "dev.containers.defaultExtensions": ["ms-vscode-remote.remote-wsl"],
+  "dev.containers.copyGitConfig": true,
+  "dev.containers.gitCredentialHelperConfigLocation": "system",
   "[powershell]": {
     "editor.defaultFormatter": "ms-vscode.powershell"
   }

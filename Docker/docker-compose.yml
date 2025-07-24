@@ -1,58 +1,21 @@
-# DevBlueprint 統合Docker環境
-# 使用方法:
-#   全サービス起動: docker compose up
-#   MkDocsのみ:    docker compose up mkdocs
-#   APIのみ:       docker compose up api (今後追加)
-
 services:
-  # ドキュメントサイト
   mkdocs:
     build:
-      context: ../
-      dockerfile: Docker/mkdocs/Dockerfile
+      context: ./
+      dockerfile: Dockerfile
     container_name: devblueprint-mkdocs
     ports:
       - "8000:8000"
     volumes:
-      - ../:/docs
+      - ../../:/docs
       - /docs/Docker/mkdocs/site # サイト生成ファイルをDocker/mkdocs/site内に保持
     environment:
       - PYTHONUNBUFFERED=1
     command: mkdocs serve --dev-addr=0.0.0.0:8000 --livereload
     restart: unless-stopped
     networks:
-      - devblueprint-network
-
-  # 将来のAPI サーバー (例)
-  # api:
-  #   build:
-  #     context: .
-  #     dockerfile: docker/api/Dockerfile
-  #   container_name: devblueprint-api
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - database
-  #   networks:
-  #     - devblueprint-network
-
-  # 将来のデータベース (例)
-  # database:
-  #   image: postgres:15-alpine
-  #   container_name: devblueprint-db
-  #   environment:
-  #     POSTGRES_DB: devblueprint
-  #     POSTGRES_USER: devuser
-  #     POSTGRES_PASSWORD: devpass
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
-  #   networks:
-  #     - devblueprint-network
+      - mkdocs-network
 
 networks:
-  devblueprint-network:
+  mkdocs-network:
     driver: bridge
-# volumes:
-#   postgres_data:

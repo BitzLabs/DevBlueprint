@@ -1,6 +1,6 @@
 {
   "name": "DevBlueprint MkDocs Environment",
-  "dockerComposeFile": "../Docker/docker-compose.yml",
+  "dockerComposeFile": "../../Docker/docker-compose.yml",
   "service": "mkdocs",
   "workspaceFolder": "/docs",
 
@@ -43,8 +43,18 @@
   },
 
   // コンテナ作成後のコマンド
-  "postCreateCommand": "pip install -r ./Docker/requirements.txt",
+  "postCreateCommand": "pip install -r Docker/mkdocs/requirements.txt",
 
   // リモートユーザー
-  "remoteUser": "vscode"
+  "remoteUser": "root",
+
+  // WSL環境での実行
+  "overrideCommand": false,
+  "shutdownAction": "stopCompose",
+
+  // 必要に応じてライフサイクルスクリプト
+  "initializeCommand": "echo 'Initializing DevBlueprint MkDocs environment...'",
+  "onCreateCommand": "echo 'Container created successfully!'",
+  "updateContentCommand": "echo 'Updating content...'",
+  "postStartCommand": "echo 'Starting MkDocs development server...'"
 }

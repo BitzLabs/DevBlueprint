@@ -190,14 +190,14 @@
       "command": "wsl",
       "args": ["bash", "Scripts/mkdocs.sh", "up"],
       "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
+      "isBackground": true,
       "problemMatcher": [],
-      "isBackground": true
+      "postCommands": [
+        {
+          "command": "simpleBrowser.show",
+          "args": ["http://localhost:8000"]
+        }
+      ]
     },
     {
       "label": "mkdocs:stop",
@@ -241,6 +241,38 @@
       },
       "problemMatcher": [],
       "isBackground": true
+    },
+    {
+      "label": "mkdocs:serve-devcontainer",
+      "type": "shell",
+      "command": "mkdocs",
+      "args": ["serve", "--dev-addr=0.0.0.0:8000", "--livereload"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": [],
+      "isBackground": true,
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "label": "mkdocs:build-devcontainer",
+      "type": "shell",
+      "command": "mkdocs",
+      "args": ["build", "--clean"],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      },
+      "problemMatcher": []
     }
   ]
 }
