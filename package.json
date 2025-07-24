@@ -7,6 +7,7 @@
   "private": true,
   "scripts": {
     "setup:labels": "node ./scripts/create-labels.js",
+    "gemini": "gemini",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "format:docs": "prettier --write \"Docs/**/*.md\"",
