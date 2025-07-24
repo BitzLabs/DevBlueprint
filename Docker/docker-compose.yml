@@ -1,8 +1,8 @@
 services:
   mkdocs:
     build:
-      context: ./mkdocs
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: Docker/mkdocs/Dockerfile
     container_name: devblueprint-mkdocs
     ports:
       - "8000:8000"

@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Pythonの依存関係をインストール
-COPY requirements.txt .
+COPY Docker/mkdocs/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ポート8000を公開
