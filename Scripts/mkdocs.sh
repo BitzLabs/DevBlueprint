@@ -95,7 +95,7 @@ clean_site() {
 # 依存関係の再インストール
 reinstall_dependencies() {
     echo -e "${YELLOW}依存関係を再インストール中...${NC}"
-    docker compose -f Docker/docker-compose.yml exec mkdocs pip install -r requirements.txt
+    docker compose -f Docker/docker-compose.yml exec mkdocs pip install -r Docker/mkdocs/requirements.txt
     echo -e "${GREEN}依存関係の再インストールが完了しました${NC}"
 }
 
