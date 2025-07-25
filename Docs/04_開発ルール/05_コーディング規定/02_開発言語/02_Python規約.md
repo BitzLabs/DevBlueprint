@@ -120,6 +120,7 @@ Actionsのワークフローに`ruff check .`や`ruff format --check .`コマン
     ```
 
 - **f-stringの利用:**
+  - 文字列のフォーマットには、簡潔で可読性の高い**f-string**を第一選択とします。
 
   ```python
   # 良い例
@@ -127,8 +128,8 @@ Actionsのワークフローに`ruff check .`や`ruff format --check .`コマン
   message = f"Hello, {name}!"
 
   # 悪い例
-  # message = "Hello, " + name + "!"
-  # message = "Hello, {}!".format(name)
+  message = "Hello, " + name + "!"
+  message = "Hello, {}!".format(name)
   ```
 
 - **`with`文によるリソース管理:**
