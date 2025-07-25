@@ -94,5 +94,5 @@
   "postCreateCommand": "pip install -r ./Docker/mkdocs/requirements.txt",
 
   // リモートユーザー
-  "remoteUser": "root"
+  "remoteUser": "vscode"
 }

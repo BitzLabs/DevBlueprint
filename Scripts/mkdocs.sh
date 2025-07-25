@@ -3,7 +3,7 @@
 # MkDocs 開発環境管理スクリプト
 # Usage: ./scripts/mkdocs.sh [command]
 
-set -e
+set -euo pipefail
 
 # スクリプトの場所を基準にプロジェクトルートを特定
 cd "$(dirname "$0")/.."
