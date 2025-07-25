@@ -78,7 +78,6 @@ Actionsのワークフローに`ruff check .`や`ruff format --check .`コマン
 
 - **通常のコメント (`#`)**:
   - コードが「何をしているか」よりも「**なぜそうしているのか**」という設計意図や背景、あるいは複雑なアルゴリズムの要点を説明するために使用します。
-
 - **機能IDとの連携**:
   - **[01.共通コーディング原則](../01_共通規則/01_共通コーディング原則.md)**
     で定められた通り、機能の実装やテストコードには、対応する機能IDをコメントやマーカーとして明記します。
@@ -91,7 +90,7 @@ Actionsのワークフローに`ruff check .`や`ruff format --check .`コマン
         return None
 
     import pytest
-    @pytest.mark.requirement("REQ-API-2.1")
+    @pytest.mark.requirement("API-USER-2.1")
     def test_get_user_by_id_returns_correct_user():
         # ...
         pass
@@ -103,7 +102,6 @@ Actionsのワークフローに`ruff check .`や`ruff format --check .`コマン
 
 - **型ヒント (Type Hinting) の積極的利用:**
   - **全ての関数定義（引数と戻り値）**で、Python
-    3.9以降のモダンな型ヒントを必須とします。`|`
     を使ったユニオン型や、`list[str]`
     のような組み込みジェネリック型の利用を推奨します。
   - **理由:**
@@ -122,17 +120,16 @@ Actionsのワークフローに`ruff check .`や`ruff format --check .`コマン
     ```
 
 - **f-stringの利用:**
-  - 文字列のフォーマットには、簡潔で可読性の高い**f-string**を第一選択とします。
 
-    ```python
-    # 良い例
-    name = "World"
-    message = f"Hello, {name}!"
+  ```python
+  # 良い例
+  name = "World"
+  message = f"Hello, {name}!"
 
-    # 悪い例
-    # message = "Hello, " + name + "!"
-    # message = "Hello, {}!".format(name)
-    ```
+  # 悪い例
+  # message = "Hello, " + name + "!"
+  # message = "Hello, {}!".format(name)
+  ```
 
 - **`with`文によるリソース管理:**
   - ファイルやDB接続など、後処理が必要なリソースを扱う場合は、必ず**`with`文**を使用し、リソースの確実な解放を保証します。

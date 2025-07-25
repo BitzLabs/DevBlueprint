@@ -90,9 +90,6 @@
     }
   },
 
-  // コンテナ作成後のコマンド
-  "postCreateCommand": "pip install -r ./Docker/mkdocs/requirements.txt",
-
   // リモートユーザー
   "remoteUser": "vscode"
 }
