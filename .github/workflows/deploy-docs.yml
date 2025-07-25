@@ -43,27 +43,25 @@ jobs:
         with:
           python-version: 3.x
 
-      # ステップ3: 必要なライブラリ（MkDocsとMaterialテーマ）をインストール
+      # ステップ3: 必要なライブラリをインストール
+      # Docker/mkdocs/requirements.txtからMkDocs専用の依存関係をインストール
       - name: Install dependencies
-        run: pip install mkdocs-material mkdocs-exclude mkdocs-awesome-pages-plugin
+        run: pip install -r Docker/mkdocs/requirements.txt
 
       # ステップ4: GitHub Pagesの設定を完全自動化
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      # ステップ5: 不要ファイルの削除
-      - name: Clean up unnecessary files
+      # ステップ5: 不要ファイルの削除とディレクトリ準備
+      - name: Clean up unnecessary files and prepare directories
         run: |
           rm -rf .git .github .gemini
           rm -rf Docs/**/*.csproj
+          mkdir -p Docker/mkdocs
 
-      # ---デバッグ用ステップ
-      #- name: List files before build (for debugging)
-      #  run: ls -laR
-
-      # ステップ5: MkDocsでサイトをビルドする
+      # ステップ6: MkDocsでサイトをビルドする
       - name: Build with MkDocs
-        run: mkdocs build #--verbose
+        run: mkdocs build
 
       # ---デバッグ用ステップ
       #- name: List site directory contents (for debugging)
@@ -72,12 +70,12 @@ jobs:
       #    find site -type f | xargs file
       #    find site -ls
 
-      # ステップ6: ビルド成果物をアップロード
+      # ステップ7: ビルド成果物をアップロード
       # このアーティファクトを後続のdeployジョブが使用します
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./site"
+          path: "./Docker/mkdocs/site"
 
   #-----------------------------------------------------
   # ジョブ2: デプロイ

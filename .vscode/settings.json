@@ -94,5 +94,22 @@
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "editor.rulers": [120],
-  "editor.renderWhitespace": "boundary"
+  "editor.renderWhitespace": "boundary",
+  // ターミナル設定
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.integrated.profiles.windows": {
+    "Git Bash": {
+      "path": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "args": ["-i", "-l"],
+      "icon": "terminal-bash"
+    }
+  },
+  // Docker設定
+  // Windows側からプロジェクトを開いた際に、WSL上のDockerを認識させるための設定
+  "dev.containers.executeInWSL": true,
+  "dev.containers.copyGitConfig": true,
+  "dev.containers.gitCredentialHelperConfigLocation": "system",
+  "[powershell]": {
+    "editor.defaultFormatter": "ms-vscode.powershell"
+  }
 }

@@ -1,26 +1,45 @@
 {
   "recommendations": [
+    // エディタ基本機能
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
-    "davidanson.vscode-markdownlint",
-    "redhat.vscode-yaml",
-    "ms-vscode.vscode-json",
-    "bradlc.vscode-tailwindcss",
-    "ms-dotnettools.csharp",
-    "ms-python.python",
-    "ms-vscode.cpptools",
     "formulahendry.code-runner",
-    "github.vscode-github-actions",
-    "yzhang.markdown-all-in-one",
-    "bierner.markdown-mermaid",
+
+    // Git・バージョン管理
+    "github.copilot",
+    "github.copilot-chat",
+
+    // JavaScript/TypeScript
     "dbaeumer.vscode-eslint",
-    "stylelint.vscode-stylelint",
     "ms-vscode.vscode-typescript-next",
+
+    // CSS/スタイル
+    "bradlc.vscode-tailwindcss",
+    "stylelint.vscode-stylelint",
+
+    // Python
     "charliermarsh.ruff",
     "ms-python.black-formatter",
     "ms-python.mypy-type-checker",
-    "eamodio.gitlens",
-    "github.copilot",
-    "github.copilot-chat"
+    "ms-python.python",
+
+    // C/C++・.NET
+    "ms-dotnettools.csharp",
+    "ms-vscode.cpptools",
+
+    // マークダウン・ドキュメント
+    "bierner.markdown-mermaid",
+    "davidanson.vscode-markdownlint",
+    "yzhang.markdown-all-in-one",
+
+    // データ形式
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+
+    // リモート開発・コンテナ
+    "ms-azuretools.vscode-docker",
+    "ms-vscode-remote.remote-containers",
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode-remote.remote-wsl"
   ]
 }

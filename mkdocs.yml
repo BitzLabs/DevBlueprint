@@ -1,6 +1,7 @@
 # サイト全体の情報
 site_name: "DevBlueprint"
 docs_dir: "Docs"
+site_dir: "Docker/mkdocs/site" # 生成されるサイトをDockerフォルダ内に配置
 site_url: "https://BitzLabs.github.io/DevBlueprint/"
 site_author: "BitzLabs"
 site_description: "ソフトウェア開発のための設計図 (Living Blueprint)"
@@ -68,9 +69,9 @@ plugins:
   - search
   - exclude:
       glob:
-        # すべてのREADME.mdを除外対象にする
+        # README.mdファイルは GitHub用のため MkDocs では表示しない
+        # ただし、Docs直下のREADME.md（ホームページ）は表示対象
         - "**/README.md"
-        # ただし、Docs直下のREADME.mdだけは除外から外す
         - "!README.md"
         # Visual Studio & .NET が生成するフォルダ
         - "**/bin/**"
@@ -85,9 +86,6 @@ plugins:
         # その他、Git管理ファイルなど
         - ".gitignore"
         - ".git/**"
-  # 除外後のクリーンなファイルリストを元にナビゲーションを自動生成
+  # awesome-pages プラグインによってナビゲーションを自動生成
   - awesome-pages
-
-# ナビゲーション (自動化できない「ホーム」タブのみを手動で指定)
-nav:
-  - ホーム: README.md
+# ナビゲーションは awesome-pages プラグインによって完全に自動生成
