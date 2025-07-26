@@ -79,7 +79,7 @@ Actionsのワークフローに`clang-format --dry-run --Werror`、`clang-tidy`�
   - **01.共通コーディング原則**で定められた通り、機能の実装には、対応する機能IDをコメントとして明記します。
 
   ```cpp
-  // FUNC-AUTH-1.1: ユーザー名とパスワードで認証を行う
+  // FUNC-AUTH-1-1: ユーザー名とパスワードで認証を行う
   bool authenticate_user(const std::string& username, const std::string& password)
   {
       // なぜこの処理が必要か、という意図を記述...
