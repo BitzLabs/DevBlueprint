@@ -63,7 +63,7 @@
   - 許可するオリジン、HTTPメソッド、ヘッダを明確に設定し、最小限のアクセスを許可する。
   - ワイルドカード（`*`）の使用は、開発環境など限定的な場合を除き、本番環境では避ける。
 - **CSRF (Cross-Site Request Forgery) 対策:**
-  - 状態を変更するAPI（POST, PUT, DELETEなど）には、CSRFトークン（Synchronizer Token Pattern）やSameSite Cookie属性（Lax/Strict）などの対策を適用する。
+  - 状態を変更するAPI（POST, PUT, DELETEなど）には、認証方式に応じたCSRF対策を適用する。特にCookie認証の場合は、CSRFトークン（Synchronizer Token Pattern）やSameSite Cookie属性（Lax/Strict）が重要となる。
   - Refererヘッダの検証も補助的に行う。
 - **XSS (Cross-Site Scripting) 対策:**
   - APIからのレスポンスに含まれるユーザー入力由来のデータは、クライアントサイドで表示する際に適切にエスケープ処理を行う。
