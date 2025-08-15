@@ -5,95 +5,95 @@ name: Code Quality Checks
 
 # ワークフローの実行タイミングを定義
 on:
-  push:
-    branches: [main, develop] # mainとdevelopブランチへのプッシュ時に実行
-  pull_request:
-    branches: [main, develop] # mainとdevelopブランチへのプルリクエスト時に実行
+    push:
+        branches: [main, develop] # mainとdevelopブランチへのプッシュ時に実行
+    pull_request:
+        branches: [main, develop] # mainとdevelopブランチへのプルリクエスト時に実行
 
 jobs:
-  # Node.js/TypeScriptコード品質チェックジョブ
-  # 全てのプッシュ・PRで実行される基本的な品質チェック
-  nodejs-quality:
-    runs-on: ubuntu-latest
+    # Node.js/TypeScriptコード品質チェックジョブ
+    # 全てのプッシュ・PRで実行される基本的な品質チェック
+    nodejs-quality:
+        runs-on: ubuntu-latest
 
-    steps:
-      # リポジトリのコードをチェックアウト
-      - name: Checkout code
-        uses: actions/checkout@v4
+        steps:
+            # リポジトリのコードをチェックアウト
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      # Node.js環境のセットアップ（v20、npmキャッシュ有効）
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20" # 最新のLTS版を使用
-          cache: "npm" # npmキャッシュを有効化してビルド時間を短縮
+            # Node.js環境のセットアップ（v20、npmキャッシュ有効）
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20" # 最新のLTS版を使用
+                  cache: "npm" # npmキャッシュを有効化してビルド時間を短縮
 
-      # package-lock.jsonに基づいた確実な依存関係インストール
-      - name: Install dependencies
-        run: npm ci # npm installより高速で確実なci用コマンド
+            # package-lock.jsonに基づいた確実な依存関係インストール
+            - name: Install dependencies
+              run: npm ci # npm installより高速で確実なci用コマンド
 
-      # TypeScriptの型チェック実行（コンパイルエラーの検出）
-      - name: Run TypeScript check
-        run: npm run type-check
+            # TypeScriptの型チェック実行（コンパイルエラーの検出）
+            - name: Run TypeScript check
+              run: npm run type-check
 
-      # ESLintによるコード品質チェック（構文エラー、ベストプラクティス違反を検出）
-      - name: Run ESLint
-        run: npm run lint
+            # ESLintによるコード品質チェック（構文エラー、ベストプラクティス違反を検出）
+            - name: Run ESLint
+              run: npm run lint
 
-      # Prettierによるコードフォーマットチェック（スタイル統一の確認）
-      - name: Run Prettier check
-        run: npm run format:check
+            # Prettierによるコードフォーマットチェック（スタイル統一の確認）
+            - name: Run Prettier check
+              run: npm run format:check
 
-      # Jestによる単体テスト実行（機能的な問題の検出）
-      - name: Run tests
-        run: npm test
+            # Jestによる単体テスト実行（機能的な問題の検出）
+            - name: Run tests
+              run: npm test
 
-  # 条件付き実行版（特定ファイルが変更された場合のみ）
-  # パフォーマンス最適化：関連ファイル変更時のみ詳細チェックを実行
-  conditional-quality:
-    runs-on: ubuntu-latest
+    # 条件付き実行版（特定ファイルが変更された場合のみ）
+    # パフォーマンス最適化：関連ファイル変更時のみ詳細チェックを実行
+    conditional-quality:
+        runs-on: ubuntu-latest
 
-    steps:
-      # リポジトリの完全な履歴を取得（変更ファイル検出のため）
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 # 全履歴を取得（変更差分検出に必要）
+        steps:
+            # リポジトリの完全な履歴を取得（変更ファイル検出のため）
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0 # 全履歴を取得（変更差分検出に必要）
 
-      # 変更されたファイルを検出（JS/TS/設定ファイルのみ対象）
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v40
-        with:
-          files: | # 監視対象ファイルパターン
-            **/*.js         # JavaScriptファイル
-            **/*.ts         # TypeScriptファイル
-            **/*.jsx        # React JSXファイル
-            **/*.tsx        # React TSXファイル
-            **/*.json       # JSON設定ファイル
-            package.json    # パッケージ定義
-            package-lock.json # 依存関係ロック
+            # 変更されたファイルを検出（JS/TS/設定ファイルのみ対象）
+            - name: Get changed files
+              id: changed-files
+              uses: tj-actions/changed-files@v40
+              with:
+                  files: | # 監視対象ファイルパターン
+                      **/*.js         # JavaScriptファイル
+                      **/*.ts         # TypeScriptファイル
+                      **/*.jsx        # React JSXファイル
+                      **/*.tsx        # React TSXファイル
+                      **/*.json       # JSON設定ファイル
+                      package.json    # パッケージ定義
+                      package-lock.json # 依存関係ロック
 
-      # 対象ファイルが変更された場合のみNode.js環境をセットアップ
-      - name: Set up Node.js
-        if: steps.changed-files.outputs.any_changed == 'true'
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20" # 最新のLTS版を使用
-          cache: "npm" # npmキャッシュを有効化してビルド時間を短縮
+            # 対象ファイルが変更された場合のみNode.js環境をセットアップ
+            - name: Set up Node.js
+              if: steps.changed-files.outputs.any_changed == 'true'
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "20" # 最新のLTS版を使用
+                  cache: "npm" # npmキャッシュを有効化してビルド時間を短縮
 
-      # 対象ファイルが変更された場合のみ依存関係をインストール
-      - name: Install dependencies
-        if: steps.changed-files.outputs.any_changed == 'true'
-        run: npm ci # package-lock.jsonに基づいた確実なインストール
+            # 対象ファイルが変更された場合のみ依存関係をインストール
+            - name: Install dependencies
+              if: steps.changed-files.outputs.any_changed == 'true'
+              run: npm ci # package-lock.jsonに基づいた確実なインストール
 
-      # 対象ファイルが変更された場合のみ包括的な品質チェックを実行
-      - name: Run linting and formatting
-        if: steps.changed-files.outputs.any_changed == 'true'
-        run: |
-          # ESLintによるコード品質チェック（構文・品質問題の検出）
-          npm run lint
-          # Prettierによるフォーマットチェック（コードスタイルの統一確認）
-          npm run format:check
-          # TypeScriptの型チェック（型安全性の確認）
-          npm run type-check
+            # 対象ファイルが変更された場合のみ包括的な品質チェックを実行
+            - name: Run linting and formatting
+              if: steps.changed-files.outputs.any_changed == 'true'
+              run: |
+                  # ESLintによるコード品質チェック（構文・品質問題の検出）
+                  npm run lint
+                  # Prettierによるフォーマットチェック（コードスタイルの統一確認）
+                  npm run format:check
+                  # TypeScriptの型チェック（型安全性の確認）
+                  npm run type-check

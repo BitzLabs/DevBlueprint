@@ -15,77 +15,80 @@ edit_uri: "edit/main/Docs/"
 
 # テーマと機能
 theme:
-  name: material
-  language: ja
-  logo: assets/images/logo.svg
-  favicon: assets/images/favicon.png
-  features:
-    - navigation.tabs
-    - navigation.top
-    - navigation.sections
-    - navigation.expand
-    - search.suggest
-    - search.highlight
-    - content.code.annotate
-  palette:
-    - scheme: default
-      primary: blue
-      accent: indigo
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - scheme: slate
-      primary: blue
-      accent: indigo
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
+    name: material
+    language: ja
+    logo: assets/images/logo.svg
+    favicon: assets/images/favicon.png
+    features:
+        - navigation.tabs
+        - navigation.top
+        - navigation.sections
+        - navigation.expand
+        - search.suggest
+        - search.highlight
+        - content.code.annotate
+    palette:
+        - scheme: default
+          primary: blue
+          accent: indigo
+          toggle:
+              icon: material/brightness-7
+              name: Switch to dark mode
+        - scheme: slate
+          primary: blue
+          accent: indigo
+          toggle:
+              icon: material/brightness-4
+              name: Switch to light mode
 
 # Markdown拡張機能 (表現力を高める)
 markdown_extensions:
-  - admonition
-  - pymdownx.details
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-        - name: math
-          class: arithmatex
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.arithmatex:
-      generic: true
-  - attr_list
-  - md_in_html
+    - admonition
+    - pymdownx.details
+    - pymdownx.superfences:
+          custom_fences:
+              - name: mermaid
+                class: mermaid
+              - name: math
+                class: arithmatex
+    - pymdownx.tabbed:
+          alternate_style: true
+    - pymdownx.arithmatex:
+          generic: true
+    - attr_list
+    - md_in_html
+    - def_list
+    - pymdownx.tasklist:
+          custom_checkbox: true
 
 # JavaScript追加（ローカル参照）
 extra_javascript:
-  - assets/js/mermaid.min.js
-  - assets/js/mathjax-config.js
-  - assets/js/mathjax.min.js
+    - assets/js/mermaid.min.js
+    - assets/js/mathjax-config.js
+    - assets/js/mathjax.min.js
 
 # Markdown拡張機能 (プラグイン設定)
 plugins:
-  - search
-  - exclude:
-      glob:
-        # README.mdファイルは GitHub用のため MkDocs では表示しない
-        # ただし、Docs直下のREADME.md（ホームページ）は表示対象
-        - "**/README.md"
-        - "!README.md"
-        # Visual Studio & .NET が生成するフォルダ
-        - "**/bin/**"
-        - "**/obj/**"
-        - "**/.vs/**"
-        # Visual Studio のソリューション/プロジェクトファイル
-        - "**/*.sln"
-        - "**/*.csproj"
-        - "**/*.user"
-        # Node.js の依存関係フォルダ
-        - "**/node_modules/**"
-        # その他、Git管理ファイルなど
-        - ".gitignore"
-        - ".git/**"
-  # awesome-pages プラグインによってナビゲーションを自動生成
-  - awesome-pages
+    - search
+    - exclude:
+          glob:
+              # README.mdファイルは GitHub用のため MkDocs では表示しない
+              # ただし、Docs直下のREADME.md（ホームページ）は表示対象
+              - "**/README.md"
+              - "!README.md"
+              # Visual Studio & .NET が生成するフォルダ
+              - "**/bin/**"
+              - "**/obj/**"
+              - "**/.vs/**"
+              # Visual Studio のソリューション/プロジェクトファイル
+              - "**/*.sln"
+              - "**/*.csproj"
+              - "**/*.user"
+              # Node.js の依存関係フォルダ
+              - "**/node_modules/**"
+              # その他、Git管理ファイルなど
+              - ".gitignore"
+              - ".git/**"
+    # awesome-pages プラグインによってナビゲーションを自動生成
+    - awesome-pages
 # ナビゲーションは awesome-pages プラグインによって完全に自動生成

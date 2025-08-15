@@ -1,24 +1,24 @@
 # Clang-Tidy 設定
 Checks: >
-  *,
-  -modernize-use-trailing-return-type,
-  -llvm-header-guard,
-  -fuchsia-*,
-  -google-readability-todo,
-  -hicpp-no-array-decay,
-  -cppcoreguidelines-pro-bounds-array-to-pointer-decay
+    *,
+    -modernize-use-trailing-return-type,
+    -llvm-header-guard,
+    -fuchsia-*,
+    -google-readability-todo,
+    -hicpp-no-array-decay,
+    -cppcoreguidelines-pro-bounds-array-to-pointer-decay
 
 CheckOptions:
-  - key: readability-identifier-naming.ClassCase
-    value: CamelCase
-  - key: readability-identifier-naming.FunctionCase
-    value: lower_case
-  - key: readability-identifier-naming.VariableCase
-    value: lower_case
-  - key: readability-identifier-naming.MemberCase
-    value: lower_case
-  - key: readability-identifier-naming.MemberSuffix
-    value: _
+    - key: readability-identifier-naming.ClassCase
+      value: CamelCase
+    - key: readability-identifier-naming.FunctionCase
+      value: lower_case
+    - key: readability-identifier-naming.VariableCase
+      value: lower_case
+    - key: readability-identifier-naming.MemberCase
+      value: lower_case
+    - key: readability-identifier-naming.MemberSuffix
+      value: _
 
 WarningsAsErrors: '*'
 HeaderFilterRegex: '.*'

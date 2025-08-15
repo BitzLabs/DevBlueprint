@@ -12,33 +12,33 @@ import path from 'path';
  * @returns {string[]} ファイルパスの配列
  */
 function findFiles(dir, extensions, ignorePatterns = []) {
-  let files = [];
+    let files = [];
 
-  try {
-    const items = fs.readdirSync(dir);
+    try {
+        const items = fs.readdirSync(dir);
 
-    for (const item of items) {
-      // このアイテムが無視対象かチェック
-      if (ignorePatterns.some(pattern => item.includes(pattern))) {
-        continue;
-      }
+        for (const item of items) {
+            // このアイテムが無視対象かチェック
+            if (ignorePatterns.some(pattern => item.includes(pattern))) {
+                continue;
+            }
 
-      const fullPath = path.join(dir, item);
-      const stat = fs.statSync(fullPath);
+            const fullPath = path.join(dir, item);
+            const stat = fs.statSync(fullPath);
 
-      if (stat.isDirectory()) {
-        // サブディレクトリを再帰的に検索
-        files = files.concat(findFiles(fullPath, extensions, ignorePatterns));
-      } else if (extensions.some(ext => item.endsWith(ext))) {
-        files.push(fullPath);
-      }
+            if (stat.isDirectory()) {
+                // サブディレクトリを再帰的に検索
+                files = files.concat(findFiles(fullPath, extensions, ignorePatterns));
+            } else if (extensions.some(ext => item.endsWith(ext))) {
+                files.push(fullPath);
+            }
+        }
+    } catch (error) {
+        // エラーを静かに無視する（例：アクセス権限なし）
+        console.warn(`警告: ディレクトリ ${dir} を読み取れませんでした: ${error.message}`);
     }
-  } catch (error) {
-    // エラーを静かに無視する（例：アクセス権限なし）
-    console.warn(`警告: ディレクトリ ${dir} を読み取れませんでした: ${error.message}`);
-  }
 
-  return files;
+    return files;
 }
 
 /**
@@ -49,7 +49,7 @@ function findFiles(dir, extensions, ignorePatterns = []) {
  * @returns {boolean} ファイルが見つかった場合はtrue
  */
 function hasFiles(rootDir, extensions, ignorePatterns = []) {
-  return findFiles(rootDir, extensions, ignorePatterns).length > 0;
+    return findFiles(rootDir, extensions, ignorePatterns).length > 0;
 }
 
 export { findFiles, hasFiles };

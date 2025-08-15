@@ -1,95 +1,95 @@
 {
-  "name": "DevBlueprint MkDocs Environment",
-  "dockerComposeFile": "../Docker/docker-compose.yml",
-  "service": "mkdocs",
-  "workspaceFolder": "/docs",
+    "name": "DevBlueprint MkDocs Environment",
+    "dockerComposeFile": "../Docker/docker-compose.yml",
+    "service": "mkdocs",
+    "workspaceFolder": "/docs",
 
-  // VSCode設定
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        // Python開発
-        "ms-python.python",
-        "ms-python.black-formatter",
-        "charliermarsh.ruff",
+    // VSCode設定
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                // Python開発
+                "ms-python.python",
+                "ms-python.black-formatter",
+                "charliermarsh.ruff",
 
-        // マークダウン・ドキュメント
-        "davidanson.vscode-markdownlint",
-        "yzhang.markdown-all-in-one",
-        "bierner.markdown-mermaid",
+                // マークダウン・ドキュメント
+                "davidanson.vscode-markdownlint",
+                "yzhang.markdown-all-in-one",
+                "bierner.markdown-mermaid",
 
-        // エディタ基本機能
-        "editorconfig.editorconfig",
-        "esbenp.prettier-vscode",
+                // エディタ基本機能
+                "editorconfig.editorconfig",
+                "esbenp.prettier-vscode",
 
-        // データ形式
-        "redhat.vscode-yaml",
-        "ms-vscode.vscode-json",
+                // データ形式
+                "redhat.vscode-yaml",
+                "ms-vscode.vscode-json",
 
-        // Git・バージョン管理
-        "github.copilot",
-        "github.copilot-chat",
+                // Git・バージョン管理
+                "github.copilot",
+                "github.copilot-chat",
 
-        // 開発支援
-        "formulahendry.code-runner",
-        "ms-vscode.live-server"
-      ],
-      "settings": {
-        // Python設定
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
-        "python.formatting.provider": "black",
-        "python.linting.enabled": true,
-        "python.linting.ruffEnabled": true,
+                // 開発支援
+                "formulahendry.code-runner",
+                "ms-vscode.live-server"
+            ],
+            "settings": {
+                // Python設定
+                "python.defaultInterpreterPath": "/usr/local/bin/python",
+                "python.formatting.provider": "black",
+                "python.linting.enabled": true,
+                "python.linting.ruffEnabled": true,
 
-        // エディタの基本設定
-        "editor.formatOnSave": true,
-        "editor.wordWrap": "on",
-        "editor.tabSize": 2,
-        "editor.insertSpaces": true,
+                // エディタの基本設定
+                "editor.formatOnSave": true,
+                "editor.wordWrap": "on",
+                "editor.tabSize": 2,
+                "editor.insertSpaces": true,
 
-        // ファイル関連設定
-        "files.associations": {
-          "*.md": "markdown",
-          "*.yml": "yaml",
-          "*.yaml": "yaml"
-        },
-        "files.exclude": {
-          "Docker/mkdocs/site/**": true,
-          "**/__pycache__": true,
-          "**/*.pyc": true
-        },
+                // ファイル関連設定
+                "files.associations": {
+                    "*.md": "markdown",
+                    "*.yml": "yaml",
+                    "*.yaml": "yaml"
+                },
+                "files.exclude": {
+                    "Docker/mkdocs/site/**": true,
+                    "**/__pycache__": true,
+                    "**/*.pyc": true
+                },
 
-        // マークダウン設定
-        "markdownlint.config": {
-          "MD033": false,
-          "MD041": false,
-          "MD013": {
-            "line_length": 120
-          }
-        },
-        "markdown.preview.breaks": true,
-        "markdown.preview.linkify": true,
+                // マークダウン設定
+                "markdownlint.config": {
+                    "MD033": false,
+                    "MD041": false,
+                    "MD013": {
+                        "line_length": 120
+                    }
+                },
+                "markdown.preview.breaks": true,
+                "markdown.preview.linkify": true,
 
-        // YAML設定
-        "yaml.validate": true,
-        "yaml.format.enable": true,
+                // YAML設定
+                "yaml.validate": true,
+                "yaml.format.enable": true,
 
-        // ターミナル設定
-        "terminal.integrated.defaultProfile.linux": "bash",
-        "terminal.integrated.fontSize": 14
-      }
-    }
-  },
+                // ターミナル設定
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "terminal.integrated.fontSize": 14
+            }
+        }
+    },
 
-  // ポートフォワーディング
-  "forwardPorts": [8000],
-  "portsAttributes": {
-    "8000": {
-      "label": "MkDocs Server",
-      "onAutoForward": "notify"
-    }
-  },
+    // ポートフォワーディング
+    "forwardPorts": [8000],
+    "portsAttributes": {
+        "8000": {
+            "label": "MkDocs Server",
+            "onAutoForward": "notify"
+        }
+    },
 
-  // リモートユーザー
-  "remoteUser": "vscode"
+    // リモートユーザー
+    "remoteUser": "vscode"
 }

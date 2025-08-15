@@ -1,24 +1,24 @@
 extends: default
 
 rules:
-  # 行の長さ制限を緩和
-  line-length:
-    max: 120
+    # 行の長さ制限を緩和
+    line-length:
+        max: 120
 
-  # インデント: スペース2つ
-  indentation:
-    spaces: 2
+    # インデント: スペース2つ
+    indentation:
+        spaces: 4
 
-  # 空行の設定
-  empty-lines:
-    max: 2
-    max-start: 0
-    max-end: 1
+    # 空行の設定
+    empty-lines:
+        max: 2
+        max-start: 0
+        max-end: 1
 
-  # コメントのスペース設定
-  comments:
-    min-spaces-from-content: 1
+    # コメントのスペース設定
+    comments:
+        min-spaces-from-content: 1
 
-  # ドキュメント開始設定
-  document-start:
-    present: false
+    # ドキュメント開始設定
+    document-start:
+        present: false

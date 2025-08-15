@@ -1,45 +1,45 @@
 {
-  "recommendations": [
-    // エディタ基本機能
-    "editorconfig.editorconfig",
-    "esbenp.prettier-vscode",
-    "formulahendry.code-runner",
+    "recommendations": [
+        // エディタ基本機能
+        "editorconfig.editorconfig",
+        "esbenp.prettier-vscode",
+        "formulahendry.code-runner",
 
-    // Git・バージョン管理
-    "github.copilot",
-    "github.copilot-chat",
+        // Git・バージョン管理
+        "github.copilot",
+        "github.copilot-chat",
 
-    // JavaScript/TypeScript
-    "dbaeumer.vscode-eslint",
-    "ms-vscode.vscode-typescript-next",
+        // JavaScript/TypeScript
+        "dbaeumer.vscode-eslint",
+        "ms-vscode.vscode-typescript-next",
 
-    // CSS/スタイル
-    "bradlc.vscode-tailwindcss",
-    "stylelint.vscode-stylelint",
+        // CSS/スタイル
+        "bradlc.vscode-tailwindcss",
+        "stylelint.vscode-stylelint",
 
-    // Python
-    "charliermarsh.ruff",
-    "ms-python.black-formatter",
-    "ms-python.mypy-type-checker",
-    "ms-python.python",
+        // Python
+        "charliermarsh.ruff",
+        "ms-python.black-formatter",
+        "ms-python.mypy-type-checker",
+        "ms-python.python",
 
-    // C/C++・.NET
-    "ms-dotnettools.csharp",
-    "ms-vscode.cpptools",
+        // C/C++・.NET
+        "ms-dotnettools.csharp",
+        "ms-vscode.cpptools",
 
-    // マークダウン・ドキュメント
-    "bierner.markdown-mermaid",
-    "davidanson.vscode-markdownlint",
-    "yzhang.markdown-all-in-one",
+        // マークダウン・ドキュメント
+        "bierner.markdown-mermaid",
+        "davidanson.vscode-markdownlint",
+        "yzhang.markdown-all-in-one",
 
-    // データ形式
-    "ms-vscode.vscode-json",
-    "redhat.vscode-yaml",
+        // データ形式
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml",
 
-    // リモート開発・コンテナ
-    "ms-azuretools.vscode-docker",
-    "ms-vscode-remote.remote-containers",
-    "ms-vscode-remote.remote-ssh",
-    "ms-vscode-remote.remote-wsl"
-  ]
+        // リモート開発・コンテナ
+        "ms-azuretools.vscode-docker",
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode-remote.remote-ssh",
+        "ms-vscode-remote.remote-wsl"
+    ]
 }

@@ -5,112 +5,112 @@ name: Build and Deploy Docs
 # ワークフローが実行されるトリガーの定義
 #===================================================================================
 on:
-  # 1. mainブランチにコードがプッシュされた時
-  push:
-    branches:
-      - main
+    # 1. mainブランチにコードがプッシュされた時
+    push:
+        branches:
+            - main
 
-  # 2. mainブランチに対するプルリクエストが作成・更新された時
-  pull_request:
-    branches:
-      - main
+    # 2. mainブランチに対するプルリクエストが作成・更新された時
+    pull_request:
+        branches:
+            - main
 
-  # 3. GitHubのActionsタブから手動で実行したい時
-  workflow_dispatch:
+    # 3. GitHubのActionsタブから手動で実行したい時
+    workflow_dispatch:
 
 #===================================================================================
 # ジョブの定義
 #===================================================================================
 jobs:
-  #-----------------------------------------------------
-  # ジョブ1: ビルド
-  # サイトのビルド、設定、成果物のアップロードを行う
-  #-----------------------------------------------------
-  build:
-    # Actionsタブで表示されるジョブ名
-    name: Build Docs Site
-    # 実行環境として最新のUbuntuを使用
-    runs-on: ubuntu-latest
-    steps:
-      # ステップ1: リポジトリのコードを仮想環境にチェックアウト
-      - name: Checkout code
-        uses: actions/checkout@v4
+    #-----------------------------------------------------
+    # ジョブ1: ビルド
+    # サイトのビルド、設定、成果物のアップロードを行う
+    #-----------------------------------------------------
+    build:
+        # Actionsタブで表示されるジョブ名
+        name: Build Docs Site
+        # 実行環境として最新のUbuntuを使用
+        runs-on: ubuntu-latest
+        steps:
+            # ステップ1: リポジトリのコードを仮想環境にチェックアウト
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      # ステップ2: Python 3.x 環境をセットアップ
-      # MkDocsはPython製のため必須
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
+            # ステップ2: Python 3.x 環境をセットアップ
+            # MkDocsはPython製のため必須
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: 3.x
 
-      # ステップ3: 必要なライブラリをインストール
-      # Docker/mkdocs/requirements.txtからMkDocs専用の依存関係をインストール
-      - name: Install dependencies
-        run: pip install -r Docker/mkdocs/requirements.txt
+            # ステップ3: 必要なライブラリをインストール
+            # Docker/mkdocs/requirements.txtからMkDocs専用の依存関係をインストール
+            - name: Install dependencies
+              run: pip install -r Docker/mkdocs/requirements.txt
 
-      # ステップ4: GitHub Pagesの設定を完全自動化
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+            # ステップ4: GitHub Pagesの設定を完全自動化
+            - name: Configure GitHub Pages
+              uses: actions/configure-pages@v5
 
-      # ステップ5: 不要ファイルの削除とディレクトリ準備
-      - name: Clean up unnecessary files and prepare directories
-        run: |
-          rm -rf .git .github .gemini
-          rm -rf Docs/**/*.csproj
-          mkdir -p Docker/mkdocs
+            # ステップ5: 不要ファイルの削除とディレクトリ準備
+            - name: Clean up unnecessary files and prepare directories
+              run: |
+                  rm -rf .git .github .gemini
+                  rm -rf Docs/**/*.csproj
+                  mkdir -p Docker/mkdocs
 
-      # ステップ6: MkDocsでサイトをビルドする
-      - name: Build with MkDocs
-        run: mkdocs build
+            # ステップ6: MkDocsでサイトをビルドする
+            - name: Build with MkDocs
+              run: mkdocs build
 
-      # ---デバッグ用ステップ
-      #- name: List site directory contents (for debugging)
-      #  run: |
-      #    ls -laR site
-      #    find site -type f | xargs file
-      #    find site -ls
+            # ---デバッグ用ステップ
+            #- name: List site directory contents (for debugging)
+            #  run: |
+            #    ls -laR site
+            #    find site -type f | xargs file
+            #    find site -ls
 
-      # ステップ7: ビルド成果物をアップロード
-      # このアーティファクトを後続のdeployジョブが使用します
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "./Docker/mkdocs/site"
+            # ステップ7: ビルド成果物をアップロード
+            # このアーティファクトを後続のdeployジョブが使用します
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: "./Docker/mkdocs/site"
 
-  #-----------------------------------------------------
-  # ジョブ2: デプロイ
-  # GitHub Pagesにサイトを公開する
-  #-----------------------------------------------------
-  deploy:
-    # Actionsタブで表示されるジョブ名
-    name: Deploy to GitHub Pages
-    # 'build'ジョブが成功した場合にのみ、このジョブが開始される
-    needs: build
+    #-----------------------------------------------------
+    # ジョブ2: デプロイ
+    # GitHub Pagesにサイトを公開する
+    #-----------------------------------------------------
+    deploy:
+        # Actionsタブで表示されるジョブ名
+        name: Deploy to GitHub Pages
+        # 'build'ジョブが成功した場合にのみ、このジョブが開始される
+        needs: build
 
-    # デプロイに必要なパーミッションを設定
-    permissions:
-      pages: write # GitHub Pagesへの書き込み権限
-      id-token: write # デプロイ認証用のIDトークン書き込み権限
+        # デプロイに必要なパーミッションを設定
+        permissions:
+            pages: write # GitHub Pagesへの書き込み権限
+            id-token: write # デプロイ認証用のIDトークン書き込み権限
 
-    # デプロイ環境の指定 (必須)
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+        # デプロイ環境の指定 (必須)
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
 
-    # このジョブが実行される条件を定義
-    # mainブランチへのプッシュで、かつリポジトリがPublicの場合
-    # または、リポジトリがパブリック化された場合
-    if: >-
-      (
-        github.event_name == 'push' &&
-        github.ref == 'refs/heads/main' &&
-        !github.repository.private
-      )
+        # このジョブが実行される条件を定義
+        # mainブランチへのプッシュで、かつリポジトリがPublicの場合
+        # または、リポジトリがパブリック化された場合
+        if: >-
+            (
+              github.event_name == 'push' &&
+              github.ref == 'refs/heads/main' &&
+              !github.repository.private
+            )
 
-    steps:
-      # ステップ1: サイトをデプロイ
-      # buildジョブがアップロードしたアーティファクトを自動で取得してデプロイします
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        steps:
+            # ステップ1: サイトをデプロイ
+            # buildジョブがアップロードしたアーティファクトを自動で取得してデプロイします
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
