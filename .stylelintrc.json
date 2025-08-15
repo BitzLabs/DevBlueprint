@@ -1,6 +1,6 @@
 {
     "extends": ["stylelint-config-standard", "stylelint-config-prettier", "stylelint-config-recess-order"],
-    "plugins": ["stylelint-scss", "stylelint-order", "stylelint-config-prettier"],
+    "plugins": ["stylelint-scss", "stylelint-order"],
     "rules": {
         "at-rule-no-unknown": [
             true,
@@ -25,16 +25,7 @@
                 ]
             }
         ],
-        "declaration-block-trailing-semicolon": "always",
-        "length-zero-no-unit": true,
-        "rule-empty-line-before": [
-            "always-multi-line",
-            {
-                "except": ["first-nested"],
-                "ignore": ["after-comment"]
-            }
-        ],
-        "unit-whitelist": ["em", "rem", "px", "%", "vh", "vw", "vmin", "vmax", "deg", "s", "ms", "fr"],
+        "unit-allowed-list": ["em", "rem", "px", "%", "vh", "vw", "vmin", "vmax", "deg", "s", "ms", "fr"],
         "property-no-unknown": [
             true,
             {
@@ -47,11 +38,6 @@
                 "message": "Expected class selector to be BEM format"
             }
         ],
-        "string-quotes": "single",
-        "color-hex-case": "lower",
-        "color-hex-length": "short",
-        "comment-empty-line-before": "always",
-        "indentation": 4,
         "max-nesting-depth": 4,
         "no-duplicate-selectors": true,
         "no-empty-source": null,
