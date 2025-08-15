@@ -4,6 +4,9 @@
     },
     // エディタ全般設定
     "editor.formatOnSave": true,
+    "files.eol": "\n",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
         "source.fixAll": "explicit"
@@ -12,6 +15,8 @@
     "[markdown]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
         "editor.wordWrap": "bounded", // ルーラー(文字数制限)に合わせて折り返す
         "editor.codeActionsOnSave": {
             // 保存時にmarkdownlintの自動修正を有効化
