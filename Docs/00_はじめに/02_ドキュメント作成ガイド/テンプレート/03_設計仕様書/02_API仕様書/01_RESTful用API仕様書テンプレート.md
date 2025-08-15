@@ -1,8 +1,13 @@
-# [章番号]: API仕様書
+---
+title: RESTful用
+---
+
+# [章番号]: RESTful API仕様書
 
 !!! note "このテンプレートの使い方"
-このファイルは、RESTful APIなど、プロジェクトが外部に公開するAPIの仕様を定義するためのテンプレートです。
-詳しい使い方は「[設計仕様の書き方ガイド](ここにガイドへのパスを記述してください)」を参照してください。
+
+    このファイルは、RESTful APIなど、プロジェクトが外部に公開するAPIの仕様を定義するためのテンプレートです。
+    詳しい使い方は「[設計仕様の書き方ガイド](../../../04_設計仕様の書き方ガイド.md)」を参照してください。
 
 ## 1. はじめに
 
@@ -61,19 +66,19 @@
 
 ```json
 {
-  "total": 120,
-  "users": [
-    {
-      "id": "user-001",
-      "name": "Taro Yamada",
-      "createdAt": "2025-07-28T10:00:00Z"
-    },
-    {
-      "id": "user-002",
-      "name": "Hanako Sato",
-      "createdAt": "2025-07-28T11:00:00Z"
-    }
-  ]
+    "total": 120,
+    "users": [
+        {
+            "id": "user-001",
+            "name": "Taro Yamada",
+            "createdAt": "2025-07-28T10:00:00Z"
+        },
+        {
+            "id": "user-002",
+            "name": "Hanako Sato",
+            "createdAt": "2025-07-28T11:00:00Z"
+        }
+    ]
 }
 ```
 
@@ -94,8 +99,8 @@
 
 ```json
 {
-  "name": "Jiro Suzuki",
-  "email": "jiro@example.com"
+    "name": "Jiro Suzuki",
+    "email": "jiro@example.com"
 }
 ```
 
@@ -111,9 +116,9 @@
 
 ```json
 {
-  "id": "user-003",
-  "name": "Jiro Suzuki",
-  "createdAt": "2025-07-28T12:00:00Z"
+    "id": "user-003",
+    "name": "Jiro Suzuki",
+    "createdAt": "2025-07-28T12:00:00Z"
 }
 ```
 
@@ -145,9 +150,9 @@
 
 ```json
 {
-  "error": {
-    "code": "INVALID_PARAMETER",
-    "message": "The 'limit' parameter must be between 1 and 100."
-  }
+    "error": {
+        "code": "INVALID_PARAMETER",
+        "message": "The 'limit' parameter must be between 1 and 100."
+    }
 }
 ```

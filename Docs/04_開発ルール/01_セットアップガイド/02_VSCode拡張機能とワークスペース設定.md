@@ -112,78 +112,78 @@ code --list-extensions
 
 ```json
 {
-  // エディタの基本設定
-  "editor.fontSize": 14,
-  "editor.tabSize": 2,
-  "editor.insertSpaces": true,
-  "editor.detectIndentation": false,
-  "editor.wordWrap": "on",
-  "editor.renderWhitespace": "boundary",
-
-  // フォーマット設定
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "source.fixAll.markdownlint": true
-  },
-
-  // ファイル設定
-  "files.eol": "\n",
-  "files.encoding": "utf8",
-  "files.trimFinalNewlines": true,
-  "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true,
-
-  // 言語固有の設定
-  "[markdown]": {
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    // エディタの基本設定
+    "editor.fontSize": 14,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
     "editor.wordWrap": "on",
-    "editor.quickSuggestions": {
-      "comments": "off",
-      "strings": "off",
-      "other": "off"
+    "editor.renderWhitespace": "boundary",
+
+    // フォーマット設定
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+        "source.fixAll.markdownlint": true
+    },
+
+    // ファイル設定
+    "files.eol": "\n",
+    "files.encoding": "utf8",
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+
+    // 言語固有の設定
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        }
+    },
+
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+
+    // Git 設定
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+
+    // 統合ターミナル設定
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontFamily": "Consolas, 'Courier New', monospace",
+
+    // エクスプローラー設定
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+
+    // 検索設定
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/.git": true,
+        "**/.DS_Store": true
+    },
+
+    // Emmet 設定
+    "emmet.includeLanguages": {
+        "markdown": "html"
     }
-  },
-
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-
-  // Git 設定
-  "git.enableSmartCommit": true,
-  "git.confirmSync": false,
-  "git.autofetch": true,
-
-  // 統合ターミナル設定
-  "terminal.integrated.fontSize": 14,
-  "terminal.integrated.fontFamily": "Consolas, 'Courier New', monospace",
-
-  // エクスプローラー設定
-  "explorer.confirmDelete": false,
-  "explorer.confirmDragAndDrop": false,
-
-  // 検索設定
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/dist": true,
-    "**/build": true,
-    "**/.git": true,
-    "**/.DS_Store": true
-  },
-
-  // Emmet 設定
-  "emmet.includeLanguages": {
-    "markdown": "html"
-  }
 }
 ```
 
@@ -193,68 +193,68 @@ code --list-extensions
 
 ```json
 {
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "label": "npm: install",
-      "type": "shell",
-      "command": "npm",
-      "args": ["install"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "lint: all",
-      "type": "shell",
-      "command": "npm",
-      "args": ["run", "lint"],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": ["$eslint-stylish"]
-    },
-    {
-      "label": "format: all",
-      "type": "shell",
-      "command": "npm",
-      "args": ["run", "format"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    },
-    {
-      "label": "docs: serve",
-      "type": "shell",
-      "command": "mkdocs",
-      "args": ["serve"],
-      "group": "build",
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared"
-      },
-      "problemMatcher": []
-    }
-  ]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "npm: install",
+            "type": "shell",
+            "command": "npm",
+            "args": ["install"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "lint: all",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "lint"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": ["$eslint-stylish"]
+        },
+        {
+            "label": "format: all",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "format"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "docs: serve",
+            "type": "shell",
+            "command": "mkdocs",
+            "args": ["serve"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ]
 }
 ```
 
@@ -264,30 +264,30 @@ code --list-extensions
 
 ```json
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Node.js: Current File",
-      "type": "node",
-      "request": "launch",
-      "program": "${file}",
-      "console": "integratedTerminal",
-      "skipFiles": ["<node_internals>/**"]
-    },
-    {
-      "name": "Jest: Current File",
-      "type": "node",
-      "request": "launch",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": ["${relativeFile}"],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true,
-      "windows": {
-        "program": "${workspaceFolder}/node_modules/jest/bin/jest"
-      }
-    }
-  ]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Node.js: Current File",
+            "type": "node",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "skipFiles": ["<node_internals>/**"]
+        },
+        {
+            "name": "Jest: Current File",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
+            "args": ["${relativeFile}"],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+            "windows": {
+                "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+            }
+        }
+    ]
 }
 ```
 
@@ -297,19 +297,19 @@ code --list-extensions
 
 ```json
 {
-  "recommendations": [
-    "esbenp.prettier-vscode",
-    "dbaeumer.vscode-eslint",
-    "davidanson.vscode-markdownlint",
-    "editorconfig.editorconfig",
-    "donjayamanne.githistory",
-    "eamodio.gitlens",
-    "yzhang.markdown-all-in-one",
-    "shd101wyy.markdown-preview-enhanced",
-    "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
-    "rangav.vscode-thunder-client",
-    "humao.rest-client"
-  ]
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "davidanson.vscode-markdownlint",
+        "editorconfig.editorconfig",
+        "donjayamanne.githistory",
+        "eamodio.gitlens",
+        "yzhang.markdown-all-in-one",
+        "shd101wyy.markdown-preview-enhanced",
+        "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+        "rangav.vscode-thunder-client",
+        "humao.rest-client"
+    ]
 }
 ```
 

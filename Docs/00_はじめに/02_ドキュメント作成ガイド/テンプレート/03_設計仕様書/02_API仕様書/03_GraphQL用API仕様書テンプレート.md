@@ -1,9 +1,14 @@
+---
+title: GraphQL用
+---
+
 # [章番号]: GraphQL API仕様書
 
 !!! note "このテンプレートの使い方"
-このファイルは、GraphQL APIの仕様を定義するためのテンプレートです。
-GraphQLの仕様はスキーマ定義が中心となるため、このドキュメントはスキーマへの参照と、主要なクエリ/ミューテーションの具体的な使用例を示すことに重点を置きます。
-詳しい使い方は「[設計仕様の書き方ガイド](ここにガイドへのパスを記述してください)」を参照してください。
+
+    このファイルは、GraphQL APIの仕様を定義するためのテンプレートです。
+    GraphQLの仕様はスキーマ定義が中心となるため、このドキュメントはスキーマへの参照と、主要なクエリ/ミューテーションの具体的な使用例を示すことに重点を置きます。
+    詳しい使い方は「[設計仕様の書き方ガイド](../../../04_設計仕様の書き方ガイド.md)」を参照してください。
 
 ## 1. はじめに
 
@@ -57,15 +62,15 @@ user(id: ID!): User
 
 ```graphql
 query GetUserById($userId: ID!) {
-  user(id: $userId) {
-    id
-    name
-    email
-    posts {
-      id
-      title
+    user(id: $userId) {
+        id
+        name
+        email
+        posts {
+            id
+            title
+        }
     }
-  }
 }
 ```
 
@@ -73,7 +78,7 @@ query GetUserById($userId: ID!) {
 
 ```json
 {
-  "userId": "user-001"
+    "userId": "user-001"
 }
 ```
 
@@ -96,15 +101,15 @@ createPost(title: String!, content: String!): Post
 
 ```graphql
 mutation CreateNewPost($title: String!, $content: String!) {
-  createPost(title: $title, content: $content) {
-    id
-    title
-    content
-    author {
-      id
-      name
+    createPost(title: $title, content: $content) {
+        id
+        title
+        content
+        author {
+            id
+            name
+        }
     }
-  }
 }
 ```
 
@@ -112,8 +117,8 @@ mutation CreateNewPost($title: String!, $content: String!) {
 
 ```json
 {
-  "title": "GraphQLは素晴らしい",
-  "content": "スキーマ駆動開発は最高です..."
+    "title": "GraphQLは素晴らしい",
+    "content": "スキーマ駆動開発は最高です..."
 }
 ```
 
@@ -136,13 +141,13 @@ postAdded: Post
 
 ```graphql
 subscription OnPostAdded {
-  postAdded {
-    id
-    title
-    author {
-      name
+    postAdded {
+        id
+        title
+        author {
+            name
+        }
     }
-  }
 }
 ```
 
@@ -154,19 +159,19 @@ GraphQLの標準的な`errors`配列形式で返されます。
 
 ```json
 {
-  "errors": [
-    {
-      "message": "Post with ID 'post-999' not found.",
-      "locations": [{ "line": 2, "column": 3 }],
-      "path": ["post"],
-      "extensions": {
-        "code": "NOT_FOUND",
-        "timestamp": "2025-07-28T12:00:00Z"
-      }
+    "errors": [
+        {
+            "message": "Post with ID 'post-999' not found.",
+            "locations": [{ "line": 2, "column": 3 }],
+            "path": ["post"],
+            "extensions": {
+                "code": "NOT_FOUND",
+                "timestamp": "2025-07-28T12:00:00Z"
+            }
+        }
+    ],
+    "data": {
+        "post": null
     }
-  ],
-  "data": {
-    "post": null
-  }
 }
 ```

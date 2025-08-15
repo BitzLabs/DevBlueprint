@@ -26,23 +26,23 @@
 
 - スクリプトの意図しない動作を防ぐため、ファイルの先頭（Shebangの直後）に、以下の**「安全設定」**を記述することを**強く推奨**します。
 
-  ```bash
-  set -euo pipefail
-  ```
+    ```bash
+    set -euo pipefail
+    ```
 
-  - **`set -e`**: コマンドがエラー（ゼロ以外の終了コード）になった時点で、スクリプトを即座に終了させます。
-  - **`set -u`**: 未定義の変数を使用しようとした時点で、スクリプトを即座に終了させます。
-  - **`set -o pipefail`**: パイプライン（`|`）の途中でいずれかのコマンドが失敗した場合、パイプライン全体の終了コードをエラーとします。
+    - **`set -e`**: コマンドがエラー（ゼロ以外の終了コード）になった時点で、スクリプトを即座に終了させます。
+    - **`set -u`**: 未定義の変数を使用しようとした時点で、スクリプトを即座に終了させます。
+    - **`set -o pipefail`**: パイプライン（`|`）の途中でいずれかのコマンドが失敗した場合、パイプライン全体の終了コードをエラーとします。
 
 ---
 
 ## 3. ツールによる規約の強制 (Tool-Enforced Regulations)
 
 - **静的解析: `ShellCheck`**
-  - **役割:**
-    シェルスクリプトの一般的なエラー、バグ、アンチパターン、スタイル問題を自動で検出してくれる、非常に強力な静的解析ツールです。
-  - **運用:**
-    VSCodeの拡張機能`timonwong.shellcheck`を導入し、リアルタイムでコードをチェックします。CI/CDプロセスに`shellcheck`コマンドを組み込み、警告が出た場合はマージをブロックすることを推奨します。
+    - **役割:**
+      シェルスクリプトの一般的なエラー、バグ、アンチパターン、スタイル問題を自動で検出してくれる、非常に強力な静的解析ツールです。
+    - **運用:**
+      VSCodeの拡張機能`timonwong.shellcheck`を導入し、リアルタイムでコードをチェックします。CI/CDプロセスに`shellcheck`コマンドを組み込み、警告が出た場合はマージをブロックすることを推奨します。
 
 ---
 
@@ -55,14 +55,14 @@
 - **展開:**
   変数を展開する際は、意図しない単語分割やグロブ展開を防ぐため、**常にダブルクォーテーションで囲みます。**
 
-  ```bash
-  # 良い例
-  file_name="my report.txt"
-  echo "$file_name" # -> my report.txt
+    ```bash
+    # 良い例
+    file_name="my report.txt"
+    echo "$file_name" # -> my report.txt
 
-  # 悪い例: myとreport.txtが別々の引数として解釈される
-  # echo $file_name
-  ```
+    # 悪い例: myとreport.txtが別々の引数として解釈される
+    # echo $file_name
+    ```
 
 ### 4.2. コマンド置換
 
@@ -73,25 +73,25 @@
 
 - 文字列比較やファイルチェックには、古い`[`（testコマンド）ではなく、より高機能で安全な`[[ ... ]]`を使用します。
 
-  ```bash
-  # 良い例
-  if [[ "$my_var" == "hello" && -f "$my_file" ]]; then
-      echo "条件に一致しました。"
-  fi
-  ```
+    ```bash
+    # 良い例
+    if [[ "$my_var" == "hello" && -f "$my_file" ]]; then
+        echo "条件に一致しました。"
+    fi
+    ```
 
 ### 4.4. 関数
 
 - `function`キーワードは省略し、`my_func() { ... }`の形式で定義します。
 - ローカル変数は必ず`local`キーワードで宣言し、グローバルスコープの汚染を防ぎます。
 
-  ```bash
-  # 良い例
-  my_func() {
-    local my_local_var="Hello"
-    echo "$my_local_var, $1"
-  }
-  ```
+    ```bash
+    # 良い例
+    my_func() {
+      local my_local_var="Hello"
+      echo "$my_local_var, $1"
+    }
+    ```
 
 ---
 
@@ -99,8 +99,8 @@
 
 - スクリプト内の特定の処理が、何らかの要求仕様に関連する場合は、コメントで機能IDを明記します。
 
-  ```bash
-  # DEPLOY-CI-2.1: ビルド成果物をS3にアップロードする
-  echo "Uploading artifacts to S3..."
-  aws s3 cp ./site s3://my-bucket/ --recursive
-  ```
+    ```bash
+    # DEPLOY-CI-2.1: ビルド成果物をS3にアップロードする
+    echo "Uploading artifacts to S3..."
+    aws s3 cp ./site s3://my-bucket/ --recursive
+    ```

@@ -40,46 +40,46 @@ GitHub Actions のワークフローは `.github/workflows/` ディレクトリ�
 name: Code Quality Check
 
 on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main]
 
 jobs:
-  quality-check:
-    runs-on: ubuntu-latest
+    quality-check:
+        runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
+        strategy:
+            matrix:
+                node-version: [18.x, 20.x]
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+            - name: Setup Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ matrix.node-version }}
+                  cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Run linting
-        run: npm run lint:all
+            - name: Run linting
+              run: npm run lint:all
 
-      - name: Check code formatting
-        run: npm run format:check
+            - name: Check code formatting
+              run: npm run format:check
 
-      - name: Run tests
-        run: npm run test:ci
+            - name: Run tests
+              run: npm run test:ci
 
-      - name: Upload coverage reports
-        uses: codecov/codecov-action@v3
-        with:
-          file: ./coverage/lcov.info
-          fail_ci_if_error: true
+            - name: Upload coverage reports
+              uses: codecov/codecov-action@v3
+              with:
+                  file: ./coverage/lcov.info
+                  fail_ci_if_error: true
 ```
 
 ### 2.3 ドキュメントデプロイワークフロー
@@ -90,61 +90,61 @@ jobs:
 name: Deploy Documentation
 
 on:
-  push:
-    branches: [main]
-    paths: ['Docs/**']
-  workflow_dispatch:
+    push:
+        branches: [main]
+        paths: ['Docs/**']
+    workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+    contents: read
+    pages: write
+    id-token: write
 
 concurrency:
-  group: 'pages'
-  cancel-in-progress: false
+    group: 'pages'
+    cancel-in-progress: false
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
+            - name: Setup Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: '3.11'
 
-      - name: Install dependencies
-        run: |
-          pip install mkdocs-material
-          pip install mkdocs-git-revision-date-localized-plugin
-          pip install mkdocs-mermaid2-plugin
+            - name: Install dependencies
+              run: |
+                  pip install mkdocs-material
+                  pip install mkdocs-git-revision-date-localized-plugin
+                  pip install mkdocs-mermaid2-plugin
 
-      - name: Build documentation
-        run: mkdocs build --strict
+            - name: Build documentation
+              run: mkdocs build --strict
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+            - name: Setup Pages
+              uses: actions/configure-pages@v4
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './site'
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  path: './site'
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    deploy:
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        needs: build
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
 ```
 
 ### 2.4 セキュリティチェックワークフロー
@@ -155,44 +155,44 @@ jobs:
 name: Security Check
 
 on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-  schedule:
-    - cron: '0 2 * * 1' # 毎週月曜日 2:00 AM
+    push:
+        branches: [main, develop]
+    pull_request:
+        branches: [main]
+    schedule:
+        - cron: '0 2 * * 1' # 毎週月曜日 2:00 AM
 
 jobs:
-  security:
-    runs-on: ubuntu-latest
+    security:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.x'
-          cache: 'npm'
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18.x'
+                  cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Run security audit
-        run: npm audit --audit-level=moderate
+            - name: Run security audit
+              run: npm audit --audit-level=moderate
 
-      - name: Run CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-          languages: javascript
+            - name: Run CodeQL Analysis
+              uses: github/codeql-action/analyze@v3
+              with:
+                  languages: javascript
 
-      - name: Run Snyk security scan
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high
+            - name: Run Snyk security scan
+              uses: snyk/actions/node@master
+              env:
+                  SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+              with:
+                  args: --severity-threshold=high
 ```
 
 ### 2.5 リリースワークフロー
@@ -203,53 +203,53 @@ jobs:
 name: Release
 
 on:
-  push:
-    tags: ['v*']
+    push:
+        tags: ['v*']
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
+    release:
+        runs-on: ubuntu-latest
 
-    permissions:
-      contents: write
+        permissions:
+            contents: write
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.x'
-          cache: 'npm'
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '18.x'
+                  cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Run tests
-        run: npm run test:ci
+            - name: Run tests
+              run: npm run test:ci
 
-      - name: Build project
-        run: npm run build
+            - name: Build project
+              run: npm run build
 
-      - name: Generate changelog
-        id: changelog
-        run: |
-          # CHANGELOG.md から最新バージョンの内容を抽出
-          VERSION=${GITHUB_REF#refs/tags/}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+            - name: Generate changelog
+              id: changelog
+              run: |
+                  # CHANGELOG.md から最新バージョンの内容を抽出
+                  VERSION=${GITHUB_REF#refs/tags/}
+                  echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ steps.changelog.outputs.version }}
-          draft: false
-          prerelease: false
+            - name: Create GitHub Release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: ${{ github.ref }}
+                  release_name: Release ${{ steps.changelog.outputs.version }}
+                  draft: false
+                  prerelease: false
 ```
 
 ## 3. Husky の設定（Git Hooks）
@@ -331,12 +331,12 @@ npm install --save-dev lint-staged
 
 ```json
 {
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
-    "*.{css,scss,less}": ["stylelint --fix", "prettier --write"],
-    "*.{json,yaml,yml}": ["prettier --write"],
-    "*.md": ["markdownlint --fix", "prettier --write"]
-  }
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
+        "*.{css,scss,less}": ["stylelint --fix", "prettier --write"],
+        "*.{json,yaml,yml}": ["prettier --write"],
+        "*.md": ["markdownlint --fix", "prettier --write"]
+    }
 }
 ```
 
@@ -346,10 +346,10 @@ npm install --save-dev lint-staged
 
 ```json
 {
-  "scripts": {
-    "precommit": "lint-staged",
-    "postinstall": "husky install"
-  }
+    "scripts": {
+        "precommit": "lint-staged",
+        "postinstall": "husky install"
+    }
 }
 ```
 
@@ -367,29 +367,29 @@ npm install --save-dev @commitlint/cli @commitlint/config-conventional
 
 ```javascript
 module.exports = {
-  extends: ['@commitlint/config-conventional'],
-  rules: {
-    'type-enum': [
-      2,
-      'always',
-      [
-        'feat', // 新機能
-        'fix', // バグ修正
-        'docs', // ドキュメント
-        'style', // スタイリング
-        'refactor', // リファクタリング
-        'perf', // パフォーマンス改善
-        'test', // テスト
-        'chore', // その他
-        'ci', // CI/CD
-        'build', // ビルド
-      ],
-    ],
-    'scope-case': [2, 'always', 'lower-case'],
-    'subject-case': [2, 'never', ['upper-case']],
-    'subject-max-length': [2, 'always', 100],
-    'body-max-line-length': [2, 'always', 150],
-  },
+    extends: ['@commitlint/config-conventional'],
+    rules: {
+        'type-enum': [
+            2,
+            'always',
+            [
+                'feat', // 新機能
+                'fix', // バグ修正
+                'docs', // ドキュメント
+                'style', // スタイリング
+                'refactor', // リファクタリング
+                'perf', // パフォーマンス改善
+                'test', // テスト
+                'chore', // その他
+                'ci', // CI/CD
+                'build', // ビルド
+            ],
+        ],
+        'scope-case': [2, 'always', 'lower-case'],
+        'subject-case': [2, 'never', ['upper-case']],
+        'subject-max-length': [2, 'always', 100],
+        'body-max-line-length': [2, 'always', 150],
+    },
 };
 ```
 
@@ -410,14 +410,14 @@ GitHub リポジトリの Settings → Secrets and variables → Actions で設�
 ```yaml
 # ワークフロー内での使用例
 env:
-  NODE_ENV: production
-  API_URL: ${{ secrets.API_URL }}
+    NODE_ENV: production
+    API_URL: ${{ secrets.API_URL }}
 
 steps:
-  - name: Deploy to production
-    env:
-      DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
-    run: npm run deploy
+    - name: Deploy to production
+      env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+      run: npm run deploy
 ```
 
 ## 7. CI/CD の監視とメンテナンス
@@ -436,10 +436,10 @@ steps:
 - name: Cache node modules
   uses: actions/cache@v3
   with:
-    path: ~/.npm
-    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-    restore-keys: |
-      ${{ runner.os }}-node-
+      path: ~/.npm
+      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      restore-keys: |
+          ${{ runner.os }}-node-
 ```
 
 ### 7.3 並列実行の活用
@@ -448,17 +448,17 @@ steps:
 
 ```yaml
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps: [...]
+    lint:
+        runs-on: ubuntu-latest
+        steps: [...]
 
-  test:
-    runs-on: ubuntu-latest
-    steps: [...]
+    test:
+        runs-on: ubuntu-latest
+        steps: [...]
 
-  security:
-    runs-on: ubuntu-latest
-    steps: [...]
+    security:
+        runs-on: ubuntu-latest
+        steps: [...]
 ```
 
 ## 8. トラブルシューティング
@@ -511,9 +511,9 @@ jobs:
 
 ```yaml
 strategy:
-  matrix:
-    os: [ubuntu-latest, windows-latest, macos-latest]
-    node-version: [16.x, 18.x, 20.x]
+    matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [16.x, 18.x, 20.x]
 ```
 
 ### 10.2 コンディショナル実行
@@ -533,16 +533,16 @@ strategy:
 ```yaml
 # .github/workflows/reusable-quality-check.yml
 on:
-  workflow_call:
-    inputs:
-      node-version:
-        required: true
-        type: string
+    workflow_call:
+        inputs:
+            node-version:
+                required: true
+                type: string
 
 jobs:
-  quality:
-    runs-on: ubuntu-latest
-    steps: [...]
+    quality:
+        runs-on: ubuntu-latest
+        steps: [...]
 ```
 
 ## 次のステップ

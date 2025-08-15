@@ -146,19 +146,19 @@ docs_dir: Docs
 site_dir: Docker/mkdocs/site
 
 theme:
-  name: material
-  language: ja
+    name: material
+    language: ja
 
 plugins:
-  - search:
-      lang: ja
-  - mermaid2
+    - search:
+          lang: ja
+    - mermaid2
 
 markdown_extensions:
-  - admonition
-  - codehilite
-  - toc:
-      permalink: true
+    - admonition
+    - codehilite
+    - toc:
+          permalink: true
 ```
 
 #### Docker/mkdocs/requirements.txt
@@ -203,35 +203,35 @@ ls -la Docker/mkdocs/site/
 
 1. **`Docker/requirements.txt` にプラグインを追加**:
 
-   ```text
-   mkdocs-awesome-pages-plugin>=2.8.0
-   ```
+    ```text
+    mkdocs-awesome-pages-plugin>=2.8.0
+    ```
 
 2. **`mkdocs.yml` でプラグインを有効化**:
 
-   ```yaml
-   plugins:
-     - awesome-pages
-   ```
+    ```yaml
+    plugins:
+        - awesome-pages
+    ```
 
 3. **コンテナを再ビルド**:
 
-   ```bash
-   bash Scripts/mkdocs.sh build
-   bash Scripts/mkdocs.sh restart
-   ```
+    ```bash
+    bash Scripts/mkdocs.sh build
+    bash Scripts/mkdocs.sh restart
+    ```
 
 ### テーマのカスタマイズ
 
 ```yaml
 # mkdocs.yml
 theme:
-  name: material
-  custom_dir: Docs/overrides
-  palette:
-    - scheme: default
-      primary: indigo
-      accent: indigo
+    name: material
+    custom_dir: Docs/overrides
+    palette:
+        - scheme: default
+          primary: indigo
+          accent: indigo
 ```
 
 ## 🔧 トラブルシューティング
@@ -279,21 +279,21 @@ docker compose -f Docker/docker-compose.yml build --no-cache
 
 1. **Dockerが正常に動作しているか確認**:
 
-   ```bash
-   docker info
-   ```
+    ```bash
+    docker info
+    ```
 
 2. **Docker Composeファイルの構文確認**:
 
-   ```bash
-   docker compose -f Docker/docker-compose.yml config
-   ```
+    ```bash
+    docker compose -f Docker/docker-compose.yml config
+    ```
 
 3. **キャッシュをクリアして再ビルド**:
 
-   ```bash
-   docker system prune -a
-   ```
+    ```bash
+    docker system prune -a
+    ```
 
 #### VS CodeでDev Containerが開けない
 
@@ -301,10 +301,10 @@ docker compose -f Docker/docker-compose.yml build --no-cache
 2. **「Dev Containers」を選択してエラーログを確認**
 3. **WSL内からVS Codeを起動**:
 
-   ```bash
-   cd /mnt/c/Work/DevBlueprint
-   code .
-   ```
+    ```bash
+    cd /mnt/c/Work/DevBlueprint
+    code .
+    ```
 
 ### ポート競合の解決
 

@@ -25,19 +25,19 @@
 **[.editorconfig](/.editorconfig)** ファイルで統一します。
 
 - **リンター 兼 フォーマッター: `Ruff`**
-  - **役割:** 非常に高速なリンター兼フォーマッター。PEP
-    8違反だけでなく、未使用の変数、未整理のimport、潜在的なバグやアンチパターンを検出します。`Flake8`,
-    `isort`, `pyupgrade` など、多くのツールの機能を内包しています。
-  - **運用:**
-    `Ruff`を第一のツールとし、コードのチェックとフォーマットをこれ一つで行うことを推奨します。
-  - **公式サイト:**
-    [Ruff - An extremely fast Python linter and code formatter](https://docs.astral.sh/ruff/)
+    - **役割:** 非常に高速なリンター兼フォーマッター。PEP
+      8違反だけでなく、未使用の変数、未整理のimport、潜在的なバグやアンチパターンを検出します。`Flake8`,
+      `isort`, `pyupgrade` など、多くのツールの機能を内包しています。
+    - **運用:**
+      `Ruff`を第一のツールとし、コードのチェックとフォーマットをこれ一つで行うことを推奨します。
+    - **公式サイト:**
+      [Ruff - An extremely fast Python linter and code formatter](https://docs.astral.sh/ruff/)
 
 - **フォーマッター (代替): `Black`**
-  - **役割:**
-    「議論の余地なく（uncompromising）」コードを整形するフォーマッター。
-  - **運用:**
-    プロジェクトの歴史的経緯などで`Black`が既に導入されている場合や、`Ruff`のフォーマッターがまだベータ版であることに懸念がある場合は、フォーマッターとして`Black`を、リンターとして`Ruff`を組み合わせて利用します。`Ruff`は`Black`と互換性のあるフォーマットを提供します。
+    - **役割:**
+      「議論の余地なく（uncompromising）」コードを整形するフォーマッター。
+    - **運用:**
+      プロジェクトの歴史的経緯などで`Black`が既に導入されている場合や、`Ruff`のフォーマッターがまだベータ版であることに懸念がある場合は、フォーマッターとして`Black`を、リンターとして`Ruff`を組み合わせて利用します。`Ruff`は`Black`と互換性のあるフォーマットを提供します。
 
 !!! success "CI/CDによる自動チェック" GitHub
 Actionsのワークフローに`ruff check .`や`ruff format --check .`コマンドを組み込むことで、規約に違反したコードのマージを自動的にブロックします。
@@ -55,127 +55,127 @@ Actionsのワークフローに`ruff check .`や`ruff format --check .`コマン
 ## 4.コメント (Comments)
 
 - **Docstring (`"""..."""`) の役割の限定:**
-  - 本プロジェクトでは、**[02.設計仕様/01.API仕様](../../../02_設計仕様/01_API仕様/README.md)**
-    を仕様の正とし、ソースコードのDocstringはAPIドキュメント自動生成のためには使用しません。
-  - Docstringは、あくまで関数やクラスの**「目的」**を簡潔に説明するための補助的な役割とします。型ヒントで自明な引数や戻り値の型を繰り返すような、冗長なDocstringは避けてください。
+    - 本プロジェクトでは、**[02.設計仕様/01.API仕様](../../../02_設計仕様/01_API仕様/README.md)**
+      を仕様の正とし、ソースコードのDocstringはAPIドキュメント自動生成のためには使用しません。
+    - Docstringは、あくまで関数やクラスの**「目的」**を簡潔に説明するための補助的な役割とします。型ヒントで自明な引数や戻り値の型を繰り返すような、冗長なDocstringは避けてください。
 
-    ```python
-    # 良い例：簡潔な一行Docstring
-    def calculate_tax(price: float, rate: float) -> float:
-        """指定された価格と税率から税込価格を計算する。"""
-        return price * (1 + rate)
+        ```python
+        # 良い例：簡潔な一行Docstring
+        def calculate_tax(price: float, rate: float) -> float:
+            """指定された価格と税率から税込価格を計算する。"""
+            return price * (1 + rate)
 
-    # 悪い例：冗長なDocstring
-    def calculate_tax_bad(price: float, rate: float) -> float:
-        """
-        税込価格を計算します。
-        :param price: 価格 (float)
-        :param rate: 税率 (float)
-        :return: 税込価格 (float)
-        """
-        return price * (1 + rate)
-    ```
+        # 悪い例：冗長なDocstring
+        def calculate_tax_bad(price: float, rate: float) -> float:
+            """
+            税込価格を計算します。
+            :param price: 価格 (float)
+            :param rate: 税率 (float)
+            :return: 税込価格 (float)
+            """
+            return price * (1 + rate)
+        ```
 
 - **通常のコメント (`#`)**:
-  - コードが「何をしているか」よりも「**なぜそうしているのか**」という設計意図や背景、あるいは複雑なアルゴリズムの要点を説明するために使用します。
+    - コードが「何をしているか」よりも「**なぜそうしているのか**」という設計意図や背景、あるいは複雑なアルゴリズムの要点を説明するために使用します。
 - **機能IDとの連携**:
-  - **[01.共通コーディング原則](../01_共通規則/01_共通コーディング原則.md)**
-    で定められた通り、機能の実装やテストコードには、対応する機能IDをコメントやマーカーとして明記します。
+    - **[01.共通コーディング原則](../01_共通規則/01_共通コーディング原則.md)**
+      で定められた通り、機能の実装やテストコードには、対応する機能IDをコメントやマーカーとして明記します。
 
-    ```python
-    # API-USER-2-1: ユーザー情報を返すAPI
-    def get_user_by_id(user_id: int) -> dict | None:
-        """ユーザーIDに紐づくユーザー情報を取得する。"""
-        # ...
-        return None
+        ```python
+        # API-USER-2-1: ユーザー情報を返すAPI
+        def get_user_by_id(user_id: int) -> dict | None:
+            """ユーザーIDに紐づくユーザー情報を取得する。"""
+            # ...
+            return None
 
-    import pytest
-    @pytest.mark.requirement("API-USER-2-1")
-    def test_get_user_by_id_returns_correct_user():
-        # ...
-        pass
-    ```
+        import pytest
+        @pytest.mark.requirement("API-USER-2-1")
+        def test_get_user_by_id_returns_correct_user():
+            # ...
+            pass
+        ```
 
 ---
 
 ## 5.言語機能の利用方針 (Language Feature Usage)
 
 - **型ヒント (Type Hinting) の積極的利用:**
-  - **全ての関数定義（引数と戻り値）**で、Python
-    を使ったユニオン型や、`list[str]`
-    のような組み込みジェネリック型の利用を推奨します。
-  - **理由:**
-    コードの可読性と堅牢性が向上し、`mypy`や`Ruff`による静的解析の恩恵を最大限に受けられます。
+    - **全ての関数定義（引数と戻り値）**で、Python
+      を使ったユニオン型や、`list[str]`
+      のような組み込みジェネリック型の利用を推奨します。
+    - **理由:**
+      コードの可読性と堅牢性が向上し、`mypy`や`Ruff`による静的解析の恩恵を最大限に受けられます。
 
-    ```python
-    # 良い例
-    def process_data(data: list[str] | None) -> int:
-        if data is None:
-            return 0
-        return len(data)
+        ```python
+        # 良い例
+        def process_data(data: list[str] | None) -> int:
+            if data is None:
+                return 0
+            return len(data)
 
-    # 悪い例 (型ヒントがない)
-    # def process_data(data):
-    #    ...
-    ```
+        # 悪い例 (型ヒントがない)
+        # def process_data(data):
+        #    ...
+        ```
 
 - **f-stringの利用:**
-  - 文字列のフォーマットには、簡潔で可読性の高い**f-string**を第一選択とします。
-
-  ```python
-  # 良い例
-  name = "World"
-  message = f"Hello, {name}!"
-
-  # 悪い例
-  message = "Hello, " + name + "!"
-  message = "Hello, {}!".format(name)
-  ```
-
-- **`with`文によるリソース管理:**
-  - ファイルやDB接続など、後処理が必要なリソースを扱う場合は、必ず**`with`文**を使用し、リソースの確実な解放を保証します。
+    - 文字列のフォーマットには、簡潔で可読性の高い**f-string**を第一選択とします。
 
     ```python
     # 良い例
-    with open("data.txt", "r", encoding="utf-8") as f:
-        content = f.read()
-    # ここでファイルは自動的にクローズされる
+    name = "World"
+    message = f"Hello, {name}!"
 
     # 悪い例
-    # f = open("data.txt", "r", encoding="utf-8")
-    # try:
-    #     content = f.read()
-    # finally:
-    #     f.close() # finallyブロックが必要になり、冗長
+    message = "Hello, " + name + "!"
+    message = "Hello, {}!".format(name)
     ```
+
+- **`with`文によるリソース管理:**
+    - ファイルやDB接続など、後処理が必要なリソースを扱う場合は、必ず**`with`文**を使用し、リソースの確実な解放を保証します。
+
+        ```python
+        # 良い例
+        with open("data.txt", "r", encoding="utf-8") as f:
+            content = f.read()
+        # ここでファイルは自動的にクローズされる
+
+        # 悪い例
+        # f = open("data.txt", "r", encoding="utf-8")
+        # try:
+        #     content = f.read()
+        # finally:
+        #     f.close() # finallyブロックが必要になり、冗長
+        ```
 
 - **データクラス (`dataclasses`):**
-  - 主にデータを保持することを目的とするクラスには、`@dataclass`デコレータの利用を推奨します。`__init__`、`__repr__`等の自動生成により、ボイラープレートコードを削減できます。**`frozen=True`でイミュータブルにすることを強く推奨します。**
+    - 主にデータを保持することを目的とするクラスには、`@dataclass`デコレータの利用を推奨します。`__init__`、`__repr__`等の自動生成により、ボイラープレートコードを削減できます。**`frozen=True`でイミュータブルにすることを強く推奨します。**
 
-    ```python
-    from dataclasses import dataclass
+        ```python
+        from dataclasses import dataclass
 
-    @dataclass(frozen=True)
-    class User:
-        id: int
-        name: str
-        is_active: bool = True
-    ```
+        @dataclass(frozen=True)
+        class User:
+            id: int
+            name: str
+            is_active: bool = True
+        ```
 
 - **構造的パターンマッチング (`match`文):**
-  - Python
-    3.10以降が利用可能な場合、複雑な`if/elif/else`の連鎖を、より可読性の高い**`match`文**で置き換えることを検討します。
+    - Python
+      3.10以降が利用可能な場合、複雑な`if/elif/else`の連鎖を、より可読性の高い**`match`文**で置き換えることを検討します。
 
-    ```python
-    def process_command(command: dict):
-        match command:
-            case {"type": "create", "user": name}:
-                print(f"Creating user {name}...")
-            case {"type": "delete", "user_id": user_id}:
-                print(f"Deleting user {user_id}...")
-            case _:
-                print("Unknown command.")
-    ```
+        ```python
+        def process_command(command: dict):
+            match command:
+                case {"type": "create", "user": name}:
+                    print(f"Creating user {name}...")
+                case {"type": "delete", "user_id": user_id}:
+                    print(f"Deleting user {user_id}...")
+                case _:
+                    print("Unknown command.")
+        ```
 
 ---
 
@@ -220,14 +220,14 @@ except DatabaseConnectionError:
 ### 7.2. コルーチンの定義と実行 (Defining and Running Coroutines)
 
 - **定義 (Definition):**
-  - 非同期関数（コルーチン）は `async def` を使って定義します。
+    - 非同期関数（コルーチン）は `async def` を使って定義します。
 - **実行 (Execution):**
-  - コルーチンは `await` キーワードを使って呼び出します。`await` は `async def`
-    で定義された関数内でのみ使用できます。
-  - トップレベルで非同期処理を開始するには、`asyncio.run()` を使用します。
+    - コルーチンは `await` キーワードを使って呼び出します。`await` は `async def`
+      で定義された関数内でのみ使用できます。
+    - トップレベルで非同期処理を開始するには、`asyncio.run()` を使用します。
 - **タスクの並行実行 (Concurrent Execution):**
-  - 複数のコルーチンを並行して実行したい場合は、`asyncio.gather()` や
-    `asyncio.create_task()` を利用します。
+    - 複数のコルーチンを並行して実行したい場合は、`asyncio.gather()` や
+      `asyncio.create_task()` を利用します。
 
 ```python
 import asyncio
@@ -319,74 +319,74 @@ if __name__ == "__main__":
 ## 8.パフォーマンスに関する考慮事項 (Performance Considerations)
 
 - **文字列結合 (String Concatenation):**
-  - ループ内で多数の文字列を結合する場合は、`+`演算子やf-stringを繰り返し使用するのではなく、リストに一度追加してから**`"".join()`**メソッドを使用します。これは、文字列がイミュータブルであるため、`+`演算子では毎回新しい文字列オブジェクトが生成されるのを防ぐためです。
+    - ループ内で多数の文字列を結合する場合は、`+`演算子やf-stringを繰り返し使用するのではなく、リストに一度追加してから**`"".join()`**メソッドを使用します。これは、文字列がイミュータブルであるため、`+`演算子では毎回新しい文字列オブジェクトが生成されるのを防ぐためです。
 
-    ```python
-    # 良い例
-    words = ["hello", "world", "this", "is", "a", "test"]
-    sentence = " ".join(words)
+        ```python
+        # 良い例
+        words = ["hello", "world", "this", "is", "a", "test"]
+        sentence = " ".join(words)
 
-    # 悪い例：ループのたびに新しい文字列オブジェクトが生成され、非効率
-    # sentence = ""
-    # for word in words:
-    #     sentence += word + " "
-    ```
+        # 悪い例：ループのたびに新しい文字列オブジェクトが生成され、非効率
+        # sentence = ""
+        # for word in words:
+        #     sentence += word + " "
+        ```
 
 - **データ構造の選択 (Data Structure Choice):**
-  - **`tuple` vs `list`:**
-    変更の必要がないシーケンスには、イミュータブルな`tuple`を使用することを検討します。`tuple`は`list`よりもメモリ効率が良く、若干高速です。
-  - **`__slots__`の利用:**
-    インスタンスが多数生成されるクラスでは、`__slots__`を定義することで、インスタンスごとの`__dict__`の作成を防ぎ、メモリ使用量を削減できます。
+    - **`tuple` vs `list`:**
+      変更の必要がないシーケンスには、イミュータブルな`tuple`を使用することを検討します。`tuple`は`list`よりもメモリ効率が良く、若干高速です。
+    - **`__slots__`の利用:**
+      インスタンスが多数生成されるクラスでは、`__slots__`を定義することで、インスタンスごとの`__dict__`の作成を防ぎ、メモリ使用量を削減できます。
 
-    ```python
-    class Point:
-        __slots__ = ["x", "y"]
-        def __init__(self, x, y):
-            self.x = x
-            self.y = y
-    ```
+        ```python
+        class Point:
+            __slots__ = ["x", "y"]
+            def __init__(self, x, y):
+                self.x = x
+                self.y = y
+        ```
 
 - **例外処理のコスト (Exception Cost):**
-  - パフォーマンスが非常にクリティカルなコードパスでは、例外を通常の制御フローとして使用しないでください。`try-except`ブロックは、特に例外が実際に発生した場合にオーバーヘッドを伴います。
-  - 例えば、辞書のキー存在チェックには、`try-except KeyError`よりも`key in dict`や`dict.get(key, default)`を使用する方が高速です。
+    - パフォーマンスが非常にクリティカルなコードパスでは、例外を通常の制御フローとして使用しないでください。`try-except`ブロックは、特に例外が実際に発生した場合にオーバーヘッドを伴います。
+    - 例えば、辞書のキー存在チェックには、`try-except KeyError`よりも`key in dict`や`dict.get(key, default)`を使用する方が高速です。
 
 - **リスト内包表記とジェネレータ (List Comprehensions and Generators):**
-  - 単純な`for`ループでリストを作成するよりも、**リスト内包表記**を使用する方が一般的に高速で、可読性も高くなります。
-  - 非常に大きなデータセットを扱う場合は、一度に全ての要素をメモリに展開するリスト内包表記の代わりに、**ジェネレータ式**
-    `(x for x in iterable)`
-    を使用します。これにより、メモリ使用量を大幅に削減できます。
+    - 単純な`for`ループでリストを作成するよりも、**リスト内包表記**を使用する方が一般的に高速で、可読性も高くなります。
+    - 非常に大きなデータセットを扱う場合は、一度に全ての要素をメモリに展開するリスト内包表記の代わりに、**ジェネレータ式**
+      `(x for x in iterable)`
+      を使用します。これにより、メモリ使用量を大幅に削減できます。
 
-    ```python
-    # 良い例 (リスト内包表記): 簡潔で高速
-    squares = [x * x for x in range(1000)]
+        ```python
+        # 良い例 (リスト内包表記): 簡潔で高速
+        squares = [x * x for x in range(1000)]
 
-    # 良い例 (ジェネレータ式): メモリ効率が良い
-    # 非常に大きなデータセットを扱う場合に推奨
-    squares_generator = (x * x for x in range(1_000_000))
-    for square in squares_generator:
-        # １要素ずつ処理するため、巨大なリストをメモリに保持しない
-        ...
-    ```
+        # 良い例 (ジェネレータ式): メモリ効率が良い
+        # 非常に大きなデータセットを扱う場合に推奨
+        squares_generator = (x * x for x in range(1_000_000))
+        for square in squares_generator:
+            # １要素ずつ処理するため、巨大なリストをメモリに保持しない
+            ...
+        ```
 
 - **適切な組み込み関数の利用 (Using Appropriate Built-in Functions):**
-  - Pythonの多くの組み込み関数（例: `sum()`, `map()`,
-    `filter()`）はC言語で実装されており、非常に高速です。
-  - 自前でループを実装する前に、同等の機能を持つ組み込み関数がないか検討してください。
+    - Pythonの多くの組み込み関数（例: `sum()`, `map()`,
+      `filter()`）はC言語で実装されており、非常に高速です。
+    - 自前でループを実装する前に、同等の機能を持つ組み込み関数がないか検討してください。
 
 ---
 
 ## 9. その他 (Miscellaneous)
 
 - **イミュータビリティ (Immutability):**
-  - 可能な限り、イミュータブルなデータ構造の利用を検討します。
-  - 変更されるべきでないシーケンスには、`list`の代わりに`tuple`を使用します。
-  - `@dataclass`を使用する際は、`frozen=True`を指定することでイミュータブルなデータクラスを作成できます。
+    - 可能な限り、イミュータブルなデータ構造の利用を検討します。
+    - 変更されるべきでないシーケンスには、`list`の代わりに`tuple`を使用します。
+    - `@dataclass`を使用する際は、`frozen=True`を指定することでイミュータブルなデータクラスを作成できます。
 
 - **コメントアウトされたコード (Commented-out code):**
-  - 不要になったコードは、コメントアウトして残さずに、Gitのバージョン管理で履歴を追跡してください。リポジトリをクリーンに保ちます。
+    - 不要になったコードは、コメントアウトして残さずに、Gitのバージョン管理で履歴を追跡してください。リポジトリをクリーンに保ちます。
 
 - **リンターの警告の扱い (Handling Linter Warnings):**
-  - `Ruff`や`mypy`が出力する警告やエラーは、原則として全て修正します。
-  - これらは潜在的なバグや、規約違反、非効率なコードを示唆しているため、無視せずに対応してください。
-  - 意図的に特定の警告を抑制する場合は、`# noqa: [エラーコード]`
-    のように、理由を明記し、影響範囲を最小限に留めてください。
+    - `Ruff`や`mypy`が出力する警告やエラーは、原則として全て修正します。
+    - これらは潜在的なバグや、規約違反、非効率なコードを示唆しているため、無視せずに対応してください。
+    - 意図的に特定の警告を抑制する場合は、`# noqa: [エラーコード]`
+      のように、理由を明記し、影響範囲を最小限に留めてください。
