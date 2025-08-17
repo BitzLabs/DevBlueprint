@@ -7,7 +7,7 @@ rules:
 
   # インデント: スペース2つ
   indentation:
-    spaces: 4
+    spaces: 2
 
   # 空行の設定
   empty-lines:

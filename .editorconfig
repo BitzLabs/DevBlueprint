@@ -17,6 +17,30 @@ trim_trailing_whitespace = false
 # Markdownはネストリストのインデントを4スペース運用（MD007=4）とし、MkDocsの判定とも整合
 indent_size = 4
 
-# 注意: Prettier/VSCodeはこのEditorConfigを尊重する設定にしてあります。
-# - .vscode/settings.json: editor.detectIndentation=false, editor.tabSize=2, [markdown]は4
-# - .prettierrc.json: デフォルトtabWidth=2、*.md overrideでtabWidth=4
+# C#ファイルの設定
+[*.cs]
+indent_size = 4
+
+# C/C++ファイルの設定
+[*.{c,cpp,h,hpp}]
+indent_size = 4
+
+# Pythonファイルの設定
+[*.py]
+indent_size = 4
+
+# HTMLファイルの設定
+[*.html]
+indent_size = 2
+
+# CSSファイルの設定
+[*.css]
+indent_size = 2
+
+# JavaScriptとTypeScriptファイルの設定
+[*.{js,ts}]
+indent_size = 2
+
+# JSON/YAMLファイルの設定
+[*.{json,yml,yaml}]
+indent_size = 2
