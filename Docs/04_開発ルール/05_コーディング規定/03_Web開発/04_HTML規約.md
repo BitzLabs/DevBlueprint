@@ -27,12 +27,12 @@
 **[.editorconfig](/.editorconfig)** ファイルで統一します。
 
 - **フォーマッター: `Prettier`**
-  - **役割:**
-    コードの見た目（インデント、クォーテーション、改行など）を自動で統一します。手作業でのフォーマットは行いません。
+    - **役割:**
+      コードの見た目（インデント、クォーテーション、改行など）を自動で統一します。手作業でのフォーマットは行いません。
 - **バリデーター / リンター:**
-  - **役割:**
-    W3Cの[Markup Validation Service](https://validator.w3.org/)などで、最終的なHTMLが文法的に正しいことを確認することを推奨します。
-  - 開発中は、`htmlhint`や、フレームワークに統合されたリンターを利用して、潜在的な問題を検出します。
+    - **役割:**
+      W3Cの[Markup Validation Service](https://validator.w3.org/)などで、最終的なHTMLが文法的に正しいことを確認することを推奨します。
+    - 開発中は、`htmlhint`や、フレームワークに統合されたリンターを利用して、潜在的な問題を検出します。
 
 !!! success "CI/CDによる自動チェック" - GitHub
 Actionsのワークフローに`prettier --check .`および`htmlhint **/*.html`を組み込むことで、フォーマットとHTMLマークアップが規約に違反しているコードのマージを自動的にブロックします。-
@@ -47,17 +47,17 @@ VSCode拡張機能を導入し、ファイル保存時に自動でフォーマ�
 ```html
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ページのタイトル</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!-- ページのコンテンツ -->
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ページのタイトル</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <!-- ページのコンテンツ -->
 
-    <script src="main.js"></script>
-  </body>
+        <script src="main.js"></script>
+    </body>
 </html>
 ```
 
@@ -94,10 +94,10 @@ VSCode拡張機能を導入し、ファイル保存時に自動でフォーマ�
 ### 4.2. インタラクティブ要素
 
 - **リンク vs ボタン:**
-  - **`<a>` (アンカー):**
-    他のページや、ページ内の特定箇所への**ナビゲーション**に使用します。
-  - **`<button>`:**
-    クリックによって何らかの**アクション**（フォームの送信、UIの表示切り替えなど）を実行する場合に使用します。
+    - **`<a>` (アンカー):**
+      他のページや、ページ内の特定箇所への**ナビゲーション**に使用します。
+    - **`<button>`:**
+      クリックによって何らかの**アクション**（フォームの送信、UIの表示切り替えなど）を実行する場合に使用します。
 - `div`や`span`に`onclick`属性を付けて、ボタンやリンクの代わりとして使用することは**禁止**します。
 
 ```html
@@ -143,5 +143,5 @@ VSCode拡張機能を導入し、ファイル保存時に自動でフォーマ�
   のようなブーリアン属性には、値を指定しません。（例:
   `disabled="disabled"`ではなく`disabled`と記述）
 - **CSSとJavaScriptの読み込み:**
-  - CSSは、ページのレンダリングがブロックされるのを避けるため、`<head>`内で読み込みます。
-  - JavaScriptは、DOMの解析をブロックしないように、原則として`</body>`の直前で読み込みます。（`defer`属性の利用も可）
+    - CSSは、ページのレンダリングがブロックされるのを避けるため、`<head>`内で読み込みます。
+    - JavaScriptは、DOMの解析をブロックしないように、原則として`</body>`の直前で読み込みます。（`defer`属性の利用も可）

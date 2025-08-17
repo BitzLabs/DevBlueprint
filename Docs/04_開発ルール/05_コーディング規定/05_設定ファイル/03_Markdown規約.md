@@ -25,30 +25,43 @@ MkDocs) の拡張機能についても解説します。
 **[.editorconfig](/.editorconfig)** ファイルで統一します。
 
 - **フォーマッター: `Prettier`**
-  - **役割:** インデント、リストマーカー、テーブルの整形など、コードの見た目を自動で統一します。
-  - **運用上の注意:**
-    Prettierは日本語のような、単語がスペースで区切られていない文章の自動折り返しを苦手とします。そのため、本プロジェクトでは
-    `.prettierrc.json` で `proseWrap: "preserve"`
-    を設定し、文章部分の改行は手動で行うことを推奨します。Prettierはコードブロックやリストなどの構文のみを整形し、手動での改行は維持します。
+    - **役割:** インデント、リストマーカー、テーブルの整形など、コードの見た目を自動で統一します。
+    - **運用上の注意:**
+      Prettierは日本語のような、単語がスペースで区切られていない文章の自動折り返しを苦手とします。そのため、本プロジェクトでは
+      `.prettierrc.json` で `proseWrap: "preserve"`
+      を設定し、文章部分の改行は手動で行うことを推奨します。Prettierはコードブロックやリストなどの構文のみを整形し、手動での改行は維持します。
 
 - **リンター: `markdownlint`**
-  - **役割:** フォーマット以外のスタイル違反（例: 見出しレベルの飛び）を検出し、一貫性を保ちます。
-  - **推奨設定 (`.markdownlint.json`):**
-    手動での改行を補助するため、一行の長さをチェックするルール(`MD013`)を有効にします。ただし、Prettierが整形するコードブロックやテーブルはチェック対象外とします。また、ドキュメント内で使用が許可されているHTMLタグも定義します。
+    - **役割:** フォーマット以外のスタイル違反（例: 見出しレベルの飛び）を検出し、一貫性を保ちます。
+    - **推奨設定 (`.markdownlint.json`):**
+      手動での改行を補助するため、一行の長さをチェックするルール(`MD013`)を有効にします。ただし、Prettierが整形するコードブロックやテーブルはチェック対象外とします。また、ドキュメント内で使用が許可されているHTMLタグも定義します。
 
-    ```json
-    {
-      "default": true,
-      "MD013": {
-        "line_length": 120,
-        "code_blocks": false,
-        "tables": false
-      },
-      "MD033": {
-        "allowed_elements": ["details", "summary", "br", "kbd", "mark", "abbr", "sub", "sup", "div", "span", "img", "a"]
-      }
-    }
-    ```
+        ```json
+        {
+            "default": true,
+            "MD013": {
+                "line_length": 120,
+                "code_blocks": false,
+                "tables": false
+            },
+            "MD033": {
+                "allowed_elements": [
+                    "details",
+                    "summary",
+                    "br",
+                    "kbd",
+                    "mark",
+                    "abbr",
+                    "sub",
+                    "sup",
+                    "div",
+                    "span",
+                    "img",
+                    "a"
+                ]
+            }
+        }
+        ```
 
 !!! success "CI/CDによる自動チェック" - GitHub
 Actionsのワークフローに`prettier --check **/*.md`および`markdownlint **/*.md`を組み込むことで、Markdownファイルのフォーマットとスタイルが規約に違反しているコードのマージを自動的にブロックします。-
@@ -100,15 +113,15 @@ VSCode拡張機能を導入し、ファイル保存時に自動でフォーマ�
 - **インラインコード:** 文中に `` `const a = 1;` `` のように記述します。
 - **複数行コードブロック:** ` ``` `で囲み、言語指定でシンタックスハイライトを有効にします。
 - **コードブロック強化 (MkDocs):**
-  - `title`でタイトルを、`linenums`で行番号を、`hl_lines`で特定の行をハイライトできます。
+    - `title`でタイトルを、`linenums`で行番号を、`hl_lines`で特定の行をハイライトできます。
 
-  ````markdown
-  ```csharp title="Program.cs" linenums="1" hl_lines="3"
-  using System;
+    ````markdown
+    ```csharp title="Program.cs" linenums="1" hl_lines="3"
+    using System;
 
-  Console.WriteLine("Hello, World!");
-  ```
-  ````
+    Console.WriteLine("Hello, World!");
+    ```
+    ````
 
 ### 4.2. テーブル (Tables - GFM)
 

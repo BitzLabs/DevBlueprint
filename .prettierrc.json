@@ -21,6 +21,13 @@
   "singleAttributePerLine": false,
   "overrides": [
     {
+      "files": "*.md",
+      "options": {
+        "tabWidth": 4,
+        "proseWrap": "preserve"
+      }
+    },
+    {
       "files": ["*.yml", "*.yaml"],
       "options": {
         "singleQuote": false

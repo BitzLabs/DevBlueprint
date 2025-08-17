@@ -37,12 +37,12 @@
 ## 4. コメント (Comments)
 
 - **JSDocの限定的な許容:**
-  - 自己完結したユーティリティスクリプトや、複雑な関数など、**ソースコード内での説明が保守性を高める**と判断される場合に限り、JSDoc形式のコメントの使用を許容します。
-  - ただし、プロジェクト全体の仕様は
-    **[02.設計仕様](../../../02_設計仕様/README.md)**
-    に集約するという原則は維持します。
+    - 自己完結したユーティリティスクリプトや、複雑な関数など、**ソースコード内での説明が保守性を高める**と判断される場合に限り、JSDoc形式のコメントの使用を許容します。
+    - ただし、プロジェクト全体の仕様は
+      **[02.設計仕様](../../../02_設計仕様/README.md)**
+      に集約するという原則は維持します。
 - **機能IDとの連携**:
-  - 機能の実装には、対応する機能IDをコメントとして明記します。
+    - 機能の実装には、対応する機能IDをコメントとして明記します。
 
 ---
 
@@ -53,33 +53,33 @@
 - **ES Modules (ESM) を推奨:** プロジェクト全体で、原則としてCommonJS
   (`require`/`module.exports`) ではなく、ES Modules
   (`import`/`export`) を使用します。
-  - **理由:**
-    ESMはJavaScriptの公式な標準仕様であり、静的解析が容易で、トップレベル`await`などのモダンな機能を利用できます。
-  - **設定:**
-    `package.json`に`"type": "module"`を設定し、ファイル拡張子は`.js`（または`.ts`）を使用します。
+    - **理由:**
+      ESMはJavaScriptの公式な標準仕様であり、静的解析が容易で、トップレベル`await`などのモダンな機能を利用できます。
+    - **設定:**
+      `package.json`に`"type": "module"`を設定し、ファイル拡張子は`.js`（または`.ts`）を使用します。
 
 ### 5.2. 環境変数
 
 - **`process.env`の直接参照を避ける:**
-  - コードの様々な場所で`process.env.YOUR_VARIABLE`を直接参照するのではなく、設定情報を一元的に管理・検証する専用のモジュールを作成することを推奨します。
-  - **理由:**
-    必要な環境変数が定義されているかを起動時に一括で検証でき、型安全（TypeScriptの場合）を保ち、設定の出所を明確にすることができます。
+    - コードの様々な場所で`process.env.YOUR_VARIABLE`を直接参照するのではなく、設定情報を一元的に管理・検証する専用のモジュールを作成することを推奨します。
+    - **理由:**
+      必要な環境変数が定義されているかを起動時に一括で検証でき、型安全（TypeScriptの場合）を保ち、設定の出所を明確にすることができます。
 
-  ```typescript
-  // 例: config.ts
-  import 'dotenv/config';
+    ```typescript
+    // 例: config.ts
+    import 'dotenv/config';
 
-  const getEnv = (key: string): string => {
-    const value = process.env[key];
-    if (!value) throw new Error(`環境変数 ${key} が設定されていません。`);
-    return value;
-  };
+    const getEnv = (key: string): string => {
+        const value = process.env[key];
+        if (!value) throw new Error(`環境変数 ${key} が設定されていません。`);
+        return value;
+    };
 
-  export const config = {
-    nodeEnv: getEnv('NODE_ENV'),
-    databaseUrl: getEnv('DATABASE_URL'),
-  } as const;
-  ```
+    export const config = {
+        nodeEnv: getEnv('NODE_ENV'),
+        databaseUrl: getEnv('DATABASE_URL'),
+    } as const;
+    ```
 
 ---
 
@@ -88,16 +88,16 @@
 ### 6.1. 操作エラー vs プログラマーエラー
 
 - **操作エラー (Operational Errors):**
-  - **定義:** 予期される実行時エラー（例:
-    APIタイムアウト、DB接続断、入力バリデーションエラー）。
-  - **対処:**
-    適切に捕捉し、ログを記録した上で、正常なエラーフローで処理します。**プロセスを終了させるべきではありません。**
+    - **定義:** 予期される実行時エラー（例:
+      APIタイムアウト、DB接続断、入力バリデーションエラー）。
+    - **対処:**
+      適切に捕捉し、ログを記録した上で、正常なエラーフローで処理します。**プロセスを終了させるべきではありません。**
 - **プログラマーエラー (Programmer Errors):**
-  - **定義:** コードのバグ（例: `undefined`な変数のプロパティにアクセス）。
-  - **対処:**
-    原則として捕捉せず、発生した場合は即座に**プロセスをクラッシュ（終了）**させ、PM2やコンテナ等の自動再起動に任せます。
-  - **理由:**
-    不整合な状態でプロセスを継続させるより、クリーンな状態で再起動する方が安全です（Fail-fast思想）。
+    - **定義:** コードのバグ（例: `undefined`な変数のプロパティにアクセス）。
+    - **対処:**
+      原則として捕捉せず、発生した場合は即座に**プロセスをクラッシュ（終了）**させ、PM2やコンテナ等の自動再起動に任せます。
+    - **理由:**
+      不整合な状態でプロセスを継続させるより、クリーンな状態で再起動する方が安全です（Fail-fast思想）。
 
 ### 6.2. 未捕捉の例外のハンドリング
 
@@ -105,13 +105,13 @@
 
 ```javascript
 process.on('uncaughtException', error => {
-  console.error('未捕捉の例外が発生しました:', error);
-  process.exit(1);
+    console.error('未捕捉の例外が発生しました:', error);
+    process.exit(1);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
-  console.error('未処理のPromiseリジェクション:', reason);
-  throw reason;
+    console.error('未処理のPromiseリジェクション:', reason);
+    throw reason;
 });
 ```
 
@@ -122,11 +122,11 @@ process.on('unhandledRejection', (reason, promise) => {
 - **基本方針:**
   Node.jsのイベントループをブロックするため、**原則として使用を避けるべき**です。
 - **許容されるケース:**
-  - **CLIツールやワンタイムスクリプト:**
-    Webサーバーのように多数のリクエストを捌く必要がなく、逐次的な処理でコードの可読性が向上する場合（例:
-    `execFileSync`, `readFileSync`）。
-  - **アプリケーションの初期化時:**
-    サーバーがリクエストを受け付け始める前に、設定ファイルなどを一度だけ同期的に読み込む場合。
+    - **CLIツールやワンタイムスクリプト:**
+      Webサーバーのように多数のリクエストを捌く必要がなく、逐次的な処理でコードの可読性が向上する場合（例:
+      `execFileSync`, `readFileSync`）。
+    - **アプリケーションの初期化時:**
+      サーバーがリクエストを受け付け始める前に、設定ファイルなどを一度だけ同期的に読み込む場合。
 - これらのケース以外で同期APIを使用すると、サーバー全体のパフォーマンスに深刻な影響を与えます。
 
 ```javascript
@@ -151,7 +151,7 @@ console.log('Current Git Hash:', result.toString().trim());
   `fs/promises`）と**`async/await`構文**を第一選択とします。
 
 - **コールバックベースの古いAPIの利用:**
-  - 古いライブラリがコールバックスタイルの非同期APIしか提供していない場合は、`util.promisify`を使ってPromiseベースの関数に変換してから利用することを推奨します。
+    - 古いライブラリがコールバックスタイルの非同期APIしか提供していない場合は、`util.promisify`を使ってPromiseベースの関数に変換してから利用することを推奨します。
 
 ```javascript
 import { readFile } from 'fs/promises';
@@ -161,11 +161,11 @@ import oldApi from 'some-old-library';
 const oldApiAsync = promisify(oldApi.doSomething);
 
 async function main() {
-  // PromiseベースのAPI
-  const content = await readFile('my-file.txt', 'utf8');
+    // PromiseベースのAPI
+    const content = await readFile('my-file.txt', 'utf8');
 
-  // PromisifyしたAPI
-  const result = await oldApiAsync('some-arg');
+    // PromisifyしたAPI
+    const result = await oldApiAsync('some-arg');
 }
 main();
 ```

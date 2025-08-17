@@ -28,11 +28,11 @@
 **[.editorconfig](/.editorconfig)** ファイルで統一します。
 
 - **フォーマッター: `Prettier`**
-  - **役割:** インデント、スペース、改行などを自動で統一します。
+    - **役割:** インデント、スペース、改行などを自動で統一します。
 - **リンター: `Stylelint`**
-  - **役割:** 潜在的なエラーやアンチパターン、規約違反を検出します。
-  - **運用:**
-    CIプロセスに`stylelint`のチェックを組み込み、規約違反をブロックします。
+    - **役割:** 潜在的なエラーやアンチパターン、規約違反を検出します。
+    - **運用:**
+      CIプロセスに`stylelint`のチェックを組み込み、規約違反をブロックします。
 
 !!! success "CI/CDによる自動チェック" - GitHub
 Actionsのワークフローに`prettier --check .`および`stylelint **/*.css`を組み込むことで、フォーマットとCSSスタイルが規約に違反しているコードのマージを自動的にブロックします。-
@@ -49,8 +49,8 @@ CSSは、その名の通り「カスケーディング（Cascading）」する�
 - **目的:**
   スタイルシートを「層（レイヤー）」に分割し、その**適用優先順位を明示的に定義**します。これにより、ソースコードの記述順や詳細度に依存しない、予測可能なカスケードを実現します。
 - **基本ルール:**
-  1. スタイルシートの冒頭で、`@layer`を使って層の順序を定義します。後に定義された層ほど優先度が高くなります。
-  2. 各スタイルは、対応する`@layer`ブロック内に記述します。
+    1. スタイルシートの冒頭で、`@layer`を使って層の順序を定義します。後に定義された層ほど優先度が高くなります。
+    2. 各スタイルは、対応する`@layer`ブロック内に記述します。
 
 ```css
 /* 1. レイヤーの順序を定義 (後にあるものほど強い) */
@@ -58,47 +58,47 @@ CSSは、その名の通り「カスケーディング（Cascading）」する�
 
 /* 2. 各レイヤーにスタイルを定義 */
 @layer reset {
-  /* リセットCSS (最も弱い) */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+    /* リセットCSS (最も弱い) */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 }
 
 @layer base {
-  /* HTML要素の基本スタイル */
-  body {
-    font-family: sans-serif;
-    line-height: 1.6;
-  }
-  a {
-    color: blue;
-    text-decoration: none;
-  }
+    /* HTML要素の基本スタイル */
+    body {
+        font-family: sans-serif;
+        line-height: 1.6;
+    }
+    a {
+        color: blue;
+        text-decoration: none;
+    }
 }
 
 @layer components {
-  /* BEMなどで定義されたコンポーネント */
-  .card {
-    display: block;
-    padding: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  .card__title {
-    font-size: 1.5rem;
-  }
+    /* BEMなどで定義されたコンポーネント */
+    .card {
+        display: block;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+    }
+    .card__title {
+        font-size: 1.5rem;
+    }
 }
 
 @layer utilities {
-  /* 上書き用のユーティリティクラス (最も強い) */
-  .u-margin-top-large {
-    margin-top: 2rem !important;
-  } /* ユーティリティは!importantを許容する場合がある */
-  .u-text-center {
-    text-align: center;
-  }
+    /* 上書き用のユーティリティクラス (最も強い) */
+    .u-margin-top-large {
+        margin-top: 2rem !important;
+    } /* ユーティリティは!importantを許容する場合がある */
+    .u-text-center {
+        text-align: center;
+    }
 }
 ```
 
@@ -111,21 +111,21 @@ CSSは、その名の通り「カスケーディング（Cascading）」する�
 - **目的:**
   スタイルの上書きを容易にし、意図しない副作用を防ぐため、セレクタの詳細度は可能な限り低く保ちます。
 - **基本ルール:**
-  - 原則として、**単一のクラスセレクタ**を基本とします。
-  - IDセレクタ (`#my-id`) や、過度な要素セレクタのネストは、原則として使用を禁止します。
+    - 原則として、**単一のクラスセレクタ**を基本とします。
+    - IDセレクタ (`#my-id`) や、過度な要素セレクタのネストは、原則として使用を禁止します。
 
 ```css
 /* 良い例: 単一クラスで完結しており、詳細度が低い */
 .header__nav-link {
-  color: #333;
+    color: #333;
 }
 .header__nav-link--active {
-  color: #007bff;
+    color: #007bff;
 }
 
 /* 悪い例: 詳細度が高く、上書きが困難になる */
 #main-header nav > ul.main-menu li.menu-item a.active {
-  color: #007bff;
+    color: #007bff;
 }
 ```
 
@@ -149,49 +149,49 @@ CSSは、その名の通り「カスケーディング（Cascading）」する�
 
 ```html
 <form class="form form--login">
-  <div class="form__group">
-    <label for="username" class="form__label">Username</label>
-    <input type="text" id="username" class="form__input" />
-  </div>
+    <div class="form__group">
+        <label for="username" class="form__label">Username</label>
+        <input type="text" id="username" class="form__input" />
+    </div>
 
-  <div class="form__group">
-    <label for="password" class="form__label">Password</label>
-    <input type="password" id="password" class="form__input form__input--error" />
-  </div>
+    <div class="form__group">
+        <label for="password" class="form__label">Password</label>
+        <input type="password" id="password" class="form__input form__input--error" />
+    </div>
 
-  <button type="submit" class="form__button form__button--primary">Login</button>
+    <button type="submit" class="form__button form__button--primary">Login</button>
 </form>
 ```
 
 ```css
 /* Block */
 .form {
-  /* ... */
+    /* ... */
 }
 .form--login {
-  /* ... */
+    /* ... */
 }
 
 /* Element */
 .form__group {
-  /* ... */
+    /* ... */
 }
 .form__label {
-  /* ... */
+    /* ... */
 }
 .form__input {
-  /* ... */
+    /* ... */
 }
 .form__button {
-  /* ... */
+    /* ... */
 }
 
 /* Modifier */
 .form__input--error {
-  border-color: red;
+    border-color: red;
 }
 .form__button--primary {
-  background-color: blue;
+    background-color: blue;
 }
 ```
 
@@ -225,21 +225,21 @@ sass/
 
 // 3. 各レイヤーに対応するファイルをインポート
 @layer reset {
-  @import 'base/reset';
+    @import 'base/reset';
 }
 
 @layer base {
-  @import 'base/typography';
+    @import 'base/typography';
 }
 
 @layer components {
-  @import 'components/button';
-  @import 'components/card';
-  @import 'components/form';
+    @import 'components/button';
+    @import 'components/card';
+    @import 'components/form';
 }
 
 @layer utilities {
-  @import 'abstracts/utilities';
+    @import 'abstracts/utilities';
 }
 ```
 
@@ -258,27 +258,27 @@ sass/
 
 ```css
 .example-button {
-  /* 1. Positioning */
-  position: absolute;
-  top: 10px;
-  left: 10px;
+    /* 1. Positioning */
+    position: absolute;
+    top: 10px;
+    left: 10px;
 
-  /* 2. Box Model */
-  display: inline-block;
-  padding: 10px 20px;
-  border: 1px solid #ccc;
+    /* 2. Box Model */
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
 
-  /* 3. Typography */
-  font-size: 1rem;
-  color: #333;
+    /* 3. Typography */
+    font-size: 1rem;
+    color: #333;
 
-  /* 4. Visual */
-  background-color: #f0f0f0;
-  border-radius: 4px;
+    /* 4. Visual */
+    background-color: #f0f0f0;
+    border-radius: 4px;
 
-  /* 5. Misc */
-  cursor: pointer;
-  transition: background-color 0.3s;
+    /* 5. Misc */
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 ```
 

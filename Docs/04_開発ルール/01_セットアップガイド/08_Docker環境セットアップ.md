@@ -159,12 +159,12 @@ VS Codeの `settings.json` に以下の設定を追加：
 
 ```json
 {
-  // Dev Containers がWSL上のDockerを使用するように設定
-  "dev.containers.executeInWSL": true,
-  "dev.containers.executeInWSLDistro": "Ubuntu-24.04",
+    // Dev Containers がWSL上のDockerを使用するように設定
+    "dev.containers.executeInWSL": true,
+    "dev.containers.executeInWSLDistro": "Ubuntu-24.04",
 
-  // Docker拡張機能の設定
-  "docker.host": "unix:///var/run/docker.sock"
+    // Docker拡張機能の設定
+    "docker.host": "unix:///var/run/docker.sock"
 }
 ```
 
@@ -219,10 +219,10 @@ code .
 2. VS Codeの設定で `dev.containers.executeInWSL` が `true` に設定されているか確認
 3. WSL内からVS Codeを起動：
 
-   ```bash
-   cd /mnt/c/Work/DevBlueprint
-   code .
-   ```
+    ```bash
+    cd /mnt/c/Work/DevBlueprint
+    code .
+    ```
 
 #### Dockerサービスが起動しない
 
@@ -286,19 +286,19 @@ code .
 
 1. **拡張機能の再インストール**:
 
-   ```bash
-   code --uninstall-extension ms-vscode-remote.remote-wsl
-   code --install-extension ms-vscode-remote.remote-wsl
-   ```
+    ```bash
+    code --uninstall-extension ms-vscode-remote.remote-wsl
+    code --install-extension ms-vscode-remote.remote-wsl
+    ```
 
 2. **VS Codeの再起動**
 
 3. **WSLからの直接起動**:
 
-   ```bash
-   cd /mnt/c/Work/DevBlueprint
-   code .
-   ```
+    ```bash
+    cd /mnt/c/Work/DevBlueprint
+    code .
+    ```
 
 ## 📚 参考資料（Docker/WSL/VSCode）
 

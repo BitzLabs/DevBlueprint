@@ -57,6 +57,9 @@ markdown_extensions:
       generic: true
   - attr_list
   - md_in_html
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
 
 # JavaScript追加（ローカル参照）
 extra_javascript:

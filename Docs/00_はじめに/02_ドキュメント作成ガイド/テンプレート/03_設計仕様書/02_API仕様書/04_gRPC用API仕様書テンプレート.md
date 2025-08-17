@@ -1,9 +1,14 @@
+---
+title: gRPC用
+---
+
 # [章番号]: [サービス名] gRPC API仕様書
 
 !!! note "このテンプレートの使い方"
-このファイルは、gRPC APIの仕様を定義するためのテンプレートです。
-gRPCの仕様はProtocol Buffers (.proto) ファイルが中心となるため、このドキュメントは.protoファイルへの参照と、各RPCメソッドの目的や使用例を補足説明することに重点を置きます。
-詳しい使い方は「[設計仕様の書き方ガイド](ここにガイドへのパスを記述してください)」を参照してください。
+
+    このファイルは、gRPC APIの仕様を定義するためのテンプレートです。
+    gRPCの仕様はProtocol Buffers (.proto) ファイルが中心となるため、このドキュメントは.protoファイルへの参照と、各RPCメソッドの目的や使用例を補足説明することに重点を置きます。
+    詳しい使い方は「[設計仕様の書き方ガイド](../../../04_設計仕様の書き方ガイド.md)」を参照してください。
 
 ## 1. はじめに
 
@@ -40,35 +45,36 @@ gRPCの仕様はProtocol Buffers (.proto) ファイルが中心となるため�
 ### 4.1. `[RPCメソッド名]`
 
 - **概要:**
-  <!-- このRPCメソッドが何をするのかを具体的に記述します。 -->
 
-  IDを指定して、単一のユーザー情報を取得します。
+<!-- このRPCメソッドが何をするのかを記述します。 -->
+
+    IDを指定して、単一のユーザー情報を取得します。
 
 - **`.proto`定義:**
 
-  ```protobuf
-  // ユーザー情報を取得するRPC
-  rpc GetUser (GetUserRequest) returns (User);
-  ```
+    ```protobuf
+    // ユーザー情報を取得するRPC
+    rpc GetUser (GetUserRequest) returns (User);
+    ```
 
 - **リクエストメッセージ:** `GetUserRequest`
 
-  ```protobuf
-  message GetUserRequest {
-    // 取得したいユーザーの一意なID
-    string user_id = 1;
-  }
-  ```
+    ```protobuf
+    message GetUserRequest {
+      // 取得したいユーザーの一意なID
+      string user_id = 1;
+    }
+    ```
 
 - **レスポンスメッセージ:** `User`
 
-  ```protobuf
-  message User {
-    string user_id = 1;
-    string name = 2;
-    string email = 3;
-  }
-  ```
+    ```protobuf
+    message User {
+      string user_id = 1;
+      string name = 2;
+      string email = 3;
+    }
+    ```
 
 - **ストリーミング:** なし (Unary)
 
@@ -77,28 +83,30 @@ gRPCの仕様はProtocol Buffers (.proto) ファイルが中心となるため�
 ### 4.2. `[別のRPCメソッド名]` (ストリーミングの例)
 
 - **概要:**
-  <!-- このRPCメソッドが何をするのかを具体的に記述します。 -->
 
-  指定された条件に一致するユーザーのストリームを取得します。
+<!-- このRPCメソッドが何をするのかを記述します。 -->
+
+    指定された条件に一致するユーザーのストリームを取得します。
 
 - **`.proto`定義:**
 
-  ```protobuf
-  // ユーザーをストリーミングで検索するRPC
-  rpc ListUsers (ListUsersRequest) returns (stream User);
-  ```
+    ```protobuf
+    // ユーザーをストリーミングで検索するRPC
+    rpc ListUsers (ListUsersRequest) returns (stream User);
+    ```
 
 - **リクエストメッセージ:** `ListUsersRequest`
 
-  ```protobuf
-  message ListUsersRequest {
-    // 検索フィルター (例)
-    string role_filter = 1;
-  }
-  ```
+    ```protobuf
+    message ListUsersRequest {
+      // 検索フィルター (例)
+      string role_filter = 1;
+    }
+    ```
 
 - **レスポンスメッセージ:** `stream User`
-  <!-- ストリームで返されるメッセージの型を記述します。 -->
+
+<!-- 返される型を記述します。 -->
 
 - **ストリーミング:** サーバーサイドストリーミング
 

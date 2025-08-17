@@ -1,0 +1,29 @@
+# Ensure bash/shell scripts always use LF
+*.sh text eol=lf
+
+# Windows batch and PowerShell can use CRLF if preferred
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Keep images and binaries untouched
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg text eol=lf
+*.pdf binary
+
+# Prevent LF/CRLF churn for lock files
+package-lock.json -text
+
+# Normalize text files to LF to align with Prettier/EditorConfig
+*.md text eol=lf
+*.mdx text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.css text eol=lf
+*.html text eol=lf

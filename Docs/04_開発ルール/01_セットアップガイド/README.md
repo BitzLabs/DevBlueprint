@@ -29,43 +29,43 @@ graph TD
 以下のドキュメントは、**全ての開発者が実施必須**の環境構築手順です。
 
 - **[01\_開発環境の基本セットアップ.md](./01_開発環境の基本セットアップ.md)**
-  - Node.js、npm、Git、VS Code の基本インストールと設定
-  - 開発に必要な最低限のツールチェーンを整備
+    - Node.js、npm、Git、VS Code の基本インストールと設定
+    - 開発に必要な最低限のツールチェーンを整備
 
 - **[02_VSCode拡張機能とワークスペース設定.md](./02_VSCode拡張機能とワークスペース設定.md)**
-  - 必須/推奨拡張機能のインストール
-  - ワークスペース設定（settings.json、tasks.json）の適用
+    - 必須/推奨拡張機能のインストール
+    - ワークスペース設定（settings.json、tasks.json）の適用
 
 - **[03\_フォーマッター設定.md](./03_フォーマッター設定.md)**
-  - Prettier（コードフォーマッター）の設定
-  - EditorConfig（エディタ統一設定）の適用
-  - 保存時自動フォーマットの有効化
+    - Prettier（コードフォーマッター）の設定
+    - EditorConfig（エディタ統一設定）の適用
+    - 保存時自動フォーマットの有効化
 
 - **[04\_リンター設定.md](./04_リンター設定.md)**
-  - ESLint（JavaScript/TypeScript構文チェック）の設定
-  - markdownlint（Markdown文法チェック）の設定
-  - VS Code でのエラー表示設定
+    - ESLint（JavaScript/TypeScript構文チェック）の設定
+    - markdownlint（Markdown文法チェック）の設定
+    - VS Code でのエラー表示設定
 
 ### 追加セットアップ
 
 プロジェクトの理解を深め、効率的な開発を行うための追加設定です。
 
 - **[05\_プロジェクト固有の設定.md](./05_プロジェクト固有の設定.md)**
-  - package.json スクリプトの説明
-  - 各種設定ファイル（.eslintrc、.prettierrc等）の詳細解説
-  - tsconfig.json、jest.config.js 等の設定内容
+    - package.json スクリプトの説明
+    - 各種設定ファイル（.eslintrc、.prettierrc等）の詳細解説
+    - tsconfig.json、jest.config.js 等の設定内容
 
 - **[06_CI_CD環境の設定.md](./06_CI_CD環境の設定.md)**
-  - GitHub Actions ワークフローの理解
-  - Husky（pre-commit hooks）の動作確認
-  - 自動化されたチェック項目の説明
+    - GitHub Actions ワークフローの理解
+    - Husky（pre-commit hooks）の動作確認
+    - 自動化されたチェック項目の説明
 
 ### トラブルシューティング
 
 - **[07\_トラブルシューティング.md](./07_トラブルシューティング.md)**
-  - よくあるエラーメッセージと解決方法
-  - 環境固有の問題への対応
-  - パフォーマンス改善のヒント
+    - よくあるエラーメッセージと解決方法
+    - 環境固有の問題への対応
+    - パフォーマンス改善のヒント
 
 ## セットアップ完了チェックリスト
 

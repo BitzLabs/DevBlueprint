@@ -31,18 +31,18 @@
 **[.editorconfig](/.editorconfig)** ファイルで統一します。
 
 - **リンター: `ESLint`**
-  - **役割:**
-    `@typescript-eslint/parser`と`eslint-plugin-@typescript-eslint`を組み合わせ、TypeScriptのコード品質をチェックし、潜在的なバグやスタイル違反を検出します。
+    - **役割:**
+      `@typescript-eslint/parser`と`eslint-plugin-@typescript-eslint`を組み合わせ、TypeScriptのコード品質をチェックし、潜在的なバグやスタイル違反を検出します。
 - **フォーマッター: `Prettier`**
-  - **役割:**
-    コードの見た目（インデント、スペース、改行など）を、議論の余地なく統一します。
-  - **運用:**
-    `ESLint`と連携させ、フォーマットに関するルールは`Prettier`に一任します。
+    - **役割:**
+      コードの見た目（インデント、スペース、改行など）を、議論の余地なく統一します。
+    - **運用:**
+      `ESLint`と連携させ、フォーマットに関するルールは`Prettier`に一任します。
 - **型チェッカー: `TypeScript Compiler (tsc)`**
-  - **役割:**
-    `tsconfig.json`の`strict`モードを有効にし、厳密な型チェックを行います。
-  - **運用:**
-    CIプロセスで`tsc --noEmit`を実行し、型エラーがないことを保証します。
+    - **役割:**
+      `tsconfig.json`の`strict`モードを有効にし、厳密な型チェックを行います。
+    - **運用:**
+      CIプロセスで`tsc --noEmit`を実行し、型エラーがないことを保証します。
 
 !!! success "CI/CDによる自動チェック" - GitHub
 Actionsのワークフローに`eslint .`、`prettier --check .`、および`tsc --noEmit`を組み込むことで、コード品質・フォーマット・型安全性が規約に違反しているコードのマージを自動的にブロックします。-
@@ -58,10 +58,10 @@ VSCode拡張機能を導入し、ファイル保存時に自動でフォーマ�
 - **`PascalCase`**: インターフェース名、型エイリアス名、enum名。（例:
   `interface User`, `type UserId`）
 - **インターフェース名のプレフィックス `I` は不要:**
-  - `IUser`のようなプレフィックスは付けず、`User`のように命名することを推奨します。これは、現代のTypeScriptコミュニティの主流のスタイルです。
+    - `IUser`のようなプレフィックスは付けず、`User`のように命名することを推奨します。これは、現代のTypeScriptコミュニティの主流のスタイルです。
 - **ファイル名**:
-  - React/Vueコンポーネントファイルは **`PascalCase.tsx` / `PascalCase.vue`**
-    を推奨します。
+    - React/Vueコンポーネントファイルは **`PascalCase.tsx` / `PascalCase.vue`**
+      を推奨します。
 
 ---
 
@@ -80,62 +80,62 @@ VSCode拡張機能を導入し、ファイル保存時に自動でフォーマ�
 ### 5.1. 型定義のベストプラクティス
 
 - **`any`の禁止:**
-  - `any`型はTypeScriptの型チェックを無効にするため、原則として**使用を禁止**します。リンタールール（`@typescript-eslint/no-explicit-any`）でこれを強制します。
-  - 型が不明な場合は、より安全な`unknown`型を使用し、型ガードで絞り込んでから扱います。
+    - `any`型はTypeScriptの型チェックを無効にするため、原則として**使用を禁止**します。リンタールール（`@typescript-eslint/no-explicit-any`）でこれを強制します。
+    - 型が不明な場合は、より安全な`unknown`型を使用し、型ガードで絞り込んでから扱います。
 
-  ```typescript
-  // 悪い例
-  function process(data: any) {
-    data.doSomething(); // 型安全でない呼び出しができてしまう
-  }
-
-  // 良い例
-  function process(data: unknown) {
-    if (typeof data === 'string') {
-      console.log(data.toUpperCase()); // 型ガード後なので安全
+    ```typescript
+    // 悪い例
+    function process(data: any) {
+        data.doSomething(); // 型安全でない呼び出しができてしまう
     }
-  }
-  ```
+
+    // 良い例
+    function process(data: unknown) {
+        if (typeof data === 'string') {
+            console.log(data.toUpperCase()); // 型ガード後なので安全
+        }
+    }
+    ```
 
 - **`interface` vs `type`:**
-  - **`interface`:**
-    オブジェクトの形状を定義する場合に推奨します。（`extends`による拡張が可能で、宣言のマージも行われるため）
-  - **`type`:**
-    プリミティブ型のエイリアス、ユニオン型、タプル型など、`interface`で表現できない、より複雑な型を定義する場合に使用します。
+    - **`interface`:**
+      オブジェクトの形状を定義する場合に推奨します。（`extends`による拡張が可能で、宣言のマージも行われるため）
+    - **`type`:**
+      プリミティブ型のエイリアス、ユニオン型、タプル型など、`interface`で表現できない、より複雑な型を定義する場合に使用します。
 
-  ```typescript
-  // オブジェクトの形状定義には interface
-  interface User {
-    id: number;
-    name: string;
-  }
+    ```typescript
+    // オブジェクトの形状定義には interface
+    interface User {
+        id: number;
+        name: string;
+    }
 
-  // 拡張も可能
-  interface AdminUser extends User {
-    role: 'admin';
-  }
+    // 拡張も可能
+    interface AdminUser extends User {
+        role: 'admin';
+    }
 
-  // ユニオン型やプリミティブのエイリアスには type
-  type UserId = number | string;
-  type Theme = 'light' | 'dark';
-  ```
+    // ユニオン型やプリミティブのエイリアスには type
+    type UserId = number | string;
+    type Theme = 'light' | 'dark';
+    ```
 
 - **ユーティリティ型の活用:**
-  - `Partial<T>`, `Readonly<T>`, `Pick<T, K>`, `Omit<T, K>`
-    などの組み込みユーティリティ型を積極的に活用し、冗長な型定義を避けます。
+    - `Partial<T>`, `Readonly<T>`, `Pick<T, K>`, `Omit<T, K>`
+      などの組み込みユーティリティ型を積極的に活用し、冗長な型定義を避けます。
 
-  ```typescript
-  interface Todo {
-    title: string;
-    description: string;
-    completed: boolean;
-  }
+    ```typescript
+    interface Todo {
+        title: string;
+        description: string;
+        completed: boolean;
+    }
 
-  // Todoの一部プロパティだけを使って更新する関数
-  function updateTodo(id: number, fieldsToUpdate: Partial<Todo>) {
-    // ...
-  }
-  ```
+    // Todoの一部プロパティだけを使って更新する関数
+    function updateTodo(id: number, fieldsToUpdate: Partial<Todo>) {
+        // ...
+    }
+    ```
 
 ---
 
@@ -152,18 +152,18 @@ VSCode拡張機能を導入し、ファイル保存時に自動でフォーマ�
 
 ```typescript
 async function fetchUser(userId: number): Promise<User | null> {
-  try {
-    const response = await fetch(`/api/users/${userId}`);
-    if (!response.ok) {
-      throw new Error('User not found');
+    try {
+        const response = await fetch(`/api/users/${userId}`);
+        if (!response.ok) {
+            throw new Error('User not found');
+        }
+        // response.json()の戻り値は Promise<any> なので型アサーションが必要
+        const user = (await response.json()) as User;
+        return user;
+    } catch (error) {
+        console.error('Failed to fetch user:', error);
+        return null;
     }
-    // response.json()の戻り値は Promise<any> なので型アサーションが必要
-    const user = (await response.json()) as User;
-    return user;
-  } catch (error) {
-    console.error('Failed to fetch user:', error);
-    return null;
-  }
 }
 ```
 
