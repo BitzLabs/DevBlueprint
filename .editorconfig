@@ -9,37 +9,10 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 indent_style = space
-indent_size = 4
+indent_size = 2
 
 # Markdownファイルの設定
 [*.md]
 trim_trailing_whitespace = false
 # Markdownはネストリストのインデントを4スペース運用（MD007=4）とし、MkDocsの判定とも整合
-
-# C#ファイルの設定
-[*.cs]
-indent_size = 2
-
-# C/C++ファイルの設定
-[*.{c,cpp,h,hpp}]
-indent_size = 2
-
-# Pythonファイルの設定
-[*.py]
-indent_size = 2
-
-# HTMLファイルの設定
-[*.html]
-indent_size = 2
-
-# CSSファイルの設定
-[*.css]
-indent_size = 2
-
-# JavaScriptとTypeScriptファイルの設定
-[*.{js,ts}]
-indent_size = 2
-
-# JSON/YAMLファイルの設定
-[*.{json,yml,yaml}]
-indent_size = 2
+indent_size = 4
