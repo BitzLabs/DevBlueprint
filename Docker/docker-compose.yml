@@ -1,20 +1,20 @@
 services:
-    mkdocs:
-        build:
-            context: ..
-            dockerfile: Docker/mkdocs/Dockerfile
-        container_name: devblueprint-mkdocs
-        ports:
-            - "8000:8000"
-        volumes:
-            - ../:/docs
-        environment:
-            - PYTHONUNBUFFERED=1
-        command: mkdocs serve --dev-addr=0.0.0.0:8000 --livereload
-        restart: unless-stopped
-        networks:
-            - mkdocs-network
+  mkdocs:
+    build:
+      context: ..
+      dockerfile: Docker/mkdocs/Dockerfile
+    container_name: devblueprint-mkdocs
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../:/docs
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: mkdocs serve --dev-addr=0.0.0.0:8000 --livereload
+    restart: unless-stopped
+    networks:
+      - mkdocs-network
 
 networks:
-    mkdocs-network:
-        driver: bridge
+  mkdocs-network:
+    driver: bridge
