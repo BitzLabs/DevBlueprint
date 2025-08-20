@@ -1,0 +1,50 @@
+## Awesome Nav ルート設定ファイル (.nav.yml)
+## このフォルダ（Docs 配下の直下）にある .nav.yml は、
+## MkDocs プラグイン「awesome-nav」によるナビゲーション自動生成の挙動を制御します。
+
+# ナビゲーション上でこのフォルダ（ルート）の表示名
+title: Lorem Ipsum
+
+# ディレクトリ名をセクション名として保持するか（true で保持）
+preserve_directory_names: true
+
+# このフォルダ自体をナビゲーションから非表示にする（URL直打ちではアクセス可）
+hide: true
+
+# 子要素が 1 つしかないセクション（ディレクトリ）を自動的にフラット化する
+flatten_single_child_sections: true
+
+# ナビゲーションから除外するファイル・パターン（glob）
+ignore: "*.hidden.md"
+
+# 自動ソートの設定
+sort:
+  # 並び順: asc=昇順 / desc=降順
+  direction: asc
+  # ナチュラルソート: 数字を含む文字列を人間の感覚に近い順序で並べる
+  type: natural
+  # 並び替えの対象キー: filename=ファイル名 / title=ページタイトル など
+  by: filename
+  # セクション（ディレクトリ）を最後に配置する（first/last）
+  sections: last
+  # 大文字小文字を区別せずにソート
+  ignore_case: true
+
+# ここに明示的なナビゲーション構成を記述すると、
+# 自動生成された構成より優先して適用されます。
+# 例（必要に応じてコメントアウトを外してください）:
+# nav:
+#   - ホーム: index.md
+#   - ガイド:
+#       - はじめに: 00_はじめに/README.md
+#       - プロジェクトについて: 00_はじめに/01_プロジェクトについて/README.md
+#   - 仕様:
+#       - システム仕様: 01_システム仕様/README.md
+#       - ユースケース: 02_ユースケース/README.md
+#       - 設計仕様: 03_設計仕様/README.md
+#   - 開発ルール: 04_開発ルール/README.md
+#   - 運用・リリース: 05_運用・リリース/README.md
+#   - テスト仕様: 06_テスト仕様/README.md
+
+# 明示的に nav に含めなかったページも自動で末尾に追加する
+append_unmatched: true
